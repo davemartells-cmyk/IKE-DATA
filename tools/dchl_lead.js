@@ -13,7 +13,7 @@ const { chromium } = require('playwright'); const fs=require('fs'), path=require
    await ikeFolderPick({target:{files:list,value:''}}); },files);
  const teams=await p.evaluate(()=>[...document.getElementById('lfoldTeam').options].map(o=>o.value));
  const res=await p.evaluate(async(teams)=>{
-   const F=[['int','fpbpInterceptions'],['cmp','fpbpCompleted'],['pas','fpbpPasses'],['dfl','dfl'],['post','post'],['sa','sa'],['take','take'],['give','give'],['blk','blk'],['dump','fpbpDumpIns'],['hit','hg']];
+   const F=[['int','fpbpInterceptions'],['cmp','fpbpCompleted'],['pas','fpbpPasses'],['dfl','dfl'],['post','post'],['sa','sa'],['take','take'],['give','give'],['blk','blk'],['dump','fpbpDumpIns'],['hit','hg'],['g','g'],['a1','a1'],['a2','a2']];
    const A={};
    for(const club of teams){ await ikeFolderTeam(club);
      for(const r of DB){ const pb=!!(r.fullPbp&&r.fullPbp.found), P=r.players||{};
