@@ -81,9 +81,46 @@ for tm,m in reversed(per_team):
 for tm,L10 in recent.items():
     for m in L10: _add(sys_last.setdefault(tm,{}),m)
 SYSP={'gp':sys_gp,'season':sys_season,'last10':sys_last}
+
+# goals and shots by period, for and against, from every box score's period table
+def period_tables(txt,teams):
+    out={}
+    for kind in ('Goals','Shots'):
+        m=re.search(r'\n'+kind+r'\n\t([^\n]+)\n([^\n]+)\n([^\n]+)',txt)
+        if not m: continue
+        hdr=[h.strip() for h in m.group(1).split('\t')]
+        for line in (m.group(2),m.group(3)):
+            c=line.split('\t'); tm=c[0].strip()
+            if tm not in teams: continue
+            v=[0,0,0,0]
+            for h,x in zip(hdr,c[1:]):
+                try: n=int(x.strip())
+                except ValueError: continue
+                if h in ('1','2','3'): v[int(h)-1]+=n
+                elif h.startswith('OT') or h=='4': v[3]+=n
+            out.setdefault(tm,{})[kind]=v
+    return out
+TEAMX={}
+for g in idx['games']:
+    t=files.get(g['file'])
+    if not t: continue
+    pt=period_tables(t,{g['visitor'],g['home']})
+    if len(pt)!=2: continue
+    a,b=g['visitor'],g['home']
+    for us,them in ((a,b),(b,a)):
+        d=TEAMX.setdefault(us,{'gp':0,'gf':[0]*4,'ga':[0]*4,'sf':[0]*4,'sa':[0]*4}); d['gp']+=1
+        for i in range(4):
+            d['gf'][i]+=pt[us].get('Goals',[0]*4)[i]; d['ga'][i]+=pt[them].get('Goals',[0]*4)[i]
+            d['sf'][i]+=pt[us].get('Shots',[0]*4)[i]; d['sa'][i]+=pt[them].get('Shots',[0]*4)[i]
+# the league's own team table (TeamStatPro): records, puck time and zone faceoffs as the league keeps them
+TEAMPRO=None
+tp=os.path.join(D,'DCHL-TeamStatPro.json')
+if os.path.exists(tp):
+    try: TEAMPRO=[r for r in json.load(open(tp,encoding='utf-8')) if r.get('Name')]
+    except Exception: TEAMPRO=None
 lead=json.load(open(leadf)) if leadf!='-' and os.path.exists(leadf) else None
 meta={'league':'DCHL','day':idx['lastDaySynced'],'game':idx['lastGameSynced'],'at':idx.get('syncedAt',''),'snapshot':os.path.basename(D),'games':len(files)-1}
-pack={'meta':meta,'files':files,'slots':slots,'lead':lead,'stars':{'day':last,'list':stars},'sys':SYSP}
+pack={'meta':meta,'files':files,'slots':slots,'lead':lead,'stars':{'day':last,'list':stars},'sys':SYSP,'teamx':TEAMX,'teampro':TEAMPRO}
 os.makedirs(out,exist_ok=True)
 open(os.path.join(out,'ike_dchl_pack.json.gz'),'wb').write(gzip.compress(json.dumps(pack,ensure_ascii=False,separators=(',',':')).encode(),9))
 json.dump(meta,open(os.path.join(out,'latest.json'),'w'),indent=1)

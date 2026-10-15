@@ -2322,6 +2322,12 @@ body.league{background:#050605!important}
 .hb-tread svg{width:34px;height:22px;vertical-align:middle}
 .hb-sysinfo{background:#080e09;border:1px solid #1f4a2a;border-left:4px solid #d4af37;border-radius:6px;padding:9px 12px;margin:0 0 10px;font-size:13px}.hb-sysinfo span{color:#a9b8a2}.hb-sysinfo p{margin:4px 0 0;color:#d6dccf}
 .hb-sbar{height:10px;background:#0f2416;border-radius:5px;overflow:hidden}.hb-sbar i{display:block;height:100%;background:linear-gradient(90deg,#1fa64a,#d4af37)}
+
+.hb-groups{display:flex;flex-wrap:wrap;gap:8px 14px;margin:0 0 10px}
+.hb-grp{display:flex;flex-wrap:wrap;align-items:center;gap:5px;background:#080e09;border:1px solid #1f4a2a;border-radius:6px;padding:5px 7px}
+.hb-grp span{font:800 10px Inter,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#d4af37;margin-right:3px}
+.hb-grp button{font:700 12px Inter,Arial,sans-serif;color:#f4f6ef;background:#0f2416;border:1px solid rgba(255,255,255,.15);border-radius:5px;padding:6px 10px;cursor:pointer}
+.hb-grp button.on,.hb-grp button:hover{background:#d4af37;color:#0a0a0b;border-color:#d4af37}
 </style>
 </head>
 
@@ -11637,7 +11643,7 @@ try{ikeHydrateImgs();}catch(e){}
   var H={page:'overview', st:'div',
     lb:{grp:'sk',cat:'scoring',zone:'DZ',pos:'All',team:'',mingp:26,minpbp:10,mindraw:150,sort:null,dir:-1,hide:{},all:false,cols:false},
     gl:{team:'',mingp:10,sort:'PCT',dir:-1},
-    sch:{team:'',view:'results'}, ts:{sort:'pts',dir:-1,win:'season'}, tm:{team:'',sys:'season',div:''},
+    sch:{team:'',view:'results'}, ts:{sort:null,dir:-1,win:'season',tab:'record',per:'goals'}, tm:{team:'',sys:'season',div:''},
     hot:{cat:'pts',pos:'All',team:'',sort:'hot',all:false}, sg:{view:'team',unit:'EVF',win:'season',code:'0-1-4'}};
   try{ var sv=JSON.parse(localStorage.getItem('ike_hub_v1')||'null'); if(sv){ Object.keys(sv).forEach(function(k){ if(typeof H[k]==='object'&&typeof sv[k]==='object') Object.assign(H[k],sv[k]); else if(k in H) H[k]=sv[k]; }); } }catch(e){}
   H.lb.all=false; H.lb.cols=false; H.hot.all=false;
@@ -11681,43 +11687,38 @@ try{ikeHydrateImgs();}catch(e){}
   function zW(x,z){ return z==='ALL'? L(x,'ow')+L(x,'nw')+L(x,'dw') : L(x,{OZ:'ow',NZ:'nw',DZ:'dw'}[z]); }
   function zL(x,z){ return z==='ALL'? L(x,'ol')+L(x,'nl')+L(x,'dl') : L(x,{OZ:'ol',NZ:'nl',DZ:'dl'}[z]); }
   var CAT={
-    scoring:{label:'Scoring', gp:function(x){return x.gp;}, gpLabel:'GP', def:'P', cols:[
+    scoring:{label:'Scoring & Shooting', gp:function(x){return x.gp;}, gpLabel:'GP', def:'P', cols:[
       ['G','G',function(x){return N(x.s.G);},'n',1],['A','A',function(x){return N(x.s.A);},'n',1],['P','P',function(x){return N(x.s.P);},'n',1],
       ['PM','+/-',function(x){return N(x.s['+/-']);},'pm',1],['PGP','P/GP',function(x){return per(N(x.s.P),x.gp);},'r2',1],['P20','P/20',function(x){return p20(N(x.s.P),x.mp);},'r2',1],
-      ['GGP','G/GP',function(x){return per(N(x.s.G),x.gp);},'r2',0],['PIM','PIM',function(x){return N(x.s.PIM);},'n',0],['PPP','PPP',function(x){return N(x.s.PPP);},'n',1],
-      ['GW','GWG',function(x){return N(x.s.GW);},'n',0],['TOI','TOI/GP',function(x){return x.toi;},'r1',1]]},
-    assists:{label:'Primary Assists', gp:LGP, gpLabel:'GP', def:'A1', note:'Primary assist = the last pass before the goal (A1); secondary = the one before (A2). Counted from every box score.', cols:[
-      ['A1','A1',function(x){return L(x,'a1');},'n',1],['A2','A2',function(x){return L(x,'a2');},'n',1],['A','A',function(x){return L(x,'a1')+L(x,'a2');},'n',1],
-      ['A1GP','A1/GP',function(x){return per(L(x,'a1'),LGP(x));},'r2',1],['A120','A1/20',function(x){return p20(L(x,'a1'),x.mp);},'r2',1],
-      ['A1S','A1 share',function(x){var a=L(x,'a1')+L(x,'a2');return a?100*L(x,'a1')/a:0;},'p',1],['TOI','TOI/GP',function(x){return x.toi;},'r1',0]]},
-    faceoffs:{label:'Zone Faceoffs', gp:LGP, gpLabel:'GP', def:'FOP', zone:true, cols:[
-      ['W','W',function(x){return zW(x,H.lb.zone);},'n',1],['L','L',function(x){return zL(x,H.lb.zone);},'n',1],
-      ['DR','Draws',function(x){return zW(x,H.lb.zone)+zL(x,H.lb.zone);},'n',1],
-      ['FOP','FO%',function(x){var w=zW(x,H.lb.zone),t=w+zL(x,H.lb.zone);return t?100*w/t:0;},'p',1],
-      ['DIFF','W−L',function(x){return zW(x,H.lb.zone)-zL(x,H.lb.zone);},'pm',1],
-      ['WGP','W/GP',function(x){return per(zW(x,H.lb.zone),LGP(x));},'r2',1],['W20','W/20',function(x){return p20(zW(x,H.lb.zone),x.mp);},'r2',0],
-      ['DGP','Draws/GP',function(x){return per(zW(x,H.lb.zone)+zL(x,H.lb.zone),LGP(x));},'r1',0]]},
-    passing:{label:'Passing & Interceptions', gp:PGP, gpLabel:'GP', pbp:true, def:'INTGP', note:'Passing, interceptions and dump-ins come from the full play-by-play, which every game has carried since it began. GP here is the games each player has played with it. Per 20 uses his season average ice time.', cols:[
-      ['INT','INT',function(x){return L(x,'int');},'n',1],['INTGP','INT/GP',function(x){return per(L(x,'int'),PGP(x));},'r2',1],['INT20','INT/20',function(x){return p20(per(L(x,'int'),PGP(x)),x.toi);},'r2',1],
-      ['PAS','Passes',function(x){return L(x,'pas');},'n',0],['CMP','Completed',function(x){return L(x,'cmp');},'n',1],
-      ['CMPP','Cmp%',function(x){var a=L(x,'pas');return a?100*L(x,'cmp')/a:0;},'p',1],['CMPGP','Cmp/GP',function(x){return per(L(x,'cmp'),PGP(x));},'r1',1],
-      ['CMP20','Cmp/20',function(x){return p20(per(L(x,'cmp'),PGP(x)),x.toi);},'r1',0],['DUMP','Dump-ins',function(x){return L(x,'dump');},'n',0],
-      ['DUMPGP','Dumps/GP',function(x){return per(L(x,'dump'),PGP(x));},'r2',0]]},
-    physical:{label:'Hits, Blocks, Takeaways', gp:function(x){return x.gp;}, gpLabel:'GP', def:'HIT', cols:[
-      ['HIT','Hits',function(x){return N(x.s.HIT);},'n',1],['HITGP','Hits/GP',function(x){return per(N(x.s.HIT),x.gp);},'r2',1],['HIT20','Hits/20',function(x){return p20(N(x.s.HIT),x.mp);},'r2',1],
-      ['BLK','Blocks',function(x){return N(x.s.SB);},'n',1],['BLKGP','Blk/GP',function(x){return per(N(x.s.SB),x.gp);},'r2',1],
+      ['GGP','G/GP',function(x){return per(N(x.s.G),x.gp);},'r2',0],['SOG','SOG',function(x){return N(x.s.SHT);},'n',1],['SOGGP','SOG/GP',function(x){return per(N(x.s.SHT),x.gp);},'r2',0],
+      ['SHP','SH%',function(x){var s=N(x.s.SHT);return s?100*N(x.s.G)/s:0;},'p',1],['SA','Attempts',function(x){return L(x,'sa');},'n',0],['POST','Posts',function(x){return L(x,'post');},'n',0],
+      ['DFL','Deflections',function(x){return L(x,'dfl');},'n',0],['GW','GWG',function(x){return N(x.s.GW);},'n',0],['PIM','PIM',function(x){return N(x.s.PIM);},'n',0],['TOI','TOI/GP',function(x){return x.toi;},'r1',1]]},
+    playmaking:{label:'Playmaking', gp:LGP, gpLabel:'GP', gp2:PGP, gp2Label:'PBP GP', def:'A1', note:'A1 = primary assist (the last pass before the goal), A2 = secondary; counted from every box score over GP. Interceptions and passes come from the full play-by-play and use PBP GP: the games he has played since it began. Per 20 for those uses his season average ice time.', cols:[
+      ['A','A',function(x){return L(x,'a1')+L(x,'a2');},'n',1],['A1','A1',function(x){return L(x,'a1');},'n',1],['A2','A2',function(x){return L(x,'a2');},'n',0],
+      ['A1GP','A1/GP',function(x){return per(L(x,'a1'),LGP(x));},'r2',1],['A120','A1/20',function(x){return p20(L(x,'a1'),x.mp);},'r2',0],
+      ['A1S','A1 share',function(x){var a=L(x,'a1')+L(x,'a2');return a?100*L(x,'a1')/a:0;},'p',0],
+      ['INT','INT',function(x){return L(x,'int');},'n',1],['INTGP','INT/GP',function(x){return per(L(x,'int'),PGP(x));},'r2',1],['INT20','INT/20',function(x){return p20(per(L(x,'int'),PGP(x)),x.toi);},'r2',0],
+      ['PASGP','Passes/GP',function(x){return per(L(x,'pas'),PGP(x));},'r1',1],['CMPGP','Cmp/GP',function(x){return per(L(x,'cmp'),PGP(x));},'r1',1],
+      ['CMPP','Cmp%',function(x){var a=L(x,'pas');return a?100*L(x,'cmp')/a:0;},'p',1],['CMP','Completed',function(x){return L(x,'cmp');},'n',0],['PAS','Passes',function(x){return L(x,'pas');},'n',0]]},
+    possession:{label:'Possession', gp:LGP, gpLabel:'GP', def:'FOP', zone:true, note:'Faceoffs count the zone you pick; Min draws applies when you sort by a faceoff column. Dump-ins come from the full play-by-play.', cols:[
+      ['W','FO W',function(x){return zW(x,H.lb.zone);},'n',1,1],['L','FO L',function(x){return zL(x,H.lb.zone);},'n',1,1],
+      ['DR','Draws',function(x){return zW(x,H.lb.zone)+zL(x,H.lb.zone);},'n',1,1],
+      ['FOP','FO%',function(x){var w=zW(x,H.lb.zone),t=w+zL(x,H.lb.zone);return t?100*w/t:0;},'p',1,1],
+      ['DIFF','W−L',function(x){return zW(x,H.lb.zone)-zL(x,H.lb.zone);},'pm',1,1],
+      ['WGP','W/GP',function(x){return per(zW(x,H.lb.zone),LGP(x));},'r2',0,1],
       ['TK','Takeaways',function(x){return L(x,'take');},'n',1],['GV','Giveaways',function(x){return L(x,'give');},'n',1],
-      ['TKD','TK−GV',function(x){return L(x,'take')-L(x,'give');},'pm',0],['HTT','Hits taken',function(x){return N(x.s.HTT);},'n',0],['PIM','PIM',function(x){return N(x.s.PIM);},'n',0]]},
-    shooting:{label:'Shooting', gp:function(x){return x.gp;}, gpLabel:'GP', def:'SOG', cols:[
-      ['SOG','SOG',function(x){return N(x.s.SHT);},'n',1],['SOGGP','SOG/GP',function(x){return per(N(x.s.SHT),x.gp);},'r2',1],['SOG20','SOG/20',function(x){return p20(N(x.s.SHT),x.mp);},'r2',1],
-      ['G','G',function(x){return N(x.s.G);},'n',1],['SHP','SH%',function(x){var s=N(x.s.SHT);return s?100*N(x.s.G)/s:0;},'p',1],
-      ['SA','Attempts',function(x){return L(x,'sa');},'n',0],['POST','Posts',function(x){return L(x,'post');},'n',0],['DFL','Deflections',function(x){return L(x,'dfl');},'n',0]]},
+      ['TKD','TK−GV',function(x){return L(x,'take')-L(x,'give');},'pm',1],['TKGP','TK/GP',function(x){return per(L(x,'take'),LGP(x));},'r2',0],
+      ['DUMP','Dump-ins',function(x){return L(x,'dump');},'n',0]]},
+    defense:{label:'Defense & Physical', gp:function(x){return x.gp;}, gpLabel:'GP', def:'HIT', cols:[
+      ['HIT','Hits',function(x){return N(x.s.HIT);},'n',1],['HITGP','Hits/GP',function(x){return per(N(x.s.HIT),x.gp);},'r2',1],['HIT20','Hits/20',function(x){return p20(N(x.s.HIT),x.mp);},'r2',1],
+      ['BLK','Blocks',function(x){return N(x.s.SB);},'n',1],['BLKGP','Blk/GP',function(x){return per(N(x.s.SB),x.gp);},'r2',1],['BLK20','Blk/20',function(x){return p20(N(x.s.SB),x.mp);},'r2',0],
+      ['HTT','Hits taken',function(x){return N(x.s.HTT);},'n',0],['PM','+/-',function(x){return N(x.s['+/-']);},'pm',0],['PIM','PIM',function(x){return N(x.s.PIM);},'n',1]]},
     special:{label:'Special Teams', gp:function(x){return x.gp;}, gpLabel:'GP', def:'PPP', cols:[
       ['PPG','PPG',function(x){return N(x.s.PPG);},'n',1],['PPA','PPA',function(x){return N(x.s.PPA);},'n',1],['PPP','PPP',function(x){return N(x.s.PPP);},'n',1],
       ['PPPGP','PPP/GP',function(x){return per(N(x.s.PPP),x.gp);},'r2',1],['PKG','SHG',function(x){return N(x.s.PKG);},'n',1],['PKA','SHA',function(x){return N(x.s.PKA);},'n',0],
       ['PKP','SHP',function(x){return N(x.s.PKP);},'n',1],['PPM','PP TOI',function(x){return N(x.s.PPM);},'n',0],['PKM','PK TOI',function(x){return N(x.s.PKM);},'n',0]]}
   };
-  var CAT_ORDER=['scoring','faceoffs','assists','passing','physical','shooting','special'];
+  var CAT_ORDER=['scoring','playmaking','possession','defense','special'];
   var GCOLS=[['GP','GP',function(o){return N(o.s.GP);},'n',1],['W','W',function(o){return N(o.s.W);},'n',1],['L','L',function(o){return N(o.s.L);},'n',1],['OTL','OTL',function(o){return N(o.s.OTL);},'n',1],
     ['PCT','SV%',function(o){var sa=N(o.s.SA);return sa?(sa-N(o.s.GA))/sa:0;},'sv',1],['GAA','GAA',function(o){return N(o.s.GAA);},'r2',1],['SO','SO',function(o){return N(o.s.SO);},'n',1],
     ['SA','SA',function(o){return N(o.s.SA);},'n',1],['GA','GA',function(o){return N(o.s.GA);},'n',0],['SAGP','SA/GP',function(o){var g=N(o.s.GP);return g?N(o.s.SA)/g:0;},'r1',0],['MP','MIN',function(o){return N(o.s.MP);},'n',0]];
@@ -11726,13 +11727,14 @@ try{ikeHydrateImgs();}catch(e){}
   function posOk(p,f){ var a=String(p||'').split('/'); if(f==='All') return true; if(f==='F') return a.some(function(x){return x==='C'||x==='LW'||x==='RW';}); return a.indexOf(f)>=0; }
 
   function leadersPage(){
-    var S=H.lb, c=CAT[S.cat]||CAT.scoring, grp=S.grp;
+    var S=H.lb; if(!CAT[S.cat]) S.cat=({faceoffs:'possession',assists:'playmaking',passing:'playmaking',physical:'defense',shooting:'scoring'})[S.cat]||'scoring';
+    var c=CAT[S.cat], grp=S.grp;
     var bar='<div class="hb-seg">'+[['sk','Skaters'],['gl','Goalies']].map(function(g){ return '<button class="'+(grp===g[0]?'on':'')+'" onclick="ikeHubSet(\'lb\',\'grp\',\''+g[0]+'\')">'+g[1]+'</button>'; }).join('')+'</div>';
     if(grp==='gl') return bar+goaliesTable();
     var A=skaters();
     if(!A.length) return bar+'<div class="hb-empty">The league Player Stat file has not loaded yet.</div>';
     var cats='<div class="hb-chips">'+CAT_ORDER.map(function(k){ return '<button class="'+(S.cat===k?'on':'')+'" onclick="ikeHubSet(\'lb\',\'cat\',\''+k+'\')">'+E(CAT[k].label)+'</button>'; }).join('')+'</div>';
-    if(S.cat==='assists'&&!(window.IKE_PBP_LEAD&&(IKE_PBP_LEAD.cols||[]).indexOf('a1')>=0)) return bar+cats+'<div class="hb-empty">Primary assists come with the online data from the nightly pull. Open the app with a connection to load them.</div>';
+    if(S.cat==='playmaking'&&!(window.IKE_PBP_LEAD&&(IKE_PBP_LEAD.cols||[]).indexOf('a1')>=0)) return bar+cats+'<div class="hb-empty">Primary assists come with the online data from the nightly pull. Open the app with a connection to load them.</div>';
     var T=teams();
     var ctl='<div class="hb-ctl">'+
       (c.zone?'<label>Zone<select onchange="ikeHubSet(\'lb\',\'zone\',this.value)">'+[['DZ','Defensive Zone'],['NZ','Neutral Zone'],['OZ','Offensive Zone'],['ALL','All Zones']].map(function(z){return '<option value="'+z[0]+'"'+(S.zone===z[0]?' selected':'')+'>'+z[1]+'</option>';}).join('')+'</select></label>':'')+
@@ -11746,22 +11748,23 @@ try{ikeHydrateImgs();}catch(e){}
     var vis=c.cols.filter(function(k){ return k[0] in hide? !hide[k[0]] : !!k[4]; });
     var picker=S.cols?'<div class="hb-pick">'+c.cols.map(function(k){ var on=(k[0] in hide)?!hide[k[0]]:!!k[4]; return '<label><input type="checkbox"'+(on?' checked':'')+' onchange="ikeHubCol(\''+S.cat+'\',\''+k[0]+'\',this.checked)">'+E(k[1])+'</label>'; }).join('')+'</div>':'';
     var mg=c.pbp?(+S.minpbp||0):(+S.mingp||0), md=+S.mindraw||0;
+    var sk=S.sort&&(S.sort==='GP'||S.sort==='GP2'||c.cols.some(function(k){return k[0]===S.sort;}))?S.sort:c.def;
+    var col=c.cols.filter(function(k){return k[0]===sk;})[0];
+    var foSort=!!(c.zone&&col&&col[5]);
     var list=A.filter(function(x){ if(!posOk(x.pos,S.pos)) return false; if(S.team&&K(x.team)!==K(S.team)) return false;
       if((c.pbp||c.gp===LGP)&&!x.l) return false; if(c.gp(x)<mg) return false;
-      if(c.zone&&md&&(zW(x,S.zone)+zL(x,S.zone))<md) return false;
-      if(c.zone&&(zW(x,S.zone)+zL(x,S.zone))===0) return false;
+      if(foSort&&md&&(zW(x,S.zone)+zL(x,S.zone))<md) return false;
+      if(foSort&&(zW(x,S.zone)+zL(x,S.zone))===0) return false;
       return true; });
-    var sk=S.sort&&c.cols.some(function(k){return k[0]===S.sort;})?S.sort:c.def;
-    var col=c.cols.filter(function(k){return k[0]===sk;})[0];
-    if(sk==='GP') col=['GP','GP',c.gp,'n'];
+    if(sk==='GP') col=['GP','GP',c.gp,'n']; if(sk==='GP2'&&c.gp2) col=['GP2','PBP GP',c.gp2,'n'];
     var dir=S.sort===sk?S.dir:-1;
     list.forEach(function(x){ x.__v=col?col[2](x):0; x.__g=c.gp(x); });
     list.sort(function(a,b){ return dir*(a.__v-b.__v) || (b.__g-a.__g) || (a.name<b.name?-1:1); });
     var total=list.length, shown=S.all?list:list.slice(0,100);
     function th(k,l){ var on=k===sk; return '<th class="num'+(on?' on':'')+'" onclick="ikeHubSort(\'lb\',\''+k+'\')">'+E(l)+(on?(dir<0?' ▾':' ▴'):'')+'</th>'; }
-    var head='<tr><th class="rk">#</th><th class="pn">Player</th><th>Team</th><th>Pos</th>'+th('GP',c.gpLabel+(c.pbp?' ▸':''))+vis.map(function(k){return th(k[0],k[1]);}).join('')+'</tr>';
+    var head='<tr><th class="rk">#</th><th class="pn">Player</th><th>Team</th><th>Pos</th>'+th('GP',c.gpLabel+(c.pbp?' ▸':''))+(c.gp2?th('GP2',c.gp2Label):'')+vis.map(function(k){return th(k[0],k[1]);}).join('')+'</tr>';
     var my=K(MY());
-    var body=shown.map(function(x,i){ return '<tr'+(K(x.team)===my?' class="mine"':'')+'><td class="rk">'+(i+1)+'</td><td class="pn">'+typeIcon(x.name)+pLink(x.name,0)+'</td><td class="tm">'+tLink(x.team)+'</td><td class="ps">'+E(x.pos)+'</td><td class="num gp">'+Math.round(c.gp(x))+'</td>'+
+    var body=shown.map(function(x,i){ return '<tr'+(K(x.team)===my?' class="mine"':'')+'><td class="rk">'+(i+1)+'</td><td class="pn">'+typeIcon(x.name)+pLink(x.name,0)+'</td><td class="tm">'+tLink(x.team)+'</td><td class="ps">'+E(x.pos)+'</td><td class="num gp">'+Math.round(c.gp(x))+'</td>'+(c.gp2?'<td class="num gp">'+Math.round(c.gp2(x))+'</td>':'')+
       vis.map(function(k){ var v=k[2](x); return '<td class="num'+(k[0]===sk?' on':'')+'">'+fmt(v,k[3])+'</td>'; }).join('')+'</tr>'; }).join('');
     var title=c.label+(c.zone?' · '+({DZ:'Defensive Zone',NZ:'Neutral Zone',OZ:'Offensive Zone',ALL:'All Zones'})[S.zone]:'');
     var foot=(total>shown.length?'<div class="hb-more"><button class="hb-btn" onclick="ikeHubSet(\'lb\',\'all\',true)">Show all '+total+' players</button></div>':'')+
@@ -11836,30 +11839,83 @@ try{ikeHydrateImgs();}catch(e){}
   }
 
   /* ---------- Team Stats + strategy usage ---------- */
-  function tsRows(){ var r=rows('teamStat','Team'), P=pro(); return r.filter(function(o){ return P[K(o.Team)]; }); }
-  function TW(o){ return N(o.W)+N(o.OTW)+N(o.SOW); }
-  var TSC=[['gp','GP',function(o){return N(o.GP);},'n'],['w','W',function(o){return TW(o);},'n'],['l','L',function(o){return N(o.L);},'n'],['otl','OTL',function(o){return N(o.OTL)+N(o.SOL);},'n'],
-    ['pts','PTS',function(o){return N(o.P);},'n'],['diff','DIFF',function(o){return N(o.GF)-N(o.GA);},'pm'],['gf','GF',function(o){return N(o.GF);},'n'],['ga','GA',function(o){return N(o.GA);},'n'],
-    ['gfgp','GF/GP',function(o){return N(o.GP)?N(o.GF)/N(o.GP):0;},'r2'],['gagp','GA/GP',function(o){return N(o.GP)?N(o.GA)/N(o.GP):0;},'r2'],
-    ['pp','PP%',function(o){return N(o['PP%']);},'p'],['pk','PK%',function(o){return N(o['PK%']);},'p'],
-    ['sf','SF/GP',function(o){return N(o.GP)?N(o.SHF)/N(o.GP):0;},'r1'],['sa','SA/GP',function(o){return N(o.GP)?N(o.SHA)/N(o.GP):0;},'r1'],
-    ['fo','FO%',function(o){var w=N(o['W OF FO'])+N(o['W DF FO'])+N(o['W NT FO']),t=N(o['T OF FO'])+N(o['T DF FO'])+N(o['T NT FO']);return t?100*w/t:0;},'p'],
-    ['dfo','DZ FO%',function(o){return N(o['DF FO%']);},'p'],['hit','Hits',function(o){return N(o.Hit);},'n'],['pim','PIM',function(o){return N(o.Pim);},'n']];
   var UNITS=[['EVF','5v5 Forwards'],['EVD','5v5 Defense'],['PPF','Power Play F'],['PPD','Power Play D'],['PKF','Penalty Kill F'],['PKD','Penalty Kill D']];
   function sysName(code){ var s=window.SYS_BY_CODE&&SYS_BY_CODE[code]; if(s) return s.tac||s.name||''; var L=(window.IKE5_DATA&&IKE5_DATA.SYS21)||[]; for(var i=0;i<L.length;i++) if(L[i][0]===code) return L[i][1]; return ''; }
   function sysTop(team,unit,win){ var S=window.IKE_TEAM_SYS; if(!S) return []; var m=((S[win]||{})[team]||{})[unit]||{}, tot=0;
     Object.keys(m).forEach(function(k){ tot+=m[k]; });
     return Object.keys(m).map(function(k){ return {code:k,secs:m[k],share:tot?m[k]/tot:0}; }).sort(function(a,b){return b.secs-a.secs;}); }
+  /* ---------- Team Stats: five tabs, read from the league's own team table when it is online ---------- */
+  function tsRows(){ var r=rows('teamStat','Team'), P=pro(); return r.filter(function(o){ return P[K(o.Team)]; }); }
+  function TW(o){ return N(o.W)+N(o.OTW)+N(o.SOW); }
+  function teamData(){
+    var P=pro(), out=[], X=window.IKE_TEAM_X||{};
+    if(window.IKE_TEAM_PRO&&IKE_TEAM_PRO.length){
+      IKE_TEAM_PRO.forEach(function(r){ if(!P[K(r.Name)]) return; var gp=N(r.GP), hg=N(r.HomeGP);
+        out.push({team:r.Name,gp:gp,w:N(r.W),otw:N(r.OTW),sow:N(r.SOW),l:N(r.L),otl:N(r.OTL),sol:N(r.SOL),pts:N(r.Points),gf:N(r.GF),ga:N(r.GA),
+          hw:N(r.HomeW)+N(r.HomeOTW)+N(r.HomeSOW),hl:N(r.HomeL),ho:N(r.HomeOTL)+N(r.HomeSOL),
+          rw:(N(r.W)+N(r.OTW)+N(r.SOW))-(N(r.HomeW)+N(r.HomeOTW)+N(r.HomeSOW)),rl:N(r.L)-N(r.HomeL),ro:(N(r.OTL)+N(r.SOL))-(N(r.HomeOTL)+N(r.HomeSOL)),
+          ppo:N(r.PPAttemp),ppg:N(r.PPGoal),pko:N(r.PKAttemp),pkga:N(r.PKGoalGA),shg:N(r.PKGoalGF),sf:N(r.ShotsFor),sa:N(r.ShotsAga),blk:N(r.ShotsBlock),
+          en:N(r.EmptyNetGoal),so:N(r.Shutouts),pim:N(r.Pim),hit:N(r.Hits),
+          fo:{OZ:[N(r.FaceOffWonOffensifZone),N(r.FaceOffTotalOffensifZone)],NZ:[N(r.FaceOffWonNeutralZone),N(r.FaceOffTotalNeutralZone)],DZ:[N(r.FaceOffWonDefensifZone),N(r.FaceOffTotalDefensifZone)]},
+          pz:{OZ:N(r.PuckTimeInZoneOF),NZ:N(r.PuckTimeInZoneNT),DZ:N(r.PuckTimeInZoneDF)},pc:{OZ:N(r.PuckTimeControlinZoneOF),NZ:N(r.PuckTimeControlinZoneNT),DZ:N(r.PuckTimeControlinZoneDF)},
+          x:X[r.Name]||null,src:'pro'}); });
+      return out; }
+    tsRows().forEach(function(o){ out.push({team:o.Team,gp:N(o.GP),w:N(o.W),otw:N(o.OTW),sow:N(o.SOW),l:N(o.L),otl:N(o.OTL),sol:N(o.SOL),pts:N(o.P),gf:N(o.GF),ga:N(o.GA),
+      hw:null,ppo:N(o.PPA),ppg:N(o.PPG),pko:N(o.PKA),pkga:N(o['PK GA']),shg:N(o['PK GF']),sf:N(o.SHF),sa:N(o.SHA),blk:N(o.SHB),en:N(o.EG),so:N(o.SO),pim:N(o.Pim),hit:N(o.Hit),
+      fo:{OZ:[N(o['W OF FO']),N(o['T OF FO'])],NZ:[N(o['W NT FO']),N(o['T NT FO'])],DZ:[N(o['W DF FO']),N(o['T DF FO'])]},pz:null,pc:null,x:X[o.Team]||null,src:'csv'}); });
+    return out; }
+  function TOT(t){ return t.pz?(t.pz.OZ+t.pz.NZ+t.pz.DZ):0; }
+  function mpg(sec,gp){ return gp?sec/60/gp:0; }
+  function foT(t){ var w=0,n=0; ['OZ','NZ','DZ'].forEach(function(z){ w+=t.fo[z][0]; n+=t.fo[z][1]; }); return [w,n]; }
+  function perX(t,k,i){ return t.x?t.x[k][i]:0; }
+  var TST={
+    record:{label:'Record',def:'pts',cols:[['gp','GP',function(t){return t.gp;},'n'],['w','W',function(t){return t.w;},'n'],['otw','OTW',function(t){return t.otw;},'n'],['sow','SOW',function(t){return t.sow;},'n'],
+      ['l','L',function(t){return t.l;},'n'],['otl','OTL',function(t){return t.otl;},'n'],['sol','SOL',function(t){return t.sol;},'n'],['pts','PTS',function(t){return t.pts;},'n'],
+      ['pp','P%',function(t){return t.gp?t.pts/(2*t.gp):0;},'sv'],['tw','Total W',function(t){return t.w+t.otw+t.sow;},'n'],
+      ['home','Home',function(t){return t.hw==null?0:t.hw*1000-t.hl;},'rec',function(t){return t.hw==null?'—':t.hw+'-'+t.hl+'-'+t.ho;}],
+      ['road','Road',function(t){return t.hw==null?0:t.rw*1000-t.rl;},'rec',function(t){return t.hw==null?'—':t.rw+'-'+t.rl+'-'+t.ro;}],
+      ['diff','DIFF',function(t){return t.gf-t.ga;},'pm']]},
+    scoring:{label:'Scoring & Shooting',def:'gf',cols:[['gf','GF',function(t){return t.gf;},'n'],['ga','GA',function(t){return t.ga;},'n'],['diff','DIFF',function(t){return t.gf-t.ga;},'pm'],
+      ['gfgp','GF/GP',function(t){return t.gp?t.gf/t.gp:0;},'r2'],['gagp','GA/GP',function(t){return t.gp?t.ga/t.gp:0;},'r2'],
+      ['sfgp','SF/GP',function(t){return t.gp?t.sf/t.gp:0;},'r1'],['sagp','SA/GP',function(t){return t.gp?t.sa/t.gp:0;},'r1'],
+      ['shp','SH%',function(t){return t.sf?100*(t.gf-t.sow)/t.sf:0;},'p'],['svp','SV%',function(t){return t.sa?1-(t.ga-t.sol)/t.sa:0;},'sv'],
+      ['en','EN G',function(t){return t.en;},'n'],['so','Shutouts',function(t){return t.so;},'n']]},
+    possession:{label:'Possession',def:'pcp',cols:[['fop','FO%',function(t){var a=foT(t);return a[1]?100*a[0]/a[1]:0;},'p'],
+      ['ozfo','OZ FO%',function(t){return t.fo.OZ[1]?100*t.fo.OZ[0]/t.fo.OZ[1]:0;},'p'],['nzfo','NZ FO%',function(t){return t.fo.NZ[1]?100*t.fo.NZ[0]/t.fo.NZ[1]:0;},'p'],['dzfo','DZ FO%',function(t){return t.fo.DZ[1]?100*t.fo.DZ[0]/t.fo.DZ[1]:0;},'p'],
+      ['ozs','OZ starts',function(t){var a=foT(t);return a[1]?100*t.fo.OZ[1]/a[1]:0;},'p'],['dzs','DZ starts',function(t){var a=foT(t);return a[1]?100*t.fo.DZ[1]/a[1]:0;},'p'],
+      ['ozt','Puck in OZ',function(t){var T=TOT(t);return T?100*t.pz.OZ/T:0;},'p'],['nzt','Puck in NZ',function(t){var T=TOT(t);return T?100*t.pz.NZ/T:0;},'p'],['dzt','Puck in DZ',function(t){var T=TOT(t);return T?100*t.pz.DZ/T:0;},'p'],
+      ['pcp','Control %',function(t){var T=TOT(t);return T?100*(t.pc.OZ+t.pc.NZ+t.pc.DZ)/T:0;},'p'],
+      ['ozc','OZ control/GP',function(t){return t.pc?mpg(t.pc.OZ,t.gp):0;},'r1'],['nzc','NZ control/GP',function(t){return t.pc?mpg(t.pc.NZ,t.gp):0;},'r1'],['dzc','DZ control/GP',function(t){return t.pc?mpg(t.pc.DZ,t.gp):0;},'r1']]},
+    special:{label:'Special Teams',def:'pp',cols:[['ppo','PP opp',function(t){return t.ppo;},'n'],['ppg','PPG',function(t){return t.ppg;},'n'],['pp','PP%',function(t){return t.ppo?100*t.ppg/t.ppo:0;},'p'],
+      ['ppogp','PP opp/GP',function(t){return t.gp?t.ppo/t.gp:0;},'r2'],['pko','PK opp',function(t){return t.pko;},'n'],['pkga','PK GA',function(t){return t.pkga;},'n'],
+      ['pk','PK%',function(t){return t.pko?100*(1-t.pkga/t.pko):0;},'p'],['shg','SHG for',function(t){return t.shg;},'n'],['net','ST net',function(t){return t.ppg+t.shg-t.pkga;},'pm']]},
+    physical:{label:'Physical',def:'hit',cols:[['hit','Hits',function(t){return t.hit;},'n'],['hitgp','Hits/GP',function(t){return t.gp?t.hit/t.gp:0;},'r1'],
+      ['blk','Shots blocked',function(t){return t.blk;},'n'],['blkgp','Blocked/GP',function(t){return t.gp?t.blk/t.gp:0;},'r1'],['pim','PIM',function(t){return t.pim;},'n'],['pimgp','PIM/GP',function(t){return t.gp?t.pim/t.gp:0;},'r2']]}
+  };
+  var TST_ORDER=['record','scoring','possession','special','physical'];
   function teamStatsPage(){
-    var R=tsRows(); if(!R.length) return '<div class="hb-empty">The league Team Stat file has not loaded yet.</div>';
-    var S=H.ts, col=TSC.filter(function(k){return k[0]===S.sort;})[0]||TSC[4], dir=S.dir||-1;
-    R.forEach(function(o){ o.__v=col[2](o); }); R.sort(function(a,b){ return dir*(a.__v-b.__v) || (N(b.P)-N(a.P)); });
+    var R=teamData(); if(!R.length) return '<div class="hb-empty">The league Team Stat file has not loaded yet.</div>';
+    var S=H.ts, tab=TST[S.tab]?S.tab:'record', c=TST[tab];
+    var seg='<div class="hb-seg">'+TST_ORDER.map(function(k){ return '<button class="'+(tab===k?'on':'')+'" onclick="ikeHubSet(\'ts\',\'tab\',\''+k+'\')">'+E(TST[k].label)+'</button>'; }).join('')+'</div>';
+    var col=c.cols.filter(function(k){return k[0]===S.sort;})[0]||c.cols.filter(function(k){return k[0]===c.def;})[0], dir=S.sort===col[0]?(S.dir||-1):-1;
+    R.forEach(function(t){ t.__v=col[2](t); }); R.sort(function(a,b){ return dir*(a.__v-b.__v) || (b.pts-a.pts); });
     function th(k,l){ var on=k===col[0]; return '<th class="num'+(on?' on':'')+'" onclick="ikeHubSort(\'ts\',\''+k+'\')">'+E(l)+(on?(dir<0?' ▾':' ▴'):'')+'</th>'; }
     var my=K(MY());
-    var t='<div class="hb-cap"><b>Team Statistics</b> · '+R.length+' teams</div><div class="hb-tw"><table class="hb-t"><tr><th class="rk">#</th><th class="pn">Team</th>'+TSC.map(function(k){return th(k[0],k[1]);}).join('')+'</tr>'+
-      R.map(function(o,i){ return '<tr'+(K(o.Team)===my?' class="mine"':'')+'><td class="rk">'+(i+1)+'</td><td class="pn">'+tLink(o.Team)+'</td>'+TSC.map(function(k){ return '<td class="num'+(k[0]===col[0]?' on':'')+'">'+fmt(k[2](o),k[3])+'</td>'; }).join('')+'</tr>'; }).join('')+'</table></div>';
-    var sys=window.IKE_TEAM_SYS?'<p class="hb-note">Each club\u2019s strategy usage now has its own tab: <a href="javascript:void(0)" class="hb-tn" onclick="ikeHub(\'strategy\')">Strategy (P-D-O)</a>.</p>':'';
-    return t+'<p class="hb-note">From the league Team Stat file. Click a column to sort; click again to flip.</p>'+sys;
+    var html=seg+'<div class="hb-cap"><b>'+E(c.label)+'</b> · '+R.length+' teams</div><div class="hb-tw"><table class="hb-t"><tr><th class="rk">#</th><th class="pn">Team</th>'+c.cols.map(function(k){return th(k[0],k[1]);}).join('')+'</tr>'+
+      R.map(function(t,i){ return '<tr'+(K(t.team)===my?' class="mine"':'')+'><td class="rk">'+(i+1)+'</td><td class="pn">'+tLink(t.team)+'</td>'+c.cols.map(function(k){ return '<td class="num'+(k[0]===col[0]?' on':'')+'">'+(k[3]==='rec'?k[4](t):fmt(k[2](t),k[3]))+'</td>'; }).join('')+'</tr>'; }).join('')+'</table></div>';
+    if(tab==='scoring'&&R.some(function(t){return t.x;})){
+      var bk=S.per==='shots'?['sf','sa','Shots']:['gf','ga','Goals'];
+      var pseg='<div class="hb-seg" style="margin-top:14px">'+[['goals','Goals by period'],['shots','Shots by period']].map(function(s){ return '<button class="'+((S.per||'goals')===s[0]?'on':'')+'" onclick="ikeHubSet(\'ts\',\'per\',\''+s[0]+'\')">'+s[1]+'</button>'; }).join('')+'</div>';
+      var P=['1st','2nd','3rd','OT'];
+      html+=pseg+'<div class="hb-tw"><table class="hb-t"><tr><th class="pn">Team</th>'+P.map(function(p){return '<th class="num">'+bk[2]+' for '+p+'</th>';}).join('')+P.map(function(p){return '<th class="num">Against '+p+'</th>';}).join('')+P.slice(0,3).map(function(p){return '<th class="num">Diff '+p+'</th>';}).join('')+'</tr>'+
+        R.slice().sort(function(a,b){return a.team<b.team?-1:1;}).map(function(t){ return '<tr'+(K(t.team)===my?' class="mine"':'')+'><td class="pn">'+tLink(t.team)+'</td>'+
+          [0,1,2,3].map(function(i){return '<td class="num">'+perX(t,bk[0],i)+'</td>';}).join('')+[0,1,2,3].map(function(i){return '<td class="num">'+perX(t,bk[1],i)+'</td>';}).join('')+
+          [0,1,2].map(function(i){ var d=perX(t,bk[0],i)-perX(t,bk[1],i); return '<td class="num on">'+(d>0?'+':'')+d+'</td>';}).join('')+'</tr>'; }).join('')+'</table></div>'+
+        '<p class="hb-note">Period totals are counted from every box score’s period table, for and against. GF and GA in the table above also count one goal for each shootout result, as the league does.</p>';
+    }
+    var src=R[0].src==='pro'?'From the league’s own team table (records, puck time, zone faceoffs).':'From the league Team Stat file; puck time arrives with the online data.';
+    return html+'<p class="hb-note">'+src+' OTW/SOW = overtime and shootout wins; OTL/SOL = overtime and shootout losses. Zone starts = the share of a team’s faceoffs taken in that zone. Puck in zone = share of game time the puck spent there; control = time the team had the puck. Click a column to sort; click again to flip.'+
+      (window.IKE_TEAM_SYS?' Strategy usage has its own tab: <a href="javascript:void(0)" class="hb-tn" onclick="ikeHub(\'strategy\')">Strategy (P-D-O)</a>.':'')+'</p>';
   }
 
   /* ---------- Teams & Rosters ---------- */
@@ -11924,7 +11980,8 @@ try{ikeHydrateImgs();}catch(e){}
     var S=H.hot, R=hotRows();
     if(!R) return '<div class="hb-empty">Who’s Hot comes with the online data from the nightly pull (each player’s last 10 games). Open the app with a connection.</div>';
     var c=S.cat in HOT.label?S.cat:'pts', T=teams();
-    var cats='<div class="hb-chips">'+HOT_ORDER.map(function(k){ return '<button class="'+(c===k?'on':'')+'" onclick="ikeHubSet(\'hot\',\'cat\',\''+k+'\')">'+E(HOT.label[k])+'</button>'; }).join('')+'</div>';
+    var HG=[['Scoring & Shooting',['pts','g','sog']],['Playmaking',['a1','int','cmp']],['Possession',['fo','take']],['Defense & Physical',['hit','blk']]];
+    var cats='<div class="hb-groups">'+HG.map(function(g){ return '<div class="hb-grp"><span>'+E(g[0])+'</span>'+g[1].map(function(k){ return '<button class="'+(c===k?'on':'')+'" onclick="ikeHubSet(\'hot\',\'cat\',\''+k+'\')">'+E(HOT.label[k])+'</button>'; }).join('')+'</div>'; }).join('')+'</div>';
     var ctl='<div class="hb-ctl"><label>Position<select onchange="ikeHubSet(\'hot\',\'pos\',this.value)">'+[['All','All players'],['F','All forwards'],['C','Centers'],['LW','Left wing'],['RW','Right wing'],['D','Defense']].map(function(p){return '<option value="'+p[0]+'"'+(S.pos===p[0]?' selected':'')+'>'+p[1]+'</option>';}).join('')+'</select></label>'+
       '<label>Team<select onchange="ikeHubSet(\'hot\',\'team\',this.value)"><option value="">All teams</option>'+T.map(function(t){return '<option'+(t===S.team?' selected':'')+'>'+E(t)+'</option>';}).join('')+'</select></label>'+
       '<label>Sort by<select onchange="ikeHubSet(\'hot\',\'sort\',this.value)">'+[['hot','Hottest (last 10)'],['up','Trending up ▲'],['down','Cooling off ▼']].map(function(o){return '<option value="'+o[0]+'"'+(S.sort===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select></label>'+
@@ -12061,6 +12118,7 @@ try{ikeHydrateImgs();}catch(e){}
   };
   window.ikeHubSet=function(grp,k,v){ H[grp][k]=v;
     if(grp==='lb'&&(k==='cat'||k==='grp')) H.lb.sort=null;
+    if(grp==='ts'&&k==='tab') H.ts.sort=null;
     if(grp==='lb'&&k!=='all'&&k!=='cols') H.lb.all=false;
     save(); window.ikeHubRender(); };
   window.ikeHubSort=function(grp,k){ var S=H[grp]; if(S.sort===k) S.dir=-(S.dir||-1); else { S.sort=k; S.dir=(grp==='gl'&&k==='GAA')?1:-1; } save(); window.ikeHubRender(); };
@@ -13251,6 +13309,8 @@ try{ikeHydrateImgs();}catch(e){}
       Object.keys(c.slots).forEach(function(sl){ LEAGUE[sl]={name:nm,at:at,text:c.slots[sl]}; }); });
     if(pk.lead) window.IKE_PBP_LEAD=pk.lead;
     if(pk.sys) window.IKE_TEAM_SYS=pk.sys;
+    if(pk.teampro) window.IKE_TEAM_PRO=pk.teampro;
+    if(pk.teamx) window.IKE_TEAM_X=pk.teamx;
     if(pk.stars){ window.IKE_LAST_STARS=pk.stars.list; window.IKE_LAST_STARS_DAY=pk.stars.day; }
     if(pk.ledger){ try{ Object.keys(pk.ledger).forEach(function(g){ if(!ZLEDGER[g]) ZLEDGER[g]=pk.ledger[g]; }); }catch(e){} }
     try{ leagueSave(); leagueParse(); renderLeagueFiles(); }catch(e){ console.error(e); }
