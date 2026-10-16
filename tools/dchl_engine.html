@@ -2328,6 +2328,9 @@ body.league{background:#050605!important}
 .hb-grp span{font:800 10px Inter,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#d4af37;margin-right:3px}
 .hb-grp button{font:700 12px Inter,Arial,sans-serif;color:#f4f6ef;background:#0f2416;border:1px solid rgba(255,255,255,.15);border-radius:5px;padding:6px 10px;cursor:pointer}
 .hb-grp button.on,.hb-grp button:hover{background:#d4af37;color:#0a0a0b;border-color:#d4af37}
+
+.suite-row .sm .sm-nm{display:block;font:800 11px Inter,Arial,sans-serif;font-style:normal;letter-spacing:.04em;text-transform:uppercase;color:#d4af37;margin-top:4px;text-align:center}
+.suite-row .sm.here .sm-nm,.suite-row .sm.on .sm-nm{color:#f0d97a}
 </style>
 </head>
 
@@ -11644,7 +11647,7 @@ try{ikeHydrateImgs();}catch(e){}
     lb:{grp:'sk',cat:'scoring',zone:'DZ',pos:'All',team:'',mingp:26,minpbp:10,mindraw:150,sort:null,dir:-1,hide:{},all:false,cols:false},
     gl:{team:'',mingp:10,sort:'PCT',dir:-1},
     sch:{team:'',view:'results'}, ts:{sort:null,dir:-1,win:'season',tab:'record',per:'goals'}, tm:{team:'',sys:'season',div:''},
-    hot:{cat:'pts',pos:'All',team:'',sort:'hot',all:false}, sg:{view:'team',unit:'EVF',win:'season',code:'0-1-4'}};
+    hot:{grp:'scoring',stat:null,pos:'All',team:'',sort:'hot',all:false}, sg:{view:'team',unit:'EVF',win:'season',code:'0-1-4'}};
   try{ var sv=JSON.parse(localStorage.getItem('ike_hub_v1')||'null'); if(sv){ Object.keys(sv).forEach(function(k){ if(typeof H[k]==='object'&&typeof sv[k]==='object') Object.assign(H[k],sv[k]); else if(k in H) H[k]=sv[k]; }); } }catch(e){}
   H.lb.all=false; H.lb.cols=false; H.hot.all=false;
   function save(){ try{ localStorage.setItem('ike_hub_v1',JSON.stringify(H)); }catch(e){} }
@@ -11692,7 +11695,7 @@ try{ikeHydrateImgs();}catch(e){}
       ['PM','+/-',function(x){return N(x.s['+/-']);},'pm',1],['PGP','P/GP',function(x){return per(N(x.s.P),x.gp);},'r2',1],['P20','P/20',function(x){return p20(N(x.s.P),x.mp);},'r2',1],
       ['GGP','G/GP',function(x){return per(N(x.s.G),x.gp);},'r2',0],['SOG','SOG',function(x){return N(x.s.SHT);},'n',1],['SOGGP','SOG/GP',function(x){return per(N(x.s.SHT),x.gp);},'r2',0],
       ['SHP','SH%',function(x){var s=N(x.s.SHT);return s?100*N(x.s.G)/s:0;},'p',1],['SA','Attempts',function(x){return L(x,'sa');},'n',0],['POST','Posts',function(x){return L(x,'post');},'n',0],
-      ['DFL','Deflections',function(x){return L(x,'dfl');},'n',0],['GW','GWG',function(x){return N(x.s.GW);},'n',0],['PIM','PIM',function(x){return N(x.s.PIM);},'n',0],['TOI','TOI/GP',function(x){return x.toi;},'r1',1]]},
+      ['GW','GWG',function(x){return N(x.s.GW);},'n',0],['PIM','PIM',function(x){return N(x.s.PIM);},'n',0],['TOI','TOI/GP',function(x){return x.toi;},'r1',1]]},
     playmaking:{label:'Playmaking', gp:LGP, gpLabel:'GP', gp2:PGP, gp2Label:'PBP GP', def:'A1', note:'A1 = primary assist (the last pass before the goal), A2 = secondary; counted from every box score over GP. Interceptions and passes come from the full play-by-play and use PBP GP: the games he has played since it began. Per 20 for those uses his season average ice time.', cols:[
       ['A','A',function(x){return L(x,'a1')+L(x,'a2');},'n',1],['A1','A1',function(x){return L(x,'a1');},'n',1],['A2','A2',function(x){return L(x,'a2');},'n',0],
       ['A1GP','A1/GP',function(x){return per(L(x,'a1'),LGP(x));},'r2',1],['A120','A1/20',function(x){return p20(L(x,'a1'),x.mp);},'r2',0],
@@ -11712,7 +11715,8 @@ try{ikeHydrateImgs();}catch(e){}
     defense:{label:'Defense & Physical', gp:function(x){return x.gp;}, gpLabel:'GP', def:'HIT', cols:[
       ['HIT','Hits',function(x){return N(x.s.HIT);},'n',1],['HITGP','Hits/GP',function(x){return per(N(x.s.HIT),x.gp);},'r2',1],['HIT20','Hits/20',function(x){return p20(N(x.s.HIT),x.mp);},'r2',1],
       ['BLK','Blocks',function(x){return N(x.s.SB);},'n',1],['BLKGP','Blk/GP',function(x){return per(N(x.s.SB),x.gp);},'r2',1],['BLK20','Blk/20',function(x){return p20(N(x.s.SB),x.mp);},'r2',0],
-      ['HTT','Hits taken',function(x){return N(x.s.HTT);},'n',0],['PM','+/-',function(x){return N(x.s['+/-']);},'pm',0],['PIM','PIM',function(x){return N(x.s.PIM);},'n',1]]},
+      ['HTT','Hits taken',function(x){return N(x.s.HTT);},'n',1],['DFL','Deflections',function(x){return L(x,'dfl');},'n',1],['REB','Rebound shots',function(x){return L(x,'reb');},'n',1],
+      ['REBG','Rebound goals',function(x){return L(x,'rebg');},'n',0],['FIGHT','Fights',function(x){return L(x,'fight');},'n',1],['PM','+/-',function(x){return N(x.s['+/-']);},'pm',0],['PIM','PIM',function(x){return N(x.s.PIM);},'n',1]]},
     special:{label:'Special Teams', gp:function(x){return x.gp;}, gpLabel:'GP', def:'PPP', cols:[
       ['PPG','PPG',function(x){return N(x.s.PPG);},'n',1],['PPA','PPA',function(x){return N(x.s.PPA);},'n',1],['PPP','PPP',function(x){return N(x.s.PPP);},'n',1],
       ['PPPGP','PPP/GP',function(x){return per(N(x.s.PPP),x.gp);},'r2',1],['PKG','SHG',function(x){return N(x.s.PKG);},'n',1],['PKA','SHA',function(x){return N(x.s.PKA);},'n',0],
@@ -11964,47 +11968,63 @@ try{ikeHydrateImgs();}catch(e){}
   function typeCell(n){ var r=bank(n); return r?'<span class="hb-ty">'+E(r[18]||'')+'</span> '+E(r[24]||''):'—'; }
   function rtgOf(n){ var r=bank(n); return r?+r[16]:null; }
 
-  /* ---------- Who's Hot: last 10 games vs his season pace ---------- */
-  var HOT={label:{pts:'Points',g:'Goals',a1:'Primary Assists',hit:'Hits',blk:'Blocks',take:'Takeaways',sog:'Shots',fo:'Faceoff Wins',int:'Interceptions',cmp:'Completed Passes'}};
-  var HOT_ORDER=['pts','g','a1','sog','hit','blk','take','fo','int','cmp'];
+  /* ---------- Who's Hot: last 10 games vs his season pace, by group ---------- */
   function hotRows(){
     var D=window.IKE_PBP_LEAD; if(!D||!D.l10) return null;
     var Lc=D.l10.cols, Sc=D.cols, sk={}; skaters().forEach(function(x){ sk[K(x.name)]=x; });
-    var out=[]; Object.keys(D.l10.p).forEach(function(n){ var x=sk[K(n)]; if(!x) return;
-      var l={}, s={}; Lc.forEach(function(c,i){ l[c]=+D.l10.p[n][i]||0; }); var sv=D.p[n]; if(!sv) return; Sc.forEach(function(c,i){ s[c]=+sv[i]||0; });
-      l.pts=l.g+l.a1+l.a2; s.pts=s.g+s.a1+s.a2; l.fo=l.fw; s.sog=N(x.s.SHT); s.fo=s.ow+s.nw+s.dw;
+    var out=[]; Object.keys(D.l10.p).forEach(function(n){ var x=sk[K(n)]; if(!x) return; var sv=D.p[n]; if(!sv) return;
+      var l={}, s={}; Lc.forEach(function(c,i){ l[c]=+D.l10.p[n][i]||0; }); Sc.forEach(function(c,i){ s[c]=+sv[i]||0; });
+      l.a=l.a1+l.a2; l.pts=l.g+l.a; s.a=s.a1+s.a2; s.pts=s.g+s.a;
+      s.sog=N(x.s.SHT); s.pm=N(x.s['+/-']); s.pim=N(x.s.PIM); s.fw=s.ow+s.nw+s.dw; s.fl=s.ol+s.nl+s.dl; s.ht=s.ht||N(x.s.HTT);
       out.push({name:x.name,team:x.team,pos:x.pos,x:x,l:l,s:s}); });
     return out; }
-  function hotVal(r,k,win){ var o=win==='l'?r.l:r.s, gp=win==='l'?(k==='int'||k==='cmp'?r.l.pg:r.l.gp):(k==='int'||k==='cmp'?r.s.pg:r.s.gp); return {v:o[k]||0, gp:gp, pg:gp?(o[k]||0)/gp:0}; }
+  /* [key, label, value(o) where o is r.l or r.s, per-game comparable?, play-by-play only?, format] */
+  var HOTG={
+    scoring:{label:'Scoring & Shooting',def:'pts',stats:[['pts','P',function(o){return o.pts;},1],['g','G',function(o){return o.g;},1],['a','A',function(o){return o.a;},1],
+      ['sog','SOG',function(o){return o.sog;},1],['shp','SH%',function(o){return o.sog?100*o.g/o.sog:0;},0,0,'p'],['pm','+/-',function(o){return o.pm;},1,0,'pm']]},
+    playmaking:{label:'Playmaking',def:'a1',stats:[['a1','A1',function(o){return o.a1;},1],['a2','A2',function(o){return o.a2;},1],['int','INT',function(o){return o.int;},1,1],
+      ['cmp','Completed',function(o){return o.cmp;},1,1],['pas','Passes',function(o){return o.pas;},1,1],['cmpp','Cmp%',function(o){return o.pas?100*o.cmp/o.pas:0;},0,1,'p']]},
+    possession:{label:'Possession',def:'fw',stats:[['fw','FO W',function(o){return o.fw;},1],['fl','FO L',function(o){return o.fl;},1],['fop','FO%',function(o){var t=o.fw+o.fl;return t?100*o.fw/t:0;},0,0,'p'],
+      ['take','Takeaways',function(o){return o.take;},1],['give','Giveaways',function(o){return o.give;},1]]},
+    defense:{label:'Defense & Physical',def:'hit',stats:[['hit','Hits',function(o){return o.hit;},1],['ht','Hits taken',function(o){return o.ht;},1],['blk','Blocks',function(o){return o.blk;},1],
+      ['dfl','Deflections',function(o){return o.dfl;},1],['reb','Rebound shots',function(o){return o.reb;},1],['fight','Fights',function(o){return o.fight;},1],['pim','PIM',function(o){return o.pim;},1]]}
+  };
+  var HOTG_ORDER=['scoring','playmaking','possession','defense'];
   function hotPage(){
     var S=H.hot, R=hotRows();
     if(!R) return '<div class="hb-empty">Who’s Hot comes with the online data from the nightly pull (each player’s last 10 games). Open the app with a connection.</div>';
-    var c=S.cat in HOT.label?S.cat:'pts', T=teams();
-    var HG=[['Scoring & Shooting',['pts','g','sog']],['Playmaking',['a1','int','cmp']],['Possession',['fo','take']],['Defense & Physical',['hit','blk']]];
-    var cats='<div class="hb-groups">'+HG.map(function(g){ return '<div class="hb-grp"><span>'+E(g[0])+'</span>'+g[1].map(function(k){ return '<button class="'+(c===k?'on':'')+'" onclick="ikeHubSet(\'hot\',\'cat\',\''+k+'\')">'+E(HOT.label[k])+'</button>'; }).join('')+'</div>'; }).join('')+'</div>';
+    if(!HOTG[S.grp]) S.grp='scoring';
+    var g=HOTG[S.grp], T=teams();
+    var st=g.stats.filter(function(k){return k[0]===S.stat;})[0]||g.stats.filter(function(k){return k[0]===g.def;})[0];
+    var segs='<div class="hb-chips">'+HOTG_ORDER.map(function(k){ return '<button class="'+(S.grp===k?'on':'')+'" onclick="ikeHubSet(\'hot\',\'grp\',\''+k+'\')">'+E(HOTG[k].label)+'</button>'; }).join('')+'</div>';
     var ctl='<div class="hb-ctl"><label>Position<select onchange="ikeHubSet(\'hot\',\'pos\',this.value)">'+[['All','All players'],['F','All forwards'],['C','Centers'],['LW','Left wing'],['RW','Right wing'],['D','Defense']].map(function(p){return '<option value="'+p[0]+'"'+(S.pos===p[0]?' selected':'')+'>'+p[1]+'</option>';}).join('')+'</select></label>'+
       '<label>Team<select onchange="ikeHubSet(\'hot\',\'team\',this.value)"><option value="">All teams</option>'+T.map(function(t){return '<option'+(t===S.team?' selected':'')+'>'+E(t)+'</option>';}).join('')+'</select></label>'+
-      '<label>Sort by<select onchange="ikeHubSet(\'hot\',\'sort\',this.value)">'+[['hot','Hottest (last 10)'],['up','Trending up ▲'],['down','Cooling off ▼']].map(function(o){return '<option value="'+o[0]+'"'+(S.sort===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select></label>'+
+      '<label>Show<select onchange="ikeHubSet(\'hot\',\'sort\',this.value)">'+[['hot','Hottest (last 10)'],['up','Trending up ▲'],['down','Cooling off ▼']].map(function(o){return '<option value="'+o[0]+'"'+(S.sort===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select></label>'+
       '<button class="hb-btn'+(S.team===MY()?' g':'')+'" onclick="ikeHubSet(\'hot\',\'team\','+E(J(S.team===MY()?'':MY()))+')">'+(S.team===MY()?'All teams':E(MY())+' only')+'</button></div>';
-    var minGp=(c==='int'||c==='cmp')?3:5;
-    var list=R.filter(function(r){ if(!posOk(r.pos,S.pos)) return false; if(S.team&&K(r.team)!==K(S.team)) return false; var L=hotVal(r,c,'l'); return L.gp>=minGp; });
-    list.forEach(function(r){ var L=hotVal(r,c,'l'), Sv=hotVal(r,c,'s'); r.__L=L; r.__S=Sv; r.__d=L.pg-Sv.pg; r.__r=Sv.pg?L.pg/Sv.pg:(L.pg?2:1); });
+    function gpOf(r,pbp,win){ return win==='l'?(pbp?r.l.pg:r.l.gp):(pbp?r.s.pg:r.s.gp); }
+    var list=R.filter(function(r){ if(!posOk(r.pos,S.pos)) return false; if(S.team&&K(r.team)!==K(S.team)) return false; return gpOf(r,st[4],'l')>=(st[4]?3:5); });
+    list.forEach(function(r){ var lg=gpOf(r,st[4],'l'), sg=gpOf(r,st[4],'s'), lv=st[2](r.l), sv=st[2](r.s);
+      r.__v=lv; r.__lpg=st[3]?(lg?lv/lg:0):lv; r.__spg=st[3]?(sg?sv/sg:0):sv; r.__d=r.__lpg-r.__spg; });
     var srt=S.sort||'hot';
-    list.sort(function(a,b){ if(srt==='up') return (b.__d-a.__d)||(b.__L.v-a.__L.v); if(srt==='down') return (a.__d-b.__d)||(a.__L.v-b.__L.v); return (b.__L.v-a.__L.v)||(b.__L.pg-a.__L.pg); });
+    list.sort(function(a,b){ if(srt==='up') return (b.__d-a.__d)||(b.__v-a.__v); if(srt==='down') return (a.__d-b.__d)||(a.__v-b.__v); return (b.__v-a.__v)||(b.__lpg-a.__lpg); });
     var shown=list.slice(0,S.all?list.length:60), my=K(MY());
     var tm=(window.IKE_FC&&IKE_FC.treadmill)?'<span class="hb-tread">'+IKE_FC.treadmill('')+'</span>':'';
-    var dec=(c==='cmp'||c==='fo')?1:2;
-    var head='<tr><th class="rk">#</th><th class="pn">Player</th><th>Team</th><th>Pos</th><th class="num">GP</th><th class="num on">'+E(HOT.label[c])+'</th><th class="num">Per game</th><th class="num">Season /GP</th><th class="num">Trend '+tm+'</th><th class="num">P</th><th class="num">+/-</th></tr>';
-    var body=shown.map(function(r,i){ var d=r.__d, up=d>0.0001, dn=d<-0.0001, fire=(srt==='hot'&&i<3)||(srt==='up'&&i<3);
-      var arrow=up?'<b class="hb-up">▲ +'+(d).toFixed(dec)+'</b>':dn?'<b class="hb-dn">▼ '+(d).toFixed(dec)+'</b>':'<b class="hb-fl">→ 0</b>';
+    function th(k,l){ var on=k===st[0]; return '<th class="num'+(on?' on':'')+'" onclick="ikeHubSet(\'hot\',\'stat\',\''+k+'\')">'+E(l)+(on?' ▾':'')+'</th>'; }
+    var pbpAny=g.stats.some(function(k){return k[4];});
+    var dec=st[5]==='p'?1:2;
+    var head='<tr><th class="rk">#</th><th class="pn">Player</th><th>Team</th><th>Pos</th><th class="num">GP</th>'+(pbpAny?'<th class="num">PBP GP</th>':'')+g.stats.map(function(k){return th(k[0],k[1]);}).join('')+
+      '<th class="num">'+E(st[1])+(st[3]?'/GP':'')+'</th><th class="num">Season</th><th class="num">Trend '+tm+'</th></tr>';
+    function f(v,t){ return t==='p'?f1(v)+'%':t==='pm'?((v>0?'+':'')+Math.round(v)):String(Math.round(v)); }
+    var body=shown.map(function(r,i){ var d=r.__d, up=d>0.0001, dn=d<-0.0001, fire=i<5&&srt!=='down';
+      var arrow=up?'<b class="hb-up">▲ +'+d.toFixed(dec)+'</b>':dn?'<b class="hb-dn">▼ '+d.toFixed(dec)+'</b>':'<b class="hb-fl">→ 0</b>';
       return '<tr'+(K(r.team)===my?' class="mine"':'')+'><td class="rk">'+(i+1)+'</td><td class="pn">'+(fire?'🔥 ':'')+typeIcon(r.name)+pLink(r.name,0)+'</td><td class="tm">'+tLink(r.team)+'</td><td class="ps">'+E(r.pos)+'</td>'+
-        '<td class="num gp">'+r.__L.gp+'</td><td class="num on">'+Math.round(r.__L.v)+'</td><td class="num">'+r.__L.pg.toFixed(dec)+'</td><td class="num">'+r.__S.pg.toFixed(dec)+'</td><td class="num">'+arrow+'</td>'+
-        '<td class="num">'+(r.l.pts)+'</td><td class="num">'+(r.l.pm>0?'+':'')+r.l.pm+'</td></tr>'; }).join('');
-    var note=(c==='int'||c==='cmp')?'GP counts his last-10 games that had full play-by-play. ':'';
-    return '<div class="hb-hot-h"><span>Last 10 games against his own season pace</span></div>'+cats+ctl+
-      '<div class="hb-cap"><b>'+E(HOT.label[c])+' · last 10 games</b> · '+list.length+' players</div><div class="hb-tw"><table class="hb-t">'+head+(body||'<tr><td colspan="11" class="hb-empty">No players match.</td></tr>')+'</table></div>'+
+        '<td class="num gp">'+r.l.gp+'</td>'+(pbpAny?'<td class="num gp">'+r.l.pg+'</td>':'')+
+        g.stats.map(function(k){ return '<td class="num'+(k[0]===st[0]?' on':'')+'">'+f(k[2](r.l),k[5])+'</td>'; }).join('')+
+        '<td class="num">'+(st[5]==='p'?f1(r.__lpg)+'%':r.__lpg.toFixed(dec))+'</td><td class="num">'+(st[5]==='p'?f1(r.__spg)+'%':r.__spg.toFixed(dec))+'</td><td class="num">'+arrow+'</td></tr>'; }).join('');
+    return '<div class="hb-hot-h"><span>Last 10 games against his own season pace</span></div>'+segs+ctl+
+      '<div class="hb-cap"><b>'+E(g.label)+' · last 10 games</b> · sorted by '+E(st[1])+' · '+list.length+' players</div><div class="hb-tw"><table class="hb-t">'+head+(body||'<tr><td colspan="20" class="hb-empty">No players match.</td></tr>')+'</table></div>'+
       (list.length>shown.length?'<div class="hb-more"><button class="hb-btn" onclick="ikeHubSet(\'hot\',\'all\',true)">Show all '+list.length+'</button></div>':'')+
-      '<p class="hb-note">'+note+'Last 10 = the games he played in his club’s last 10 game days. Trend = his last-10 per game minus his season per game: ▲ hotter than his season, ▼ cooling off. 🔥 marks the top three. P and +/- are his last-10 totals.</p>';
+      '<p class="hb-note">Tap a column to rank by it; the per game, season and trend columns follow that stat. Last 10 = the games he played in his club’s last 10 game days. Trend = last-10 per game minus season per game: ▲ hotter than his season, ▼ cooling off. 🔥 marks the top five. '+(pbpAny?'Interceptions and passes use PBP GP (games with full play-by-play).':'')+'</p>';
   }
 
   /* ---------- Strategy (P-D-O): every club by unit, or every club on one system ---------- */
@@ -12096,7 +12116,7 @@ try{ikeHydrateImgs();}catch(e){}
     ['teamstats','Team Stats',teamStatsPage],['teams','Teams & Rosters',teamsPage],['help','Help',helpPage]];
   function nav(){
     return '<div class="hb-nav">'+PAGES.map(function(p){ return '<button class="'+(H.page===p[0]?'on':'')+'" onclick="ikeHub(\''+p[0]+'\')">'+E(p[1])+'</button>'; }).join('')+'</div>'+
-      '<div class="hb-ike"><span>Analysis</span>'+[['1','IKE 1','ikeGo(1)'],['2','IKE 2','ikeGo(2)'],['3','IKE 3','ikeMode(\'team\')'],['4','IKE 4','ikeMode(\'player\')'],['5','IKE 5','ikeMode(\'trade\')']].map(function(b){ return '<button onclick="'+b[2]+'">'+b[1]+'</button>'; }).join('')+'</div>';
+      '<div class="hb-ike"><span>Analysis</span>'+[['1','Evaluation','ikeGo(1)'],['2','Scouting','ikeGo(2)'],['3','Season','ikeMode(\'team\')'],['4','Analytics','ikeMode(\'player\')'],['5','Trade','ikeMode(\'trade\')']].map(function(b){ return '<button onclick="'+b[2]+'">'+b[1]+'</button>'; }).join('')+'</div>';
   }
   window.ikeHubRender=function(){
     var root=$('leagueRoot'); if(!root) return;
@@ -12119,6 +12139,8 @@ try{ikeHydrateImgs();}catch(e){}
   window.ikeHubSet=function(grp,k,v){ H[grp][k]=v;
     if(grp==='lb'&&(k==='cat'||k==='grp')) H.lb.sort=null;
     if(grp==='ts'&&k==='tab') H.ts.sort=null;
+    if(grp==='hot'&&k==='grp') H.hot.stat=null;
+    if(grp==='hot'&&k!=='all') H.hot.all=false;
     if(grp==='lb'&&k!=='all'&&k!=='cols') H.lb.all=false;
     save(); window.ikeHubRender(); };
   window.ikeHubSort=function(grp,k){ var S=H[grp]; if(S.sort===k) S.dir=-(S.dir||-1); else { S.sort=k; S.dir=(grp==='gl'&&k==='GAA')?1:-1; } save(); window.ikeHubRender(); };
@@ -12137,7 +12159,12 @@ try{ikeHydrateImgs();}catch(e){}
   }
   /* the league is the front door: the splash opens the hub */
   var _sp=window.ikeSplashEnter;
-  if(typeof _sp==='function') window.ikeSplashEnter=function(){ var r=_sp.apply(this,arguments); setTimeout(function(){ try{ window.ikeHub('overview'); }catch(e){} },160); return r; };
+  if(typeof _sp==='function') window.ikeSplashEnter=function(){ var r=_sp.apply(this,arguments); setTimeout(function(){ try{ ikeMode('home'); window.scrollTo(0,0); }catch(e){} },160); return r; };
+  /* the five module badges carry names instead of numbers */
+  (function(){ var NM={1:'Evaluation',2:'Scouting',3:'Season',4:'Analytics',5:'Trade'};
+    function label(){ Array.prototype.slice.call(document.querySelectorAll('.suite-row .sm')).forEach(function(sm){ var sp=sm.querySelector('span'); if(!sp||sm.querySelector('.sm-nm')) return; var n=parseInt(sp.textContent,10); if(!NM[n]) return;
+      var em=document.createElement('em'); em.className='sm-nm'; em.textContent=NM[n]; sp.style.display='none'; sm.appendChild(em); }); }
+    label(); document.addEventListener('DOMContentLoaded',label); setTimeout(label,500); })();
   /* repaint when the league data arrives or changes */
   document.addEventListener('ike-league-ready',function(){ CACHE.k=null; if(document.body.className==='league') window.ikeHubRender(); });
   var _lp=window.leagueParse;
