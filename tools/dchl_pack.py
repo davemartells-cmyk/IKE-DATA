@@ -119,7 +119,7 @@ if os.path.exists(tp):
     try: TEAMPRO=[r for r in json.load(open(tp,encoding='utf-8')) if r.get('Name')]
     except Exception: TEAMPRO=None
 lead=json.load(open(leadf)) if leadf!='-' and os.path.exists(leadf) else None
-meta={'league':'DCHL','day':idx['lastDaySynced'],'game':idx['lastGameSynced'],'at':idx.get('syncedAt',''),'snapshot':os.path.basename(D),'games':len(files)-1}
+meta={'league':'DCHL','day':idx['lastDaySynced'],'game':idx['lastGameSynced'],'at':idx.get('syncedAt',''),'snapshot':os.path.basename(D),'games':len(files)-1,'rev':__import__('time').strftime('%Y-%m-%dT%H:%M:%SZ',__import__('time').gmtime())}
 pack={'meta':meta,'files':files,'slots':slots,'lead':lead,'stars':{'day':last,'list':stars},'sys':SYSP,'teamx':TEAMX,'teampro':TEAMPRO}
 os.makedirs(out,exist_ok=True)
 open(os.path.join(out,'ike_dchl_pack.json.gz'),'wb').write(gzip.compress(json.dumps(pack,ensure_ascii=False,separators=(',',':')).encode(),9))
