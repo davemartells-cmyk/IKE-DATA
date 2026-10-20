@@ -33,7 +33,13 @@ const { chromium } = require('playwright'); const fs=require('fs'), path=require
    Object.keys(G).forEach(n=>{ const g=G[n].slice().sort((a,b)=>a[0]-b[0]); const last=g[g.length-1]; const c=cut[last[1]];
      const sel=g.filter(x=>x[0]>=c).slice(-10); if(!sel.length) return;
      const sum=H.map((_,i)=>sel.reduce((s,x)=>s+x[3+i],0)); l10.p[n]=[sel.length,sel.reduce((s,x)=>s+x[2],0)].concat(sum); });
-   return {cols:cols,p:o,l10:l10}; },teams);
+   /* cold streaks: games in a row, back from his latest game, without a goal (ng) and without a point (np) */
+   const st={cols:['ng','np'],p:{}};
+   Object.keys(G).forEach(n=>{ const g=G[n].slice().sort((a,b)=>a[0]-b[0]); let ng=0,np=0;
+     for(let i=g.length-1;i>=0&&!(g[i][3]>0);i--) ng++;
+     for(let i=g.length-1;i>=0&&!((g[i][3]+g[i][4]+g[i][5])>0);i--) np++;
+     st.p[n]=[ng,np]; });
+   return {cols:cols,p:o,l10:l10,st:st}; },teams);
  res.game=idx.lastGameSynced; res.day=idx.lastDaySynced;
  fs.writeFileSync(out,JSON.stringify(res)); console.log('players',Object.keys(res.p).length,'clubs',teams.length); await b.close();
 })();

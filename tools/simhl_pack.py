@@ -189,7 +189,7 @@ for g in idx['games']:
         n=mm.group(2).strip(); tm=ro.get(n) or ({0:g['visitor'],1:g['home']}.get(gl.get(n)) if n in gl else '')
         stars.append({'n':{'1':'1st','2':'2nd','3':'3rd'}[mm.group(1)],'p':n,'t':tm or '','g':g['game']})
 lead=json.load(open(leadf)) if leadf!='-' and os.path.exists(leadf) else None
-meta={'league':'SIMHL','day':idx['lastDaySynced'],'game':idx['lastGameSynced'],'at':idx.get('syncedAt',''),'snapshot':os.path.basename(D),'games':len(files)-1}
+meta={'league':'SIMHL','day':idx['lastDaySynced'],'game':idx['lastGameSynced'],'at':idx.get('syncedAt',''),'snapshot':os.path.basename(D),'games':len(files)-1,'rev':__import__('datetime').datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')}
 pack={'meta':meta,'files':files,'slots':{'teamStat':teamstat,'schedule':schedule},
       'simhl':{'simhlSkaters':rd('SIMHL-Players.csv'),'simhlGoalies':rd('SIMHL-Goalies.csv')},'lead':lead,
       'sys':SYSP,'teamx':TEAMX,'teampro':TEAMPRO,'stars':{'day':last,'list':stars}}
