@@ -2401,6 +2401,79 @@ body.league{background:#050605!important}
 /* compare: side by side unless the screen is phone-narrow */
 .pcc-2{grid-template-columns:1fr 1fr!important}@media(max-width:560px){.pcc-2{grid-template-columns:1fr!important}}
 </style>
+<style id="ike-oct20c">/* ===== Oct 20C — one-layer bar, menu, drawer, standings, calendar, census ===== */
+#ike_bar .bd,#ike_bar .ike_m,#ike_bar #ike_imp{display:none!important}
+#ike_bar{display:flex!important;flex-wrap:wrap;align-items:center;gap:8px}
+#ike_bar #ike_barimg{height:40px!important;width:auto!important;margin:0!important;flex:0 0 auto}
+#iknBar{display:flex;align-items:center;gap:8px;flex:1 1 260px;min-width:0}
+#ike_bar #iknMod{flex:0 0 auto!important;padding:10px 12px!important;border-radius:10px!important;border:0!important;background:#d4af37!important;color:#111!important;font:900 14px Inter,Arial,sans-serif!important;cursor:pointer!important;white-space:nowrap!important}
+#ike_bar #iknMod i,#ike_bar #iknSec i{font-style:normal;font-size:11px;margin-left:4px}
+#ike_bar #iknSec{flex:1 1 auto!important;min-width:0!important;display:flex!important;justify-content:space-between!important;align-items:center!important;padding:10px 12px!important;border-radius:10px!important;border:1.5px solid #d4af37!important;background:#0b140d!important;color:#f0d97a!important;font:800 14px Inter,Arial,sans-serif!important;cursor:pointer!important}
+#ike_bar #iknSec span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#ike_bar #iknS{min-width:42px!important;flex:0 0 auto!important;width:42px!important;height:42px!important;border-radius:10px!important;border:1.5px solid #d4af37!important;background:#0b140d!important;font-size:17px!important;cursor:pointer!important}
+html body #ike_bar #ike_right{display:none!important}
+html body.team #ike_bar #ike_right,html body.player #ike_bar #ike_right{display:flex!important;flex:1 1 100%;gap:8px;align-items:center}
+#iknFind{display:none;flex:1 1 100%}#iknFind.on{display:block}#iknFind .ikf,#iknFind>*{width:100%;max-width:none}
+#iknMenu{display:none;position:fixed;z-index:100001;left:8px;right:8px;top:64px;max-width:460px;max-height:calc(100vh - 80px);overflow:auto;background:#0b160e;border:1.5px solid #d4af37;border-radius:14px;padding:6px 0 10px;box-shadow:0 14px 40px rgba(0,0,0,.7)}
+#iknMenu.on{display:block}
+#iknDim{display:none;position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.55)}#iknDim.on{display:block}
+.ikn-mh{padding:8px 16px 6px;font:800 10px Inter,Arial,sans-serif;letter-spacing:.16em;color:#9c9478;text-transform:uppercase}
+.ikn-g{padding:10px 16px 4px;font:900 12px Inter,Arial,sans-serif;letter-spacing:.06em;color:#d4af37;text-transform:uppercase}
+.ikn-i{display:block;width:100%;text-align:left;padding:9px 16px 9px 30px;background:none;border:0;color:#efe9d6;font:600 15px Inter,Arial,sans-serif;cursor:pointer}
+.ikn-i:hover{background:#163021}.ikn-i.on{background:#d4af37;color:#111;font-weight:800}
+.ikn-hide,#t3bar,#leagueRoot .hb-nav,#leagueRoot .hb-ike{display:none!important}
+#iknTab{display:none;position:fixed;z-index:100002;right:0;top:42%;writing-mode:vertical-rl;transform:rotate(180deg);background:#c8322a;color:#fff;border:0;border-radius:0 10px 10px 0;padding:14px 7px;font:900 12px Inter,Arial,sans-serif;letter-spacing:.14em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+body.team #iknTab{display:block}
+#iknDrawer{display:none;position:fixed;z-index:100003;top:0;right:0;bottom:0;width:min(330px,88vw);overflow:auto;background:#0d0f0e;border-left:2px solid #c8322a;padding:18px 14px 20px;box-shadow:-10px 0 30px rgba(0,0,0,.6)}
+body.team #iknDrawer.on{display:block}
+#iknDrawer .ikn-dw>*{display:block!important;position:static!important;margin:0!important;width:auto!important}
+#iknDrawer .ivb-g{margin-bottom:12px}
+.ikn-done{display:block;width:100%;margin-top:16px;padding:12px;border:0;border-radius:10px;background:#c8322a;color:#fff;font:900 14px Inter,Arial,sans-serif;letter-spacing:.08em;cursor:pointer}
+/* standings */
+.stx-seg,.cal-seg{display:flex;border:1.5px solid #d4af37;border-radius:10px;overflow:hidden;margin:0 0 12px;max-width:520px}
+.stx-seg button,.cal-seg button{flex:1;padding:9px 0;background:none;border:0;color:#efe9d6;font:800 14px Inter,Arial,sans-serif;cursor:pointer}
+.stx-seg button.on,.cal-seg button.on{background:#d4af37;color:#111}
+.stx-h{margin:14px 0 6px;font:800 17px Georgia,serif;color:#f0d97a}
+table.stx{border-collapse:collapse;width:100%;font:13px Inter,Arial,sans-serif;min-width:560px}
+table.stx th{background:#14301f;color:#f0d97a;font:800 11px Inter,Arial,sans-serif;padding:7px 5px;text-align:right;white-space:nowrap;cursor:pointer;user-select:none}
+table.stx th i{font-style:normal;opacity:.55;margin-left:2px;font-size:10px}table.stx th.on i{opacity:1}
+table.stx th.tm,table.stx td.tm{text-align:left}table.stx th.po,table.stx td.po{text-align:right;width:28px;cursor:default}
+table.stx td{padding:7px 5px;text-align:right;border-bottom:1px solid #1d2c22;white-space:nowrap;color:#e9e4d3}
+table.stx tr:nth-child(even) td{background:#0b130e}table.stx td.on{color:#f0d97a;font-weight:800}table.stx td.b{font-weight:800}
+table.stx td.tm a{font-weight:800;text-decoration:none}table.stx .stx-lg{vertical-align:-3px;margin-right:6px}
+table.stx tr.mine td{background:#173622!important}table.stx tr.mine td.tm a{text-decoration:underline}
+table.stx tr.cut td{border-bottom:2px dashed #d4af37}
+.stx-leg{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 0 4px;font:800 12px Inter,Arial,sans-serif}
+/* calendar */
+.cal-mh{display:flex;align-items:center;justify-content:space-between;max-width:620px;margin:0 0 8px}
+.cal-mh b{font:800 17px Inter,Arial,sans-serif;color:#f0d97a}.cal-mh button{background:none;border:0;color:#d4af37;font:900 26px Arial;padding:0 12px;cursor:pointer}.cal-mh button:disabled{opacity:.25}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;max-width:620px}
+.cal .c{position:relative;min-height:76px;border-radius:8px;background:#0d0f0e;border:1px solid #1f2922;padding:3px 2px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;overflow:hidden}
+.cal .c .d{align-self:flex-start;font:700 10px Inter,Arial,sans-serif;color:#7d7a6c;padding-left:2px}
+.cal .c img{max-width:34px;object-fit:contain}
+.cal .c.h{background:#3a3010;border-color:#7a6420}.cal .c.r{background:#0f2f1c;border-color:#2b6b43}.cal .c.x{opacity:.35}
+.cal .c.p{cursor:pointer}.cal .c.p:hover{outline:2px solid #d4af37}
+.cal .c.now{outline:2px solid #f0d97a}
+.cal .vs{font:700 10px Inter,Arial,sans-serif;color:#d8d2bd;white-space:nowrap}
+.cal .res{font:900 10px Inter,Arial,sans-serif;white-space:nowrap;letter-spacing:-.02em}.cal .res.w{color:#5fe08a}.cal .res.l{color:#ff7b6b}.cal .res.o{color:#f0c35a}.cal .res.f{color:#8d8a7c}
+.cal-leg{display:flex;gap:14px;margin:10px 0 0;font:600 12px Inter,Arial,sans-serif;color:#cfc7a8}.cal-leg i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:5px;background:#0d0f0e;border:1px solid #1f2922}.cal-leg i.h{background:#3a3010;border-color:#7a6420}.cal-leg i.r{background:#0f2f1c;border-color:#2b6b43}
+@media (min-width:700px){ .cal .c{min-height:92px} .cal .c img{max-width:44px} .cal .vs,.cal .res{font-size:12px} }
+/* census */
+#ikeCensus{display:none}body.census #ikeCensus{display:block}
+.cn-wrap{max-width:720px;margin:0 auto;padding:14px 14px 40px;color:#e9e4d3;font-family:Inter,Arial,sans-serif}
+.cn-h{margin:4px 0 2px;font:900 24px Georgia,serif;color:#f0d97a}.cn-sub{font-size:12px;color:#9c9478;margin-bottom:12px}
+.cn-pick{display:flex;align-items:center;gap:10px;border:1.5px solid #d4af37;border-radius:10px;padding:6px 10px;margin-bottom:12px}
+.cn-pick img{height:26px}.cn-pick select{flex:1;background:none;border:0;color:#f0d97a;font:800 16px Inter,Arial,sans-serif}
+.cn-pick select option{background:#0b140d;color:#efe9d6}
+.cn-lab{margin:16px 0 6px;font:900 12px Inter,Arial,sans-serif;letter-spacing:.16em;color:#d4af37}
+table.cn-t{width:100%;border-collapse:collapse;font-size:14px}table.cn-t th{background:#14301f;color:#f0d97a;font:800 11px Inter,Arial,sans-serif;text-align:left;padding:7px 6px}
+table.cn-t td{padding:7px 6px;border-bottom:1px solid #1d2c22}table.cn-t .n{text-align:center;width:44px}
+table.cn-t b.ok{color:#5fe08a}table.cn-t b.ov{color:#ff7b6b}table.cn-t .op{color:#9c9478}
+table.cn-a td.ic{width:30px;font-size:18px}table.cn-a td.an{font-weight:800;white-space:nowrap}table.cn-a td.n{color:#5fe08a;font-weight:900}
+table.cn-a td.who a{color:#d8d2bd;text-decoration:none}table.cn-a td.who a:hover{color:#f0d97a}
+table.cn-a tr.none td.n,table.cn-a tr.none td.who{color:#7d7a6c;font-weight:600}
+.cn-gl{font-size:14px;color:#d8d2bd}.cn-note{font-size:12px;color:#9c9478;margin-top:14px}
+</style>
 </head>
 
 <body class="team">
@@ -11794,7 +11867,7 @@ try{ikeHydrateImgs();}catch(e){}
   var H={page:'overview', st:'div',
     lb:{grp:'sk',cat:'scoring',zone:'DZ',pos:'All',team:'',mingp:3,minpbp:3,mindraw:20,sort:null,dir:-1,hide:{},all:false,cols:false},
     gl:{team:'',mingp:2,sort:'PCT',dir:-1},
-    sch:{team:'',view:'results'}, ts:{sort:null,dir:-1,win:'season',tab:'record',per:'goals'}, tm:{team:'',sys:'season',div:'',sec:'schedule'},
+    sch:{team:'',view:'results'}, ts:{sort:null,dir:-1,win:'season',tab:'record',per:'goals'}, tm:{team:'',sys:'season',div:'',sec:'schedule'}, cal:{team:'',ven:'all'},
     hot:{cat:'pts',pos:'All',team:'',sort:'hot',all:false}, sf:'st', ss:{sort:null,dir:-1}, lv:'season', cold:{sort:'ng'}, sg:{view:'team',unit:'EVF',win:'season',code:'0-1-4'}};
   try{ var sv=JSON.parse(localStorage.getItem('ike_simhl_hub_v1')||'null'); if(sv){ Object.keys(sv).forEach(function(k){ if(typeof H[k]==='object'&&typeof sv[k]==='object') Object.assign(H[k],sv[k]); else if(k in H) H[k]=sv[k]; }); } }catch(e){}
   H.lb.all=false; H.lb.cols=false; H.hot.all=false;
@@ -12362,9 +12435,7 @@ try{ikeHydrateImgs();}catch(e){}
         return '<div class="tp4-g"><div class="tp4-gh">'+lbl+' · DAY '+g.day+(g.played?' · '+(g.so?'SO':g.ot?'OT':'FINAL'):'')+'</div>'+rr(g.v,g.vs,g.played&&g.vs>g.hs)+rr(g.h,g.hs,g.played&&g.hs>g.vs)+'</div>'; };
       body=gm('PREVIOUS GAME',P[P.length-1])+gm('NEXT GAME',U[0])+
         '<div class="tp4-gh" style="margin-top:12px">LAST 10 GAMES · '+L10.rec+'</div><div class="tp4-l10">'+L10.sq.map(function(x){ return '<i class="'+(x[0]==='W'?'W':x==='L'?'L':'O')+'">'+x+'</i>'; }).join('')+'</div>'+
-        '<h3 class="hb-h3">Results</h3>'+P.slice().reverse().map(function(g){ var us=g.v===team?g.vs:g.hs, th=g.v===team?g.hs:g.vs, opp=g.v===team?g.h:g.v, res=us>th?'W':(g.ot||g.so)?(g.so?'SOL':'OTL'):'L';
-          return '<div class="hb-g"><span class="no">Day '+g.day+'</span><span class="t">'+(g.v===team?'@ ':'vs ')+tLink(opp)+'</span><b class="'+(res==='W'?'hb-up':res==='L'?'hb-dn':'')+'">'+res+' '+us+'-'+th+(g.so?' SO':g.ot?' OT':'')+'</b></div>'; }).join('')+
-        '<h3 class="hb-h3">Upcoming</h3>'+U.slice(0,20).map(function(g){ var opp=g.v===team?g.h:g.v; return '<div class="hb-g"><span class="no">Day '+g.day+'</span><span class="t">'+(g.v===team?'@ ':'vs ')+tLink(opp)+'</span></div>'; }).join('');
+        calHTML(team,false);
     } else if(sec==='standings'){
       var my=K(team);
       body='<div class="hb-box"><h4>'+E(div)+' Division</h4><div class="hb-tw"><table class="hb-t"><tr><th class="rk">#</th><th class="pn">Team</th><th class="num">GP</th><th class="num">W</th><th class="num">OTW</th><th class="num">SOW</th><th class="num">L</th><th class="num">OTL</th><th class="num">SOL</th><th class="num on">PTS</th><th class="num">P%</th><th class="num">GF</th><th class="num">GA</th><th class="num">DIFF</th><th class="num">L10</th><th class="num">Streak</th></tr>'+
@@ -12389,8 +12460,100 @@ try{ikeHydrateImgs();}catch(e){}
     return head+'<div class="tp4-body">'+body+'</div>';
   }
 
+  /* ===== Oct 20C — Standings the league-site way (names coloured by playoff pace), Schedule as a calendar ===== */
+  var PO_SPOTS=8;
+  var TIER={gold:['#E8B923','Best pace in division'],green:['#2ED06A','Playoff pace'],silver:['#D5DCE6','Playoff bubble'],orange:['#FF8A2A','Just off the pace'],red:['#FF5252','Off the playoff pace']};
+  function tierMap(){
+    var T=(window.LP&&LP.teamStat&&LP.teamStat.teams)||[], confs=(typeof CONFERENCES!=='undefined')?CONFERENCES:{'League':Object.keys(DIVISIONS)}, out={};
+    var pace=function(t){ return t.all&&t.all.gp?t.all.pts/t.all.gp:0; };
+    Object.keys(confs).forEach(function(c){
+      var L=T.filter(function(t){ return confs[c].indexOf(DIV_OF[K(t.name)])>=0; }).sort(function(a,b){ return (pace(b)-pace(a))||(b.all.pts-a.all.pts); });
+      var lead={}; L.forEach(function(t){ var d=DIV_OF[K(t.name)]; if(d&&!lead[d]) lead[d]=t.name; });
+      L.forEach(function(t,i){ var r=i+1; out[t.name]=lead[DIV_OF[K(t.name)]]===t.name?'gold':r<=PO_SPOTS-3?'green':r<=PO_SPOTS?'silver':r<=PO_SPOTS+2?'orange':'red'; });
+    });
+    return out;
+  }
+  function logoImg(nm,h){ var a=(window.TC_AB||{})[nm], l=a&&window.IKE_FC_LG&&IKE_FC_LG[a]; return l?'<img class="stx-lg" style="height:'+(h||16)+'px" src="data:image/svg+xml;base64,'+l+'" alt="">':''; }
+  function standingsPage3(){
+    var T=window.LP&&LP.teamStat; if(!T||!T.teams||!T.teams.length) return '<div class="hb-empty">The league Team Stat file has not loaded yet.</div>';
+    var st=H.st||'conf'; if(['conf','div','lg'].indexOf(st)<0) st='conf';
+    var seg='<div class="stx-seg">'+[['conf','Conference'],['div','Division'],['lg','Overall']].map(function(s){ return '<button class="'+(st===s[0]?'on':'')+'" onclick="ikeHub(\'standings\',null,\''+s[0]+'\')">'+s[1]+'</button>'; }).join('')+'</div>';
+    var TM=tierMap(), my=K(MY()), S=H.ss||{sort:null,dir:-1};
+    var C=[['gp','GP',function(a){return a.gp;}],['w','W',function(a){return a.w+a.otw+a.sow;}],['l','L',function(a){return a.l;}],['otl','OTL',function(a){return a.otl+a.sol;}],
+      ['pts','P',function(a){return a.pts;}],['pct','PCT',function(a){return a.gp?a.pts/(2*a.gp):0;}],['rw','RW',function(a){return a.w;}],['row','ROW',function(a){return a.w+a.otw;}],['gf','GF',function(a){return a.gf;}],['ga','GA',function(a){return a.ga;}]];
+    var groups=st==='lg'?[{title:'Overall',list:T.teams}]:groupsFor(st==='div'?'div':'conf').map(function(g){ return {title:g.title,list:g.list}; });
+    var html='';
+    groups.forEach(function(g){
+      var L=standSort(g.list,'all'), rank={}; L.forEach(function(t,i){ rank[t.name]=i+1; });
+      var col=S.sort?C.filter(function(c){return c[0]===S.sort;})[0]:null;
+      if(col) L=L.slice().sort(function(a,b){ return S.dir*(col[2](a.all)-col[2](b.all)) || (rank[a.name]-rank[b.name]); });
+      var cut=(st==='conf'&&!col)?PO_SPOTS:0;
+      html+='<h3 class="stx-h">'+E(g.title)+'</h3><div class="hb-tw"><table class="stx"><tr><th class="po">PO</th><th class="tm">Team</th>'+
+        C.map(function(c){ var on=S.sort===c[0]; return '<th class="'+(on?'on':'')+'" onclick="ikeHubSort(\'ss\',\''+c[0]+'\')">'+c[1]+'<i>'+(on?(S.dir<0?'▾':'▴'):'⬍')+'</i></th>'; }).join('')+'</tr>'+
+        L.map(function(t,i){ var a=t.all, tc=TIER[TM[t.name]||'silver'][0], mine=K(t.name)===my;
+          return '<tr class="'+(mine?'mine':'')+(cut&&i===cut-1?' cut':'')+'"><td class="po">'+rank[t.name]+'</td><td class="tm">'+logoImg(t.name,15)+'<a href="javascript:void(0)" style="color:'+tc+'" onclick="ikeHub(\'teams\','+E(J(t.name))+')">'+E(t.name)+'</a></td>'+
+            C.map(function(c){ var v=c[2](a); return '<td class="'+(S.sort===c[0]?'on':'')+(c[0]==='pts'?' b':'')+'">'+(c[0]==='pct'?v.toFixed(3):v)+'</td>'; }).join('')+'</tr>'; }).join('')+'</table></div>';
+    });
+    var leg='<div class="stx-leg">'+Object.keys(TIER).map(function(k){ return '<span style="color:'+TIER[k][0]+'">'+TIER[k][1]+'</span>'; }).join('')+'</div>'+
+      '<p class="hb-note">Team names are coloured by each club’s 82-game points pace, so games in hand count; top '+PO_SPOTS+' on pace in each conference are in a playoff spot. W counts every win (overtime and shootout too), OTL every overtime and shootout loss; RW = regulation wins, ROW = regulation + overtime wins. Tap a column to sort, tap a team for its full page.</p>';
+    return seg+html+leg;
+  }
+
+  /* ---------- the calendar ---------- */
+  var CAL_SPAN=35;
+  function calState(){ H.cal=H.cal||{}; var T=teams(); if(!H.cal.team||T.indexOf(H.cal.team)<0) H.cal.team=(T.indexOf(MY())>=0?MY():T[0]); if(!H.cal.ven) H.cal.ven='all'; return H.cal; }
+  function leagueToday(G){ var u=G.filter(function(g){return !g.played;}); return u.length?Math.min.apply(null,u.map(function(g){return g.day;})):(G.length?Math.max.apply(null,G.map(function(g){return g.day;})):1); }
+  function calHTML(team,inPage){
+    var S=calState(), G=schedule(); if(!G.length) return '<div class="hb-empty">The league Schedule file has not loaded yet.</div>';
+    var maxD=Math.max.apply(null,G.map(function(g){return g.day;})), today=leagueToday(G);
+    var key=inPage?'start':'tstart'; if(!S[key]||S[key+'For']!==team) { S[key]=Math.floor((today-1)/CAL_SPAN)*CAL_SPAN+1; S[key+'For']=team; }
+    var lo=S[key], hi=Math.min(lo+CAL_SPAN-1,maxD), by={}; G.forEach(function(g){ if(g.v===team||g.h===team) by[g.day]=g; });
+    var ven=S.ven||'all';
+    var out='<div class="cal-seg">'+[['all','All'],['home','Home'],['road','Road']].map(function(x){ return '<button class="'+(ven===x[0]?'on':'')+'" onclick="ikeHubSet(\'cal\',\'ven\',\''+x[0]+'\')">'+x[1]+'</button>'; }).join('')+'</div>'+
+      '<div class="cal-mh"><button '+(lo<=1?'disabled':'')+' onclick="ikeCalPage('+(inPage?1:0)+',-1)">‹</button><b>Days '+lo+' – '+hi+'</b><button '+(hi>=maxD?'disabled':'')+' onclick="ikeCalPage('+(inPage?1:0)+',1)">›</button></div><div class="cal">';
+    for(var d=lo;d<=hi;d++){
+      var g=by[d], cls='c', inner='<span class="d">'+d+'</span>', click='';
+      if(g){ var home=g.h===team, opp=home?g.v:g.h;
+        if(ven==='all'||(ven==='home'&&home)||(ven==='road'&&!home)){
+          cls+=home?' h':' r'; inner+=logoImg(opp,22)+'<span class="vs">'+(home?'vs ':'@ ')+E((window.TC_AB||{})[opp]||opp)+'</span>';
+          if(g.played){ var us=home?g.hs:g.vs, th=home?g.vs:g.hs, tag=g.so?'SO':g.ot?'OT':'';
+            inner+=us>th?'<span class="res w">'+(tag?tag+'W':'W')+' '+us+'-'+th+'</span>':'<span class="res '+(tag?'o':'l')+'">'+(tag?tag+'L':'L')+' '+us+'-'+th+'</span>';
+            click=' onclick="ikeCalGo('+E(J(team))+','+g.game+')" role="button"'; cls+=' p'; }
+          else inner+='<span class="res f">—</span>';
+        } else cls+=' x';
+      }
+      if(d===today) cls+=' now';
+      out+='<div class="'+cls+'"'+click+'>'+inner+'</div>';
+    }
+    out+='</div><div class="cal-leg"><span><i class="h"></i>Home</span><span><i class="r"></i>Road</span><span><i></i>No game</span></div>'+
+      '<p class="hb-note">One square per league day, seven to a row. Tap a played game for its box score. Day '+today+' is outlined.</p><div id="calMsg" class="hb-note"></div>';
+    return out;
+  }
+  window.ikeCalPage=function(inPage,dir){ var S=calState(), k=inPage?'start':'tstart'; S[k]=Math.max(1,(S[k]||1)+dir*CAL_SPAN); save(); window.ikeHubRender(); };
+  function calendarPage(){
+    var S=calState(), T=teams();
+    var ctl='<div class="hb-ctl"><label>Team<select onchange="ikeHubSet(\'cal\',\'team\',this.value)">'+T.map(function(t){return '<option'+(t===S.team?' selected':'')+'>'+E(t)+'</option>';}).join('')+'</select></label></div>';
+    return ctl+calHTML(S.team,true);
+  }
+  /* a played square opens that game's breakdown (IKE 3 Game Log), loading the club first if it is not on screen */
+  window.ikeCalGo=async function(team,gameNo){
+    var msg=function(t){ var m=document.getElementById('calMsg'); if(m) m.textContent=t; };
+    try{
+      var G=schedule(), g=G.filter(function(x){return x.game===gameNo;})[0]; if(!g) return;
+      var same=G.filter(function(x){ return x.played&&x.v===g.v&&x.h===g.h; }).sort(function(a,b){return a.day-b.day;}), k=same.indexOf(g);
+      if(!window.TEAM||TEAM.nick!==team){ msg('Loading the '+team+' games…'); if(window.ikeFolderTeam) await ikeFolderTeam(team); }
+      var title=g.v+' vs '+g.h, t=function(r){ return Date.parse(String(r.created||'').replace(/ at /,' '))||0; };
+      var recs=(window.DB||[]).filter(function(r){ return r.title===title; }).sort(function(a,b){ return t(a)-t(b); }), r=recs[k]||recs[recs.length-1];
+      if(!r){ msg('That game’s sheet is not saved for the '+team+'.'); return; }
+      ikeMode('team');
+      var bt=document.getElementById('breakTitle'), pane=bt&&bt.closest&&bt.closest('.tpane');
+      if(pane){ var b=document.querySelector('#t3bar button[data-i="'+pane.getAttribute('data-i')+'"]'); if(b) b.click(); }
+      setTimeout(function(){ try{ openGame(r.id); }catch(e){ console.error(e); } },80);
+    }catch(e){ console.error('cal',e); msg('Could not open that game.'); }
+  };
+
   /* ---------- shell ---------- */
-  var PAGES=[['overview','Overview',overviewPage],['standings','Standings & Team Stats',standingsPage2],['leaders','League Leaders',leadersPage2],['strategy','Strategy (P-D-O)',strategyPage],['schedule','Schedule & Results',schedulePage],
+  var PAGES=[['overview','Overview',overviewPage],['standings','Standings',standingsPage3],['leaders','League Leaders',leadersPage2],['strategy','Strategy (P-D-O)',strategyPage],['schedule','Schedule',calendarPage],
     ['teams','Teams',teamsPage2],['help','Help',helpPage]];
   if(H.page==='hot'){ H.page='leaders'; H.lv='l10'; } if(H.page==='teamstats'){ H.page='standings'; if(!H.sf||H.sf==='st') H.sf='scoring'; }
   function nav(){
@@ -13727,6 +13890,141 @@ window.IKE_TEAM_SYS={"gp":{"Blackhawks":8,"Golden Knights":9,"Panthers":8,"Hurri
   function boot(){ mountSearch(); }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){ setTimeout(boot,0); }); else boot();
   document.addEventListener('ike-league-ready',function(){ mountSearch(); try{ if(window.ikeFrontRender) ikeFrontRender(); }catch(e){} });
+})();
+</script>
+<script type="text/ike-boot">/* ===== OCT 20C — ONE LAYER: the IKE mode button and one section drop-down; Roster Census (IKE 2); game filters in a side drawer ===== */
+(function(){
+  function $(id){ return document.getElementById(id); }
+  function E(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  var LEAGUE_NAME=(document.title.indexOf('Empire')>=0||/SIMHL/.test(document.body.innerHTML.slice(0,20000)))?'SIMHL':'DCHL';
+  function teamTab(i){ ikeMode('team'); var b=document.querySelector('#t3bar button[data-i="'+i+'"]'); if(b) b.click(); window.scrollTo(0,0); }
+  function k12Tab(mod,t){ ikeGo(mod); if(window.k12&&t!=null) k12.showTab(t); window.scrollTo(0,0); }
+  var MENU=[
+    {k:0,label:'Home',items:[['Home',function(){ ikeMode('home'); }]]},
+    {k:1,label:'IKE 1 · Evaluation',items:[['Finder',function(){ k12Tab(1,1); }],['Fundamental Six',function(){ k12Tab(1,2); }],
+      ['League Files',function(){ k12Tab(1,1); setTimeout(function(){ var f=$('ike1Files'); if(f) f.scrollIntoView({block:'start'}); },60); }],
+      ['Import Season',function(){ var i=document.querySelector('#ike_imp input[type=file]'); if(i) i.click(); }]]},
+    {k:2,label:'IKE 2 · Scouting',items:[['Player Card',function(){ k12Tab(2,3); }],['Line Fit',function(){ k12Tab(2,5); }],['Roster Census',function(){ census(); }],['Scouting Report',function(){ k12Tab(2,6); }]]},
+    {k:3,label:'IKE 3 · Season',items:[['Overview',function(){ ikeHub('overview'); }],['Standings',function(){ ikeHub('standings'); }],['Leaders',function(){ ikeHub('leaders'); }],
+      ['Schedule',function(){ ikeHub('schedule'); }],['Strategy (P-D-O)',function(){ ikeHub('strategy'); }],['Teams',function(){ ikeHub('teams'); }],
+      ['Team Overview',function(){ teamTab('1'); }],['Team P-D-O',function(){ teamTab('5'); }],['Game Log',function(){ teamTab('6'); }],['Report',function(){ ikeMode('report'); }],['Help',function(){ ikeHub('help'); }]]},
+    {k:4,label:'IKE 4 · Analytics',items:[['Player Card',function(){ ikeMode('player'); }],['Intake & Summary',function(){ teamTab('0'); }],['Possession & Shooting',function(){ teamTab('2'); }],
+      ['Deployment',function(){ teamTab('3'); }],['Special Teams',function(){ teamTab('4'); }]]},
+    {k:5,label:'IKE 5 · Trade',items:[['Trade Analyzer',function(){ ikeMode('trade'); }]]}
+  ];
+  /* where am I — read off the screen itself, so every route in (badges, links, hand-offs) keeps the bar right */
+  var TEAM_TABS={'0':[4,'Intake & Summary'],'1':[3,'Team Overview'],'2':[4,'Possession & Shooting'],'3':[4,'Deployment'],'4':[4,'Special Teams'],'5':[3,'Team P-D-O'],'6':[3,'Game Log'],'L':[3,'Team Overview']};
+  var HUB={'Overview':'Overview','Standings':'Standings','League Leaders':'Leaders','Strategy (P-D-O)':'Strategy (P-D-O)','Schedule':'Schedule','Teams':'Teams','Help':'Help'};
+  function where(){
+    var m=document.body.className.split(' ')[0];
+    if(m==='home') return [0,'Home'];
+    if(m==='league'){ var b=document.querySelector('#leagueRoot .hb-nav button.on'); return [3,b?(HUB[b.textContent]||b.textContent):'Overview']; }
+    if(m==='team'){ var t=document.querySelector('#t3bar button.on'); return TEAM_TABS[t?t.getAttribute('data-i'):'1']||[3,'Team Overview']; }
+    if(m==='player') return [4,'Player Card'];
+    if(m==='trade') return [5,'Trade Analyzer'];
+    if(m==='report') return [3,'Report'];
+    if(m==='census') return [2,'Roster Census'];
+    if(m==='scout'){ var a=document.querySelector('.tabs .tb.act'), tx=a?a.textContent.replace(/^\d/,'').trim():'';
+      if(/Finder/.test(tx)) return [1,'Finder']; if(/Fundamental/.test(tx)) return [1,'Fundamental Six']; if(/Line Fit/.test(tx)) return [2,'Line Fit'];
+      if(/Scouting Report/.test(tx)) return [2,'Scouting Report']; if(/Player Card/.test(tx)) return [2,'Player Card']; return [window.k12Mod===2?2:1,window.k12Mod===2?'Player Card':'Finder']; }
+    return [0,'Home'];
+  }
+  var open=null;
+  function paintBar(){
+    var w=where(), mod=MENU.filter(function(x){return x.k===w[0];})[0];
+    var mb=$('iknMod'), sb=$('iknSec'); if(!mb) return;
+    mb.innerHTML=(w[0]?'IKE '+w[0]:'IKE')+' <i>▾</i>'; sb.innerHTML='<span>'+E(w[1])+'</span><i>▾</i>';
+  }
+  function paintMenu(which){
+    var w=where(), M=$('iknMenu'); if(!M) return;
+    var list=which==='sec'?MENU.filter(function(x){return x.k===w[0];}):MENU;
+    M.innerHTML='<div class="ikn-mh">I.K.E · '+LEAGUE_NAME+' · '+E((document.getElementById('ike_build')||{}).textContent||'')+'</div>'+
+      list.map(function(g){ return '<div class="ikn-g'+(g.k===w[0]?' cur':'')+'">'+E(g.label)+'</div>'+g.items.map(function(it,i){
+        var on=g.k===w[0]&&it[0]===w[1]; return '<button type="button" class="ikn-i'+(on?' on':'')+'" data-g="'+g.k+'" data-i="'+i+'">'+E(it[0])+'</button>'; }).join(''); }).join('');
+    M.scrollTop=0; var cur=M.querySelector('.ikn-i.on'); if(cur&&which!=='sec') M.scrollTop=Math.max(0,cur.offsetTop-120);
+  }
+  function toggle(which){ var M=$('iknMenu'); if(open===which){ close(); return; } open=which; paintMenu(which); M.classList.add('on'); $('iknDim').classList.add('on'); var s=$('iknFind'); if(s) s.classList.remove('on'); }
+  function close(){ open=null; var M=$('iknMenu'); if(M) M.classList.remove('on'); var d=$('iknDim'); if(d) d.classList.remove('on'); }
+  function mount(){
+    var bar=$('ike_bar'); if(!bar||$('iknBar')) return;
+    var nb=document.createElement('div'); nb.id='iknBar';
+    nb.innerHTML='<button type="button" id="iknMod"></button><button type="button" id="iknSec"></button><button type="button" id="iknS" aria-label="Search any player">🔍</button>';
+    var img=$('ike_barimg'); bar.insertBefore(nb,img?img.nextSibling:bar.firstChild);
+    var M=document.createElement('div'); M.id='iknMenu'; document.body.appendChild(M);
+    var D=document.createElement('div'); D.id='iknDim'; document.body.appendChild(D);
+    var F=document.createElement('div'); F.id='iknFind'; bar.appendChild(F);
+    $('iknMod').onclick=function(){ toggle('mod'); }; $('iknSec').onclick=function(){ toggle('sec'); };
+    $('iknS').onclick=function(){ close(); var f=$('iknFind'); f.classList.toggle('on'); var i=f.querySelector('input'); if(i&&f.classList.contains('on')) setTimeout(function(){ i.focus(); },30); };
+    D.onclick=close;
+    M.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('.ikn-i'); if(!b) return; var g=MENU.filter(function(x){return x.k===+b.dataset.g;})[0], it=g&&g.items[+b.dataset.i];
+      close(); if(it){ try{ it[1](); }catch(err){ console.error('nav',err); } } setTimeout(paintBar,60); setTimeout(paintBar,400); });
+    /* the IKE 1-2 tab row and the League Hub's own button rows are replaced by the menu */
+    Array.prototype.forEach.call(document.querySelectorAll('.tabs'),function(t){ if(t.querySelector('[onclick*="k12.showTab"]')) t.classList.add('ikn-hide'); });
+  }
+  function adopt(){
+    /* the player search lives behind the 🔍 button */
+    var f=$('ikeFind'), box=$('iknFind'); if(f&&box&&f.parentNode!==box) box.appendChild(f);
+    /* the game filters (Games · Venue · Strength) live in a drawer behind the FILTER tab */
+    var vb=$('ikeViewBar'), dr=$('iknDrawer'); if(vb&&dr&&vb.parentNode!==dr.querySelector('.ikn-dw')) dr.querySelector('.ikn-dw').appendChild(vb);
+  }
+  function drawer(){
+    if($('iknDrawer')) return;
+    var dr=document.createElement('div'); dr.id='iknDrawer'; dr.innerHTML='<div class="ikn-dw"></div><button type="button" class="ikn-done">DONE</button>'; document.body.appendChild(dr);
+    var tab=document.createElement('button'); tab.id='iknTab'; tab.type='button'; tab.textContent='FILTER'; document.body.appendChild(tab);
+    tab.onclick=function(){ dr.classList.toggle('on'); tab.classList.toggle('on',dr.classList.contains('on')); };
+    dr.querySelector('.ikn-done').onclick=function(){ dr.classList.remove('on'); tab.classList.remove('on'); };
+  }
+
+  /* ---------- Roster Census (IKE 2) ---------- */
+  var CN={team:''};
+  try{ CN.team=localStorage.getItem('ike_census_team')||''; }catch(e){}
+  var F_ORDER=['Magician','Sniper','Playmaker','Scorpion','Hammer','PowerMaker','Moose','200-Foot Center','Power Forward','Shutdown Center','Two-Way Forward','Defensive Forward','Energy Forward','Grinder','Checker','PK Specialist'];
+  var D_ORDER=['Defensive Anchor','Iron D','Blue Chip D','Mobile D','Second Pairing D','Shutdown D','Stay-at-Home D','Rugged D','Physical Anchor','Defensive Specialist','Enforcer D'];
+  function archOf(){ var m={}; (window.IKE_R||[]).forEach(function(r){ m[r[0]]=r; }); return m; }
+  function dname(a){ return a==='Two-Way D'?'Second Pairing D':a; }
+  function census(){
+    ikeMode('census'); document.body.style.backgroundColor='#070a07'; window.scrollTo(0,0);
+    var root=$('ikeCensus'); if(!root){ root=document.createElement('div'); root.id='ikeCensus'; var lr=$('leagueRoot'); (lr&&lr.parentNode||document.body).insertBefore(root,lr?lr.nextSibling:null); }
+    var DIR=(window.ikeDirectory?ikeDirectory():[]), R=archOf();
+    var pro={}; ((window.LP&&LP.teamStat&&LP.teamStat.teams)||[]).forEach(function(t){ pro[t.name]=1; });
+    var teams=Object.keys(pro).sort(); var my=(window.TEAM&&TEAM.nick)||teams[0]; if(!CN.team||!pro[CN.team]) CN.team=pro[my]?my:teams[0];
+    var team=CN.team, sk=DIR.filter(function(x){ return !x.g&&x.t===team; }), gl=DIR.filter(function(x){ return x.g&&x.t===team; });
+    var F=[],D=[],C=0,W=0;
+    sk.forEach(function(x){ var r=R[x.n], pos=(r&&r[17])||x.p||'', isD=r?r[2]==='D':/D/.test(pos);
+      var o={n:x.n,last:x.n.split(' ').slice(-1)[0],icon:r?r[18]:'',arch:r?dname(r[24]):'—'};
+      if(isD) D.push(o); else { F.push(o); if(/(^|\/)C(\/|$)/.test(pos)) C++; else W++; } });
+    /* every type the league has, forwards and defence, in the legend's order */
+    var allF={}, allD={}; (window.IKE_R||[]).forEach(function(r){ var a=dname(r[24]); if(!a) return; var M=r[2]==='D'?allD:allF; if(!M[a]) M[a]=r[18]; });
+    function order(all,pref){ var k=Object.keys(all); return pref.filter(function(a){return all[a]!==undefined;}).concat(k.filter(function(a){return pref.indexOf(a)<0;}).sort()); }
+    function rows(list,all,pref){ return order(all,pref).map(function(a){ var who=list.filter(function(o){return o.arch===a;});
+      return '<tr class="'+(who.length?'':'none')+'"><td class="ic">'+(all[a]||'')+'</td><td class="an">'+E(a)+'</td><td class="n">'+who.length+'</td><td class="who">'+(who.length?who.map(function(o){ return '<a href="javascript:void(0)" data-n="'+E(o.n)+'" onclick="if(window.ikeOpenAny) ikeOpenAny(this.dataset.n,\'player\')">'+E(o.last)+'</a>'; }).join(', '):'none')+'</td></tr>'; }).join(''); }
+    function bal(lab,sub,h,mx){ var d=h-mx, st=d===0?'<b class="ok">✔</b>':d>0?'<b class="ov">'+d+' over</b>':'<span class="op">'+(-d)+' open</span>';
+      return '<tr><td><b>'+lab+'</b></td><td>'+sub+'</td><td class="n">'+h+'</td><td class="n">'+mx+'</td><td>'+st+'</td></tr>'; }
+    var lg=(window.TC_AB||{})[team], lgs=lg&&window.IKE_FC_LG&&IKE_FC_LG[lg];
+    root.innerHTML='<div class="cn-wrap"><h2 class="cn-h">Roster Census</h2><div class="cn-sub">What the club has by position and by player type · 20-man roster: 12 F, 6 D, 2 G</div>'+
+      '<label class="cn-pick">'+(lgs?'<img src="data:image/svg+xml;base64,'+lgs+'" alt="">':'')+'<select onchange="ikeCensusTeam(this.value)">'+teams.map(function(t){ return '<option'+(t===team?' selected':'')+'>'+E(t)+'</option>'; }).join('')+'</select></label>'+
+      '<div class="cn-lab">POSITION BALANCE</div><table class="cn-t"><tr><th>Pos</th><th></th><th class="n">Have</th><th class="n">Max</th><th></th></tr>'+
+      bal('F','Forwards ('+C+' C · '+W+' W)',F.length,12)+bal('D','Defence',D.length,6)+bal('G','Goalies',gl.length,2)+bal('','Roster',F.length+D.length+gl.length,20)+'</table>'+
+      '<div class="cn-lab">FORWARD TYPES</div><table class="cn-t cn-a">'+rows(F,allF,F_ORDER)+'</table>'+
+      '<div class="cn-lab">DEFENCE TYPES</div><table class="cn-t cn-a">'+rows(D,allD,D_ORDER)+'</table>'+
+      '<div class="cn-lab">GOALIES</div><div class="cn-gl">'+(gl.map(function(g){ return E(g.n); }).join(' · ')||'none')+'</div>'+
+      '<p class="cn-note">Types come from the IKE classification; a Two-Way D is listed as Second Pairing D. Tap a name for his card.</p></div>';
+    paintBar();
+  }
+  window.ikeCensusTeam=function(t){ CN.team=t; try{ localStorage.setItem('ike_census_team',t); }catch(e){} census(); };
+  window.ikeCensus=census;
+
+  /* keep the bar honest whatever moved the screen */
+  function wrap(name){ var f=window[name]; if(typeof f!=='function'||f.__ikn) return; var g=function(){ var r=f.apply(this,arguments); try{ after(); }catch(e){} return r; }; g.__ikn=1; window[name]=g; }
+  function after(){
+    adopt(); paintBar();
+    /* the Team module opens on its Overview — its old League tab is gone (League sits in IKE 3) */
+    if(document.body.className.split(' ')[0]==='team'){ var on=document.querySelector('#t3bar button.on'); if(on&&on.getAttribute('data-i')==='L'){ var b=document.querySelector('#t3bar button[data-i="1"]'); if(b) b.click(); } }
+  }
+  function init(){ mount(); drawer(); wrap('ikeMode'); wrap('ikeHub'); wrap('ikeGo'); after();
+    document.addEventListener('click',function(){ setTimeout(after,90); },true);
+    setInterval(adopt,1500); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
 </script>
 <script>/* ===== I.K.E APP BOOT — runs the tool's scripts once saved data is loaded =====
