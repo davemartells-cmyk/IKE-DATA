@@ -2531,6 +2531,15 @@ table.cn-a tr.none td.n,table.cn-a tr.none td.who{color:#7d7a6c;font-weight:600}
 .ic-body.icp-on>.icp{display:none}.ic-body.icp-on>.icp.on{display:block;cursor:pointer}
 .icp-f{display:flex;justify-content:flex-end;gap:10px;font:800 11px Inter,Arial,sans-serif;letter-spacing:.1em;color:#d4af37;margin:0 0 6px}.icp-f span{color:#9c9478}
 img.ike-puck{height:1.15em;width:1.15em;vertical-align:-.2em;display:inline-block}
+/* IKE 1 card: boxes on top, links in the header, no bottom row */
+.i4f-hl{display:flex!important;gap:6px;margin-top:6px;flex-wrap:nowrap}.i4f-hl button{flex:0 0 auto!important;width:auto!important;min-width:0!important;min-height:0!important;height:auto!important;margin:0!important;padding:5px 10px!important;border-radius:8px!important;border:1.5px solid #d4af37!important;background:#0b0d0b!important;color:#f0d97a!important;font:800 11px Inter,Arial,sans-serif!important;letter-spacing:.05em!important;line-height:1.2!important;cursor:pointer;white-space:nowrap}
+.i4f-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0}
+.i4f-tabs button{padding:8px 4px;border-radius:9px;border:1.5px solid #d4af37;background:#0b0d0b;color:#efe9d6;cursor:pointer;text-align:center;line-height:1.15}
+.i4f-tabs button b{display:block;font:900 12.5px Inter,Arial,sans-serif}.i4f-tabs button small{display:block;font:700 9px Inter,Arial,sans-serif;color:#b9b2a0;margin-top:2px}
+.i4f-tabs button.on{background:linear-gradient(#e8c75a,#c99a24);color:#111}.i4f-tabs button.on small{color:#3a2c08}
+.i4f-dots,.i4f-ft{display:none!important}
+/* IKE 4 Profile: the Fundamental Six as the same six tiles as the IKE 1 card */
+.f6p.f6x{padding:12px!important}.f6p.f6x .i4f-tiles{margin-top:8px}
 </style>
 </head>
 
@@ -5628,7 +5637,7 @@ function leagueLoad(){
     Object.keys(c.slots).forEach(function(sl){seed[sl]=c.slots[sl];try{window.IKE_SEED[sl]=c.slots[sl];}catch(e){}});});
   SLOTS.forEach(function(s){
     var sm=(window.IKE_SEED_META||{})[s.k]||{name:"Sep 10 export set",at:"2026-09-10"};
-    if(saved[s.k]&&saved[s.k].text&&(!seed[s.k]||String(saved[s.k].at||"")>=sm.at))LEAGUE[s.k]=saved[s.k];
+    if(saved[s.k]&&saved[s.k].text&&(!seed[s.k]||(String(saved[s.k].at||"")>=sm.at&&String(saved[s.k].at||"")>"2026-10-21")))LEAGUE[s.k]=saved[s.k];
     else if(seed[s.k])LEAGUE[s.k]={name:sm.name,at:sm.at,text:seed[s.k],seed:true};
   });
   leagueParse();
@@ -10090,9 +10099,12 @@ function i4fGP(name){ try{ var L=window.LEAGUE&&LEAGUE.playerStat&&LEAGUE.player
 function i4fJersey(p){ var ab=FC_ABBR[p.team]; var src=(ab&&typeof FC_JER2!=='undefined'&&FC_JER2[ab])||null; return src; }
 function i4fTile(name,art,v,ten){ var col=lc(v); return '<div class="i4f-tile"><div class="i4f-np">'+name+'</div><div class="i4f-art">'+art+'</div><div class="i4f-v" style="color:'+col+'">'+(ten?pc10(v):(+v).toFixed(1))+'</div><div class="i4f-bar"><i style="width:'+Math.min(+v||0,100)+'%;background:'+col+'"></i></div></div>'; }
 function i4fHead(p,gp){ var img=(window.IKE_IMG&&IKE_IMG['298b829c'])||''; var nm=splitName(p.name);
-  return '<div class="i4f-head"><img class="i4f-crest" src="'+img+'" alt=""><div class="i4f-hn"><div class="i4f-n1">'+esc(nm[0]).toUpperCase()+' <span>'+esc(nm[1]).toUpperCase()+'</span></div><div class="i4f-n2">'+esc(FC_FULL[p.team]||p.team).toUpperCase()+' · '+esc(p.positions||p.pos||'')+' · GP '+esc(gp)+'</div>'+mods(p)+'</div></div>'; }
-function i4fFoot(k){ return '<div class="i4f-dots">'+I4F_FACES.map(function(f,i){ return '<button type="button" class="'+(i===k?'on':'')+'" title="'+f+'" onclick="i4fGo(this,'+i+')"></button>'; }).join('')+'<span>'+I4F_FACES[k]+' · '+(k+1)+'/4</span></div>'+
+  return '<div class="i4f-head"><img class="i4f-crest" src="'+img+'" alt=""><div class="i4f-hn"><div class="i4f-n1">'+esc(nm[0]).toUpperCase()+' <span>'+esc(nm[1]).toUpperCase()+'</span></div><div class="i4f-n2">'+esc(FC_FULL[p.team]||p.team).toUpperCase()+' · '+esc(p.positions||p.pos||'')+' · GP '+esc(gp)+'</div>'+mods(p)+'<div class="i4f-hl"><button type="button" onclick="i4fScout(this)">IKE 2 SCOUTING</button><button type="button" onclick="i4fSeason(this)">IKE 4 SEASON</button></div></div></div>'; }
+function i4fFoot(k){ return ''; }
+function i4fFootOld(k){ return '<div class="i4f-dots">'+I4F_FACES.map(function(f,i){ return '<button type="button" class="'+(i===k?'on':'')+'" title="'+f+'" onclick="i4fGo(this,'+i+')"></button>'; }).join('')+'<span>'+I4F_FACES[k]+' · '+(k+1)+'/4</span></div>'+
   '<div class="i4f-ft"><button type="button" class="i4f-b" onclick="i4fGo(this,\'next\')">FLIP ↻</button><button type="button" class="i4f-b" onclick="i4fScout(this)">IKE 2 SCOUTING →</button><button type="button" class="i4f-b g" onclick="i4fSeason(this)">IKE 4 SEASON →</button></div>'; }
+var I4F_BOX=[['Player','Card · Jersey · Six'],['Locker Room','Locker Room · SIM Zones'],['Player Info','Info · 17 Aptitudes'],['GM & Trust','GM Aptitude · Trust']];
+function i4fTabs(k){ return '<div class="i4f-tabs">'+I4F_BOX.map(function(b,i){ return '<button type="button" class="'+(i===k?'on':'')+'" onclick="i4fGo(this,'+i+')"><b>'+b[0]+'</b><small>'+b[1]+'</small></button>'; }).join('')+'</div>'; }
 function i4fFaces(p,d){
   var id=fcId(p.name), num=id&&id[1]?id[1]:'', gp=i4fGP(p.name), head=i4fHead(p,gp), gv=+p.rtg;
   var boxes='<div class="i4f-boxes"><div class="i4f-bx" style="border-color:'+lc(d.f6ov*10)+'"><span>FUNDAMENTAL SIX</span><b style="color:'+lc(d.f6ov*10)+'">'+d.f6ov.toFixed(1)+'</b></div>'+
@@ -10104,25 +10116,28 @@ function i4fFaces(p,d){
   var arch='<div class="i4f-arch"><div class="i4f-ai">'+archIco(p)+'</div><div><b>'+esc(p.arch).toUpperCase()+'</b><span>'+esc(p.tier||'').toUpperCase()+'</span></div></div>';
   var F6=[['SKATING','sk','skating'],['SCORING','sc','scoring'],['PASSING','pa','passing'],['PUCK HANDLING','ph','puckhandling'],['CHECKING','ck','checking'],['DEFENSE','df','gate']];
   var f6=F6.map(function(f){ var art=f[2]==='gate'?gate(''):'<img src="'+FC_F6I[f[2]]+'" alt="">'; return i4fTile(f[0],art,p[f[1]],1); }).join('');
-  var face1=head+boxes+'<div class="i4f-g1"><div class="i4f-jcol">'+jer+arch+'</div><div><div class="i4f-sh">FUNDAMENTAL SIX</div><div class="i4f-tiles n3">'+f6+'</div></div></div>';
+  var face1=head+i4fTabs(0)+boxes+'<div class="i4f-g1"><div class="i4f-jcol">'+jer+arch+'</div><div><div class="i4f-sh">FUNDAMENTAL SIX</div><div class="i4f-tiles n3">'+f6+'</div></div></div>';
   var lock=d.lr.map(function(c,i){ return i4fTile(String(c[0]).replace(/<br\s*\/?>/gi,' ').toUpperCase(),'<img class="cv" src="'+FC_IMG['l'+i]+'" alt="">',c[1],1); }).join('');
   var Z=[['defensive-zone','DEFENSIVE ZONE'],['neutral-zone','NEUTRAL ZONE'],['forechecking','FORECHECKING'],['creativity','CREATIVITY'],['intangibles','INTANGIBLES']];
   var zones=Z.map(function(q){ return i4fTile(q[1],'<img src="'+FC_ZI[q[0]]+'" alt="">',d.z[q[0]]||0,0); }).join('');
   var dnaT='<div class="i4f-tile i4f-dna"><div class="i4f-np">DNA</div><div class="i4f-art"><span class="i4f-dnai">'+archIco(p)+'</span></div><div class="i4f-dnan">'+esc(p.arch).toUpperCase()+'</div><div class="i4f-dnat">'+esc(p.tier||'').toUpperCase()+'</div></div>';
-  var face2=head+'<div class="i4f-g2"><div><div class="i4f-sh">LOCKER ROOM</div><div class="i4f-tiles n2">'+lock+'</div></div><div><div class="i4f-sh">SIM ZONES</div><div class="i4f-tiles n3">'+zones+dnaT+'</div></div></div>';
+  var face2=head+i4fTabs(1)+'<div class="i4f-g2"><div><div class="i4f-sh">LOCKER ROOM</div><div class="i4f-tiles n2">'+lock+'</div></div><div><div class="i4f-sh">SIM ZONES</div><div class="i4f-tiles n3">'+zones+dnaT+'</div></div></div>';
   var I=d.info,R=d.ros, cell=function(a,b){ return '<div class="i4f-c"><span>'+a+'</span><b>'+esc(b==null||b===''?'—':b)+'</b></div>'; };
   var info=cell('Position',p.positions)+cell('Age',p.age)+cell('Birthday',I['Birthday'])+cell('Country',I['Country']||R['Country'])+cell('Height',p.height)+cell('Weight',p.weight)+cell('Condition',R['CON']||R['Condition'])+cell('Suspension',R['SUS']||R['Suspension']||I['Suspension'])+cell('Salary',salF(p.salary))+cell('Contract',I['Contract']||R['Contract']);
   var apt=PC_APT.map(function(k){ var v=d.A[k]; return '<div class="i4f-a"><span>'+k+'</span><b style="color:'+(v==null?'#888':lc(v))+'">'+(v==null?'—':v)+'</b><em>'+(d.rk[k]?'#'+d.rk[k]:'')+'</em></div>'; }).join('')+'<div class="i4f-a rtg"><span>RTG</span><b style="color:'+lc(p.rtg)+'">'+(+p.rtg).toFixed(1)+'</b><em>'+d.g+'</em></div>';
-  var face3=head+'<div class="i4f-circs"><div class="i4f-circ">'+logo(p.team)+'</div><div class="i4f-circ">'+photo(id)+'</div></div><div class="i4f-sh">PLAYER</div><div class="i4f-info">'+info+'</div><div class="i4f-sh">17 APTITUDES · LEAGUE RANK</div><div class="i4f-apt">'+apt+'</div>';
+  var face3=head+i4fTabs(2)+'<div class="i4f-circs"><div class="i4f-circ">'+logo(p.team)+'</div><div class="i4f-circ">'+photo(id)+'</div></div><div class="i4f-sh">PLAYER</div><div class="i4f-info">'+info+'</div><div class="i4f-sh">17 APTITUDES · LEAGUE RANK</div><div class="i4f-apt">'+apt+'</div>';
   var gm=d.gm.map(function(b,i){ var c=GMC[i]; return '<div class="i4f-gmg"><div class="i4f-gmh" style="background:'+c+'">'+esc(b[0]).toUpperCase()+'</div>'+b[1].map(function(a){ return '<div class="i4f-gmr"><span>'+esc(a[0])+'</span><b style="color:'+lcL(a[1])+'">'+a[1]+'</b><i><em style="width:'+Math.min(a[2],100)+'%;background:'+c+'"></em></i></div>'; }).join('')+'</div>'; }).join('');
   var dna='<div class="i4f-arch"><div class="i4f-ai">'+(p.icon||'')+'</div><div><b>'+esc(p.arch).toUpperCase()+'</b><span>'+esc(p.tier||'').toUpperCase()+' · DNA</span></div></div>';
   var KEY=[['A+','96–99','Generational'],['A','93–95','Franchise'],['A-','90–92','Elite Performer'],['B+','87–89','Starter'],['B','83–86','Two-Way Contributor'],['B-','80–82','Solid Contributor'],['C+','77–79','Roster Depth'],['C','73–76','Fringe Roster'],['C-','70–72','Replacement Level'],['D+','67–69','Developmental'],['D','63–66','Long-Term Project'],['D-','60–62','Organizational Depth'],['F','below 60','Below Roster Level']];
   var key='<div class="i4f-key">'+KEY.map(function(x){ return '<span><i style="background:'+lcL(x[0])+'"></i><b>'+x[0]+'</b><em>'+x[1]+'</em>'+x[2]+'</span>'; }).join('')+'</div>';
   var lad=PC_LADDER.slice().reverse(), on=PC_LADDER.length-1-d.ti, onC=LADC[on];
   var ct='<div class="i4f-ctw"><div class="i4f-sh">COACH\'S TRUST</div><div class="i4f-trust"><div class="i4f-lad">'+lad.map(function(l,i){ return '<i class="'+(i<=on?'lit':'')+(i===on?' on':'')+'" style="background:'+LADC[i]+'" title="'+esc(l[1])+'"></i>'; }).join('')+'</div><b style="color:'+onC+'">'+esc(PC_LADDER[d.ti][1])+'</b><p>“'+PC_LADDER[d.ti][2]+'”</p></div></div>';
-  var face4=head+'<div class="i4f-g2"><div><div class="i4f-sh">GM APTITUDE</div><div class="i4f-gm">'+gm+'</div></div><div>'+dna+'<div class="i4f-sh">GRADE KEY</div>'+key+'</div></div>'+ct;
+  var face4=head+i4fTabs(3)+'<div class="i4f-g2"><div><div class="i4f-sh">GM APTITUDE</div><div class="i4f-gm">'+gm+'</div></div><div>'+dna+'<div class="i4f-sh">GRADE KEY</div>'+key+'</div></div>'+ct;
   return [face1,face2,face3,face4];
 }
+/* the Fundamental Six tiles, for any card that shows them (IKE 4 Profile uses the same six tiles as IKE 1) */
+window.i4fF6Html=function(p){ var F6=[['SKATING','sk','skating'],['SCORING','sc','scoring'],['PASSING','pa','passing'],['PUCK HANDLING','ph','puckhandling'],['CHECKING','ck','checking'],['DEFENSE','df','gate']];
+  return '<div class="i4f-tiles n3">'+F6.map(function(f){ var art=f[2]==='gate'?gate(''):'<img src="'+FC_F6I[f[2]]+'" alt="">'; return i4fTile(f[0],art,p[f[1]],1); }).join('')+'</div>'; };
 window.fcRender=function(p,target,startBack){
   var el=document.getElementById(target); if(!el) return;
   var d=data(p), faces=i4fFaces(p,d), k=startBack?2:0;
@@ -14143,6 +14158,8 @@ window.IKE_TEAM_SYS={"gp":{"Flyers":58,"Lightning":54,"Blues":58,"Blackhawks":55
   }
   window.ikeCardPages=function(host,tab){
     var body=host&&host.querySelector('.ic-body'); if(!body||tab==='annual'||tab==='toolbox') return;
+    if(tab==='profile'){ try{ var f=body.querySelector('.f6p'), nm=(host.querySelector('.ic-name')||{}).textContent, sn=nm&&window.i4fPlayer?i4fPlayer(nm):null;
+      if(f&&sn&&window.i4fF6Html){ f.className='f6p f6x'; f.innerHTML='<div class="f6p-h">FUNDAMENTAL SIX</div>'+i4fF6Html(sn.p); } }catch(e){ console.error('f6',e); } }
     var P=pages(body); if(P.length<=1){ P.forEach(function(g){ g.forEach(function(n){ body.appendChild(n); }); }); return; }
     var k=Math.min(PG[tab]||0,P.length-1);
     P.forEach(function(g,i){ var w=document.createElement('div'); w.className='icp'+(i===k?' on':''); w.innerHTML='<div class="icp-f"><span>'+(i+1)+' / '+P.length+'</span>FLIP ↻</div>'; g.forEach(function(n){ w.appendChild(n); }); body.appendChild(w); });
