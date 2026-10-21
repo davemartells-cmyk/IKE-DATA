@@ -2540,6 +2540,7 @@ img.ike-puck{height:1.15em;width:1.15em;vertical-align:-.2em;display:inline-bloc
 .i4f-dots,.i4f-ft{display:none!important}
 /* IKE 4 Profile: the Fundamental Six as the same six tiles as the IKE 1 card */
 .f6p.f6x{padding:12px!important}.f6p.f6x .i4f-tiles{margin-top:8px}
+.i4f-in{padding:4px 2px}.i4f-in .i4f-tiles{margin-top:6px}
 </style>
 </head>
 
@@ -10133,8 +10134,10 @@ function i4fFaces(p,d){
   var lad=PC_LADDER.slice().reverse(), on=PC_LADDER.length-1-d.ti, onC=LADC[on];
   var ct='<div class="i4f-ctw"><div class="i4f-sh">COACH\'S TRUST</div><div class="i4f-trust"><div class="i4f-lad">'+lad.map(function(l,i){ return '<i class="'+(i<=on?'lit':'')+(i===on?' on':'')+'" style="background:'+LADC[i]+'" title="'+esc(l[1])+'"></i>'; }).join('')+'</div><b style="color:'+onC+'">'+esc(PC_LADDER[d.ti][1])+'</b><p>“'+PC_LADDER[d.ti][2]+'”</p></div></div>';
   var face4=head+i4fTabs(3)+'<div class="i4f-g2"><div><div class="i4f-sh">GM APTITUDE</div><div class="i4f-gm">'+gm+'</div></div><div>'+dna+'<div class="i4f-sh">GRADE KEY</div>'+key+'</div></div>'+ct;
+  i4fFaces.parts={lock:'<div class="i4f-sh">LOCKER ROOM</div><div class="i4f-tiles n2">'+lock+'</div>',zones:'<div class="i4f-sh">SIM ZONES</div><div class="i4f-tiles n3">'+zones+dnaT+'</div>',gm:'<div class="i4f-sh">GM APTITUDE</div><div class="i4f-gm">'+gm+'</div>',trust:ct,key:'<div class="i4f-sh">GRADE KEY</div>'+key,dna:dna};
   return [face1,face2,face3,face4];
 }
+window.i4fParts=function(name){ var r=(window.IKE_R||[]).filter(function(x){ return x[0]===name; })[0]; if(!r||!window.i4fPlayer) return null; var sn=i4fPlayer(name); if(!sn) return null; i4fFaces(sn.p,sn.d); return i4fFaces.parts; };
 /* the Fundamental Six tiles, for any card that shows them (IKE 4 Profile uses the same six tiles as IKE 1) */
 window.i4fF6Html=function(p){ var F6=[['SKATING','sk','skating'],['SCORING','sc','scoring'],['PASSING','pa','passing'],['PUCK HANDLING','ph','puckhandling'],['CHECKING','ck','checking'],['DEFENSE','df','gate']];
   return '<div class="i4f-tiles n3">'+F6.map(function(f){ var art=f[2]==='gate'?gate(''):'<img src="'+FC_F6I[f[2]]+'" alt="">'; return i4fTile(f[0],art,p[f[1]],1); }).join('')+'</div>'; };
@@ -11867,7 +11870,12 @@ try{ikeHydrateImgs();}catch(e){}
     var pro={}; try{ (LP.teamStat.teams||[]).forEach(function(t){ pro[t.name]=1; }); }catch(e){}
     if(!Object.keys(pro).length&&window.TC_FULL) Object.keys(TC_FULL).forEach(function(k){ pro[k]=1; });
     var cur={}; rows.slice(1).forEach(function(c){ var t=String(c[iT]||'').trim(); if(pro[t]) cur[K(c[iN])]=t; });
-    var n=0; R.forEach(function(r){ var t=cur[K(r[0])]; if(t&&t!==r[1]){ r[1]=t; n++; } }); return n;
+    var n=0; R.forEach(function(r){ var t=cur[K(r[0])]; if(t&&t!==r[1]){ r[1]=t; n++; } });
+    try{ var RI={CK:5,DI:6,SK:7,ST:8,EN:9,DU:10,PH:11,FO:12,PA:13,SC:14,DF:15,FG:19,PS:20,EX:21,LD:22}, ix={}; Object.keys(RI).forEach(function(k){ ix[k]=h.indexOf(k); });
+      if(LEAGUE.playerRoster&&L===LEAGUE.playerRoster&&ix.SK>=0){ var rat={}; rows.slice(1).forEach(function(c){ var o={}; Object.keys(RI).forEach(function(k){ var v=parseFloat(c[ix[k]]); if(!isNaN(v)) o[k]=v; }); rat[K(c[iN])]=o; });
+        R.forEach(function(r){ var o=rat[K(r[0])]; if(!o) return; var ch=0; Object.keys(RI).forEach(function(k){ if(o[k]!=null&&+r[RI[k]]!==o[k]){ r[RI[k]]=o[k]; ch=1; } });
+          if(ch) r[16]=Math.round((r[7]+r[13]+r[11]+r[14]+r[15]+r[8]+r[5]+r[9]+r[6]+r[10])/10*10)/10; }); } }catch(e){ console.error('ratings',e); }
+    return n;
   };
   var _lp=window.leagueParse;
   if(typeof _lp==='function'){ window.leagueParse=function(){ var o=_lp.apply(this,arguments); try{ window.ikeRefreshBankTeams(); }catch(e){} return o; }; try{ leagueParse=window.leagueParse; }catch(e){} }
@@ -14157,16 +14165,48 @@ window.IKE_TEAM_SYS={"gp":{"Flyers":58,"Lightning":54,"Blues":58,"Blackhawks":55
     flush(); return out;
   }
   window.ikeCardPages=function(host,tab){
+    try{ var nm0=(host.querySelector('.ic-name')||{}).textContent; if(nm0) extra(nm0.trim()); }catch(e){}
     var body=host&&host.querySelector('.ic-body'); if(!body||tab==='annual'||tab==='toolbox') return;
+    var NEWP=null;
     if(tab==='profile'){ try{ var f=body.querySelector('.f6p'), nm=(host.querySelector('.ic-name')||{}).textContent, sn=nm&&window.i4fPlayer?i4fPlayer(nm):null;
-      if(f&&sn&&window.i4fF6Html){ f.className='f6p f6x'; f.innerHTML='<div class="f6p-h">FUNDAMENTAL SIX</div>'+i4fF6Html(sn.p); } }catch(e){ console.error('f6',e); } }
-    var P=pages(body); if(P.length<=1){ P.forEach(function(g){ g.forEach(function(n){ body.appendChild(n); }); }); return; }
+      if(f&&sn&&window.i4fF6Html){ f.className='f6p f6x'; f.innerHTML='<div class="f6p-h">FUNDAMENTAL SIX</div>'+i4fF6Html(sn.p); }
+      /* the same Locker Room, SIM Zones, GM Aptitude and Coach's Trust as the IKE 1 / 2 card */
+      var parts=nm&&window.i4fParts?i4fParts(nm):null;
+      if(parts){ Array.prototype.forEach.call(body.querySelectorAll('.ic-mods'),function(x){ x.remove(); });
+        NEWP=[parts.lock,parts.zones,parts.gm,parts.trust+parts.key]; } }catch(e){ console.error('profile',e); } }
+    var P=pages(body);
+    if(NEWP){ var DROP=/^(SIM Zones|DNA — Locker Room|Coach’s Trust|GM Aptitude Matrix|Strength|Discipline|Durability|Endurance|Professional Traits)$/;
+      P=P.filter(function(g){ var t=null; g.forEach(function(n){ if(t===null){ var h=n.classList&&n.classList.contains('ic-bt')?n:(n.querySelector&&n.querySelector('.ic-bt')); if(h) t=h.textContent.trim(); } }); if(t&&DROP.test(t)){ g.forEach(function(n){ n.remove(); }); return false; } return true; });
+      var made=NEWP.map(function(h){ var d=document.createElement('div'); d.className='i4f-in'; d.innerHTML=h; return [d]; });
+      P=[P[0]].concat(made,P.slice(1)); }
+    if(P.length<=1){ P.forEach(function(g){ g.forEach(function(n){ body.appendChild(n); }); }); return; }
     var k=Math.min(PG[tab]||0,P.length-1);
     P.forEach(function(g,i){ var w=document.createElement('div'); w.className='icp'+(i===k?' on':''); w.innerHTML='<div class="icp-f"><span>'+(i+1)+' / '+P.length+'</span>FLIP ↻</div>'; g.forEach(function(n){ w.appendChild(n); }); body.appendChild(w); });
     body.classList.add('icp-on');
     body.onclick=function(e){ if(e.target.closest('a,button,select,input,label,.pc-scroll,.hb-tw')) return; var all=body.querySelectorAll(':scope > .icp'), i=0; for(var j=0;j<all.length;j++) if(all[j].classList.contains('on')) i=j;
       all[i].classList.remove('on'); i=(i+1)%all.length; all[i].classList.add('on'); PG[tab]=i; };
   };
+
+  /* a traded player's games with his other clubs join the IKE 4 card, once each */
+  var XR={}, XL={};
+  function extra(name){
+    var L=(window.IKE_PBP_LEAD&&IKE_PBP_LEAD.p&&IKE_PBP_LEAD.p[name])||null, ci=window.IKE_PBP_LEAD?IKE_PBP_LEAD.cols.indexOf('cl'):-1; if(!L||ci<0) return;
+    var here=(window.TEAM&&TEAM.nick)||''; String(L[ci]||'').split('|').forEach(function(c){ if(!c||c===here) return; var k=name+'|'+c; if(XR[k]||XL[k]||!window.ikeClubRecords) return; XL[k]=1;
+      ikeClubRecords(c).then(function(recs){ XR[k]=(recs||[]).filter(function(r){ return r.players&&r.players[name]; }); delete XL[k]; try{ if(window.ikeCardRender&&document.body.className.split(' ')[0]==='player') ikeCardRender(); }catch(e){} }).catch(function(e){ delete XL[k]; console.error('extra',e); }); });
+  }
+  window.ikeCardExtra=extra;
+  /* one club load at a time: loading a club and reading another club's games both borrow the on-screen team,
+     so two at once could leave the wrong club on screen */
+  var LOCK=Promise.resolve();
+  function serial(fn,keep){ var g=function(){ var a=arguments, me=this, sel=null;
+      var run=LOCK.then(function(){ var ps=document.getElementById('playerSelect'); sel=ps&&ps.value; return fn.apply(me,a); });
+      if(keep) run=run.then(function(v){ try{ var ps=document.getElementById('playerSelect'); if(ps&&sel&&ps.value!==sel&&Array.prototype.some.call(ps.options,function(o){ return o.value===sel; })) ps.value=sel; }catch(e){} return v; });
+      LOCK=run.catch(function(){}); return run; }; g.__s=1; return g; }
+  (function wrapLoads(n){ var ok=0; ['ikeFolderTeam','ikeClubRecords'].forEach(function(k){ var f=window[k]; if(typeof f==='function'){ if(!f.__s) window[k]=serial(f,k==='ikeClubRecords'); ok++; } }); if(ok<2&&n<120) setTimeout(function(){ wrapLoads(n+1); },500); })(0);
+  (function wrapFG(){ if(typeof window.fgGames!=='function'){ setTimeout(wrapFG,500); return; } if(window.fgGames.__x) return; var o=window.fgGames;
+    var g=function(club){ var r=(o.apply(this,arguments)||[]).slice(), ids={}; r.forEach(function(x){ ids[x.id]=1; }); (window.DB||[]).forEach(function(x){ ids[x.id]=1; });
+      Object.keys(XR).forEach(function(k){ XR[k].forEach(function(x){ if(!ids[x.id]){ ids[x.id]=1; r.push(x); } }); }); return r; };
+    g.__x=1; window.fgGames=g; try{ fgGames=g; }catch(e){} })();
 
   /* Second Pairing D wears the puck-and-sticks icon wherever its sign appears */
   var SIGN='🪧', PUCK='data:image/webp;base64,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';
