@@ -2559,6 +2559,40 @@ table.sf-pt td.pr{color:#f5b342!important;font-weight:700}table.sf-pt td.se{colo
 .sf-lf{padding:8px 10px!important;margin-top:10px!important}.sf-lf .sf-h{letter-spacing:.08em}
 #ike4Split .spl-door[onclick*="'pdo'"]{display:none!important}
 #pt_fit{padding:6px 2px}
+/* Oct 22D — the road menu */
+.ikn-roads{display:flex;flex-wrap:wrap;gap:6px;padding:6px 12px 8px}
+.ikn-r{flex:1 1 30%;padding:8px 4px;border:1.5px solid #7a6320;border-radius:9px;background:#0d130e;color:#cfc6a6;font:900 12px Inter,Arial,sans-serif;cursor:pointer}
+.ikn-r.on{background:linear-gradient(180deg,#ffe775,#bd8b08);color:#111;border-color:#f0cf57}
+.ikn-st{display:flex;gap:8px;align-items:flex-start;padding:6px 12px;border-top:1px solid #23301f}
+.ikn-sk{flex:0 0 70px;font:900 12px Inter,Arial,sans-serif;color:#ffe98a;padding-top:8px}.ikn-sk small{display:block;color:#8fa48f;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.ikn-sv{flex:1;display:flex;flex-wrap:wrap;gap:5px}
+.ikn-sv .ikn-i{display:inline-block;width:auto;padding:7px 10px;border:1px solid #3d5c3d;border-radius:8px;font-size:13.5px}
+.ikn-foot{display:flex;flex-wrap:wrap;gap:5px;padding:8px 12px 2px;border-top:1px solid #4a3f18;margin-top:4px}
+.ikn-f{padding:6px 10px;border:1px solid #555;border-radius:8px;background:none;color:#cfc6a6;font:700 12px Inter,Arial,sans-serif;cursor:pointer}.ikn-f.on{background:#d4af37;color:#111}
+/* System road: links between stages */
+.sys-links{display:flex;gap:5px;margin:8px 0 2px}.sys-links button{flex:1;padding:7px 4px;border:1.5px solid #c9a23a;border-radius:8px;background:#0b0f18;color:#ffe98a;font:800 10.5px Arial;letter-spacing:.04em;cursor:pointer}.sys-links button.on{background:linear-gradient(180deg,#ffe775,#bd8b08);color:#111}
+/* Splits: Home · Road · Total fit the phone */
+@media(max-width:700px){#pt_adv table{width:100%!important;table-layout:fixed;font-size:11px!important}#pt_adv table td,#pt_adv table th{padding:5px 3px!important;white-space:normal!important;word-break:break-word;letter-spacing:0!important}#pt_adv table tr>*:first-child{width:34%}}
+/* Who's Hot */
+#ikeHot{display:none}body.hot #ikeHot{display:block}
+.hot-wrap{max-width:760px;margin:0 auto;padding:14px 12px 40px;color:#e9e4d3;font-family:Inter,Arial,sans-serif}
+.hot-h{margin:4px 0 2px;font:900 22px Georgia,serif;color:#f0d97a}.hot-sub{font-size:12px;color:#9c9478;margin-bottom:8px}
+.hot-tw{overflow-x:auto}.hot-t{width:100%;border-collapse:collapse;font-size:12.5px}.hot-t th{text-align:left;padding:6px 5px;font:800 9.5px Arial;letter-spacing:.08em;color:#e7bd3d;border-bottom:1px solid rgba(201,162,58,.4)}
+.hot-t td{padding:7px 5px;border-bottom:1px solid rgba(255,255,255,.07)}.hot-t .n{text-align:right}.hot-t .b{font-weight:900;color:#ffe98a}.hot-t .code{font-weight:900;color:#ffe98a;white-space:nowrap}
+.hot-t tr.mine td{background:rgba(232,185,35,.12)}.hot-t .up{color:#2ed06a}.hot-t .dn{color:#ff6b6b}.hot-note{font-size:11px;color:#9c9478;margin-top:8px}
+/* wide data tables scroll inside their own box on the phone, the page itself never slides sideways */
+@media(max-width:700px){table.pr-tab,table.dz-t,.hot-t{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}.hot-t{font-size:11.5px}.hot-t td,.hot-t th{padding:6px 4px}}
+body:not(.player) #plrReport,body:not(.player) #ikeGoalie{display:none!important}
+@media(max-width:700px){#plrReport table.pc-tab,#ikeGoalie table.pc-tab{display:block;overflow-x:auto;max-width:100%}}
+/* Legend on the phone: one system per block, every column readable, no sideways cut-off */
+@media(max-width:700px){#pdoRoot table.lg thead{display:none}#pdoRoot .lg-scroll{overflow:visible}#pdoRoot table.lg,#pdoRoot table.lg tbody,#pdoRoot table.lg tr,#pdoRoot table.lg td{display:block;width:auto!important;min-width:0!important}
+#pdoRoot table.lg tr{border:1px solid rgba(201,162,58,.35);border-radius:10px;margin:0 0 8px;padding:6px 8px}#pdoRoot table.lg tr.on{border-color:#f8c000;box-shadow:0 0 0 1px #f8c000}
+#pdoRoot table.lg td{border:0!important;padding:3px 0!important;background:none!important}#pdoRoot table.lg td.lg-id,#pdoRoot table.lg td.lg-n{display:inline-block;vertical-align:middle;margin-right:8px}}
+/* the IKE 4 area only shows on IKE 4 pages */
+body:not(.player) #playerRoot{display:none!important}
+@media screen and (max-width:700px){body.report table{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}}
+img.tsx-poster{max-width:100%;height:auto}
+@media screen and (max-width:700px){body.report .tsx-grid{grid-template-columns:1fr!important}body.report .tsx-grid>*{min-width:0}body.report .tsx-pic{max-width:100%}}
 </style>
 </head>
 
@@ -14041,52 +14075,65 @@ window.IKE_TEAM_SYS={"gp":{"Flyers":58,"Lightning":54,"Blues":58,"Blackhawks":55
   var LEAGUE_NAME=(document.title.indexOf('Empire')>=0||/SIMHL/.test(document.body.innerHTML.slice(0,20000)))?'SIMHL':'DCHL';
   function teamTab(i){ ikeMode('team'); var b=document.querySelector('#t3bar button[data-i="'+i+'"]'); if(b) b.click(); window.scrollTo(0,0); }
   function k12Tab(mod,t){ ikeGo(mod); if(window.k12&&t!=null) k12.showTab(t); window.scrollTo(0,0); }
-  var MENU=[
-    {k:0,label:'Home',items:[['Home',function(){ ikeMode('home'); }]]},
-    {k:1,label:'IKE 1 · Evaluation',items:[['Finder',function(){ k12Tab(1,1); }],['Fundamental Six',function(){ k12Tab(1,2); }],
-      ['League Files',function(){ k12Tab(1,1); setTimeout(function(){ var f=$('ike1Files'); if(f) f.scrollIntoView({block:'start'}); },60); }],
-      ['Import Season',function(){ var i=document.querySelector('#ike_imp input[type=file]'); if(i) i.click(); }]]},
-    {k:2,label:'IKE 2 · Scouting',items:[['Player Card',function(){ k12Tab(2,3); }],['Line Fit',function(){ k12Tab(2,5); }],['Systems (P-D-O)',function(){ if(window.ikeSystems) ikeSystems(); }],['Roster Census',function(){ census(); }],['Scouting Report',function(){ k12Tab(2,6); }]]},
-    {k:3,label:'IKE 3 · Season',items:[['Overview',function(){ ikeHub('overview'); }],['Standings',function(){ ikeHub('standings'); }],['Leaders',function(){ ikeHub('leaders'); }],
-      ['Schedule',function(){ ikeHub('schedule'); }],['Strategy (P-D-O)',function(){ ikeHub('strategy'); }],['Teams',function(){ ikeHub('teams'); }],
-      ['Team Overview',function(){ teamTab('1'); }],['Team P-D-O',function(){ teamTab('5'); }],['Game Log',function(){ teamTab('6'); }],['Report',function(){ ikeMode('report'); }],['Help',function(){ ikeHub('help'); }]]},
-    {k:4,label:'IKE 4 · Analytics',items:[['Player Card',function(){ ikeMode('player'); }],['Intake & Summary',function(){ teamTab('0'); }],['Possession & Shooting',function(){ teamTab('2'); }],
-      ['Deployment',function(){ teamTab('3'); }],['Special Teams',function(){ teamTab('4'); }]]},
-    {k:5,label:'IKE 5 · Trade',items:[['Trade Analyzer',function(){ ikeMode('trade'); }]]}
+  /* Oct 22D — three roads (Player · System · Team) plus Goalies and Who's Hot, each through IKE 1-4 */
+  function hubP(p){ return function(){ ikeHub(p); }; }
+  var ROADS=[
+    {k:'player',label:'Player',steps:[
+      [1,'Pick',[['Finder',function(){ k12Tab(1,1); }],['Fundamental Six',function(){ k12Tab(1,2); }]]],
+      [2,'Scouting',[['Player Card',function(){ k12Tab(2,3); }],['Line Fit',function(){ k12Tab(2,5); }],['Scouting Report',function(){ k12Tab(2,6); }]]],
+      [3,'Season',[['League Leaders',hubP('leaders')]]],
+      [4,'Analytics',[['Player Card',function(){ ikePlayer4(); }]]]]},
+    {k:'system',label:'System',steps:[
+      [1,'Pick',[['The 21 Systems',function(){ ikeSysStage(1); }]]],
+      [2,'Scouting',[['System Card',function(){ ikeSysStage(2); }]]],
+      [3,'Season',[['Systems Season',function(){ ikeSysStage(3); }],['Strategy',hubP('strategy')]]],
+      [4,'Analytics',[['Splits',function(){ ikeSysStage(4,null,'pt_adv'); }],['Lines',function(){ ikeSysStage(4,null,'pt_lines'); }],['Event Log',function(){ ikeSysStage(4,null,'pt_events'); }]]]]},
+    {k:'team',label:'Team',steps:[
+      [1,'Pick',[['Teams',hubP('teams')]]],
+      [2,'Scouting',[['Roster Census',function(){ census(); }]]],
+      [3,'Season',[['Team Overview',function(){ teamTab('1'); }],['Standings',hubP('standings')],['Schedule',hubP('schedule')],['Game Log',function(){ teamTab('6'); }],['Team P-D-O',function(){ teamTab('5'); }],['Report',function(){ ikeMode('report'); }]]],
+      [4,'Analytics',[['Intake & Summary',function(){ teamTab('0'); }],['Possession & Shooting',function(){ teamTab('2'); }],['Deployment',function(){ teamTab('3'); }],['Special Teams',function(){ teamTab('4'); }]]]]},
+    {k:'goalie',label:'Goalies',steps:[[4,'Analytics',[['Goalie Card',function(){ ikeGoalies(); }]]]]},
+    {k:'hot',label:'Who’s Hot',steps:[[4,'Analytics',[['League Overview',hubP('overview')],['Hot Players',function(){ ikeHotPlayers(); }],['Hot Teams',function(){ ikeHot('teams'); }],['Hot Systems',function(){ ikeHot('systems'); }]]]]}
   ];
-  /* where am I — read off the screen itself, so every route in (badges, links, hand-offs) keeps the bar right */
-  var TEAM_TABS={'0':[4,'Intake & Summary'],'1':[3,'Team Overview'],'2':[4,'Possession & Shooting'],'3':[4,'Deployment'],'4':[4,'Special Teams'],'5':[3,'Team P-D-O'],'6':[3,'Game Log'],'L':[3,'Team Overview']};
-  var HUB={'Overview':'Overview','Standings':'Standings','League Leaders':'Leaders','Strategy (P-D-O)':'Strategy (P-D-O)','Schedule':'Schedule','Teams':'Teams','Help':'Help'};
+  var FOOT=[['Home',function(){ ikeMode('home'); }],['IKE 5 · Trade',function(){ ikeMode('trade'); }],
+    ['League Files',function(){ k12Tab(1,1); setTimeout(function(){ var f=$('ike1Files'); if(f) f.scrollIntoView({block:'start'}); },60); }],
+    ['Import Season',function(){ var i=document.querySelector('#ike_imp input[type=file]'); if(i) i.click(); }],['Help',hubP('help')]];
+  /* where am I — [road, stage, page] read off the screen itself, so every route in keeps the bar right */
+  var TEAM_TABS={'0':['team',4,'Intake & Summary'],'1':['team',3,'Team Overview'],'2':['team',4,'Possession & Shooting'],'3':['team',4,'Deployment'],'4':['team',4,'Special Teams'],'5':['team',3,'Team P-D-O'],'6':['team',3,'Game Log'],'L':['team',3,'Team Overview']};
+  var HUB={'Overview':['hot',4,'League Overview'],'Standings':['team',3,'Standings'],'League Leaders':['player',3,'League Leaders'],'Strategy (P-D-O)':['system',3,'Strategy'],'Schedule':['team',3,'Schedule'],'Teams':['team',1,'Teams'],'Help':['foot',0,'Help']};
   function where(){
     var m=document.body.className.split(' ')[0];
-    if(m==='home') return [0,'Home'];
-    if(m==='league'){ var b=document.querySelector('#leagueRoot .hb-nav button.on'); return [3,b?(HUB[b.textContent]||b.textContent):'Overview']; }
-    if(m==='team'){ var t=document.querySelector('#t3bar button.on'); return TEAM_TABS[t?t.getAttribute('data-i'):'1']||[3,'Team Overview']; }
-    if(m==='player') return [4,'Player Card'];
-    if(m==='trade') return [5,'Trade Analyzer'];
-    if(m==='report') return [3,'Report'];
-    if(m==='census') return [2,'Roster Census'];
-    if(m==='systems') return [2,'Systems (P-D-O)'];
+    if(m==='home') return ['foot',0,'Home'];
+    if(m==='league'){ var b=document.querySelector('#leagueRoot .hb-nav button.on'); return (b&&HUB[b.textContent])||['hot',4,'League Overview']; }
+    if(m==='team'){ var t=document.querySelector('#t3bar button.on'); return TEAM_TABS[t?t.getAttribute('data-i'):'1']||['team',3,'Team Overview']; }
+    if(m==='player'){ var gv=$('ikeGoalie'), rp=$('plrReport'); if(gv&&gv.classList.contains('show')) return ['goalie',4,'Goalie Card']; if(rp&&rp.classList.contains('show')) return ['hot',4,'Hot Players']; return ['player',4,'Player Card']; }
+    if(m==='systems'){ var w=window.ikeSysWhere?ikeSysWhere():[1,'The 21 Systems']; return ['system',w[0],w[1]]; }
+    if(m==='hot') return ['hot',4,window.ikeHotWhere?ikeHotWhere():'Hot Teams'];
+    if(m==='trade') return ['foot',5,'Trade Analyzer'];
+    if(m==='report') return ['team',3,'Report'];
+    if(m==='census') return ['team',2,'Roster Census'];
     if(m==='scout'){ var a=document.querySelector('.tabs .tb.act'), tx=a?a.textContent.replace(/^\d/,'').trim():'';
-      if(/Finder/.test(tx)) return [1,'Finder']; if(/Fundamental/.test(tx)) return [1,'Fundamental Six']; if(/Line Fit/.test(tx)) return [2,'Line Fit'];
-      if(/Scouting Report/.test(tx)) return [2,'Scouting Report']; if(/Player Card/.test(tx)) return [2,'Player Card']; return [window.k12Mod===2?2:1,window.k12Mod===2?'Player Card':'Finder']; }
-    return [0,'Home'];
+      if(/Finder/.test(tx)) return ['player',1,'Finder']; if(/Fundamental/.test(tx)) return ['player',1,'Fundamental Six']; if(/Line Fit/.test(tx)) return ['player',2,'Line Fit'];
+      if(/Scouting Report/.test(tx)) return ['player',2,'Scouting Report']; return ['player',2,'Player Card']; }
+    return ['foot',0,'Home'];
   }
-  var open=null;
+  var open=null, VIEW=null;
+  function roadOf(k){ return ROADS.filter(function(r){ return r.k===k; })[0]; }
   function paintBar(){
-    var w=where(), mod=MENU.filter(function(x){return x.k===w[0];})[0];
-    var mb=$('iknMod'), sb=$('iknSec'); if(!mb) return;
-    mb.innerHTML=(w[0]?'IKE '+w[0]:'IKE')+' <i>▾</i>'; sb.innerHTML='<span>'+E(w[1])+'</span><i>▾</i>';
+    var w=where(), r=roadOf(w[0]), mb=$('iknMod'), sb=$('iknSec'); if(!mb) return;
+    mb.innerHTML=(r?E(r.label):(w[1]===5?'IKE 5':'IKE'))+' <i>▾</i>'; sb.innerHTML='<span>'+(w[1]?'IKE '+w[1]+' · ':'')+E(w[2])+'</span><i>▾</i>';
   }
-  function paintMenu(which){
-    var w=where(), M=$('iknMenu'); if(!M) return;
-    var list=which==='sec'?MENU.filter(function(x){return x.k===w[0];}):MENU;
+  window.ikeNavPaint=function(){ try{ paintBar(); }catch(e){} };
+  function paintMenu(){
+    var w=where(), M=$('iknMenu'); if(!M) return; var k=VIEW||(roadOf(w[0])?w[0]:'player'), R=roadOf(k);
     M.innerHTML='<div class="ikn-mh">I.K.E · '+LEAGUE_NAME+' · '+E((document.getElementById('ike_build')||{}).textContent||'')+'</div>'+
-      list.map(function(g){ return '<div class="ikn-g'+(g.k===w[0]?' cur':'')+'">'+E(g.label)+'</div>'+g.items.map(function(it,i){
-        var on=g.k===w[0]&&it[0]===w[1]; return '<button type="button" class="ikn-i'+(on?' on':'')+'" data-g="'+g.k+'" data-i="'+i+'">'+E(it[0])+'</button>'; }).join(''); }).join('');
-    M.scrollTop=0; var cur=M.querySelector('.ikn-i.on'); if(cur&&which!=='sec') M.scrollTop=Math.max(0,cur.offsetTop-120);
+      '<div class="ikn-roads">'+ROADS.map(function(r){ return '<button type="button" class="ikn-r'+(r.k===k?' on':'')+'" data-r="'+r.k+'">'+E(r.label)+'</button>'; }).join('')+'</div>'+
+      R.steps.map(function(st,si){ return '<div class="ikn-st"><div class="ikn-sk">IKE '+st[0]+'<small>'+E(st[1])+'</small></div><div class="ikn-sv">'+st[2].map(function(it,ii){
+        var on=w[0]===k&&w[1]===st[0]&&w[2]===it[0]; return '<button type="button" class="ikn-i'+(on?' on':'')+'" data-k="'+k+'" data-s="'+si+'" data-i="'+ii+'">'+E(it[0])+'</button>'; }).join('')+'</div></div>'; }).join('')+
+      '<div class="ikn-foot">'+FOOT.map(function(f,i){ return '<button type="button" class="ikn-f'+(w[2]===f[0]||(w[1]===5&&i===1)?' on':'')+'" data-f="'+i+'">'+E(f[0])+'</button>'; }).join('')+'</div>';
   }
-  function toggle(which){ var M=$('iknMenu'); if(open===which){ close(); return; } open=which; paintMenu(which); M.classList.add('on'); $('iknDim').classList.add('on'); var s=$('iknFind'); if(s) s.classList.remove('on'); }
+  function toggle(which){ var M=$('iknMenu'); if(open===which){ close(); return; } open=which; VIEW=null; paintMenu(); M.classList.add('on'); $('iknDim').classList.add('on'); var s=$('iknFind'); if(s) s.classList.remove('on'); }
   function close(){ open=null; var M=$('iknMenu'); if(M) M.classList.remove('on'); var d=$('iknDim'); if(d) d.classList.remove('on'); }
   function mount(){
     var bar=$('ike_bar'); if(!bar||$('iknBar')) return;
@@ -14099,8 +14146,11 @@ window.IKE_TEAM_SYS={"gp":{"Flyers":58,"Lightning":54,"Blues":58,"Blackhawks":55
     $('iknMod').onclick=function(){ toggle('mod'); }; $('iknSec').onclick=function(){ toggle('sec'); };
     $('iknS').onclick=function(){ close(); var f=$('iknFind'); f.classList.toggle('on'); var i=f.querySelector('input'); if(i&&f.classList.contains('on')) setTimeout(function(){ i.focus(); },30); };
     D.onclick=close;
-    M.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('.ikn-i'); if(!b) return; var g=MENU.filter(function(x){return x.k===+b.dataset.g;})[0], it=g&&g.items[+b.dataset.i];
-      close(); if(it){ try{ it[1](); }catch(err){ console.error('nav',err); } } setTimeout(paintBar,60); setTimeout(paintBar,400); });
+    M.addEventListener('click',function(e){ var t=e.target.closest&&e.target;
+      var rb=t&&t.closest('.ikn-r'); if(rb){ e.stopPropagation(); VIEW=rb.dataset.r; paintMenu(); return; }
+      var fb=t&&t.closest('.ikn-f'), b=t&&t.closest('.ikn-i'), it=null;
+      if(fb) it=FOOT[+fb.dataset.f]; else if(b){ var R=roadOf(b.dataset.k), st=R&&R.steps[+b.dataset.s]; it=st&&st[2][+b.dataset.i]; }
+      if(!it) return; close(); try{ it[1](); }catch(err){ console.error('nav',err); } setTimeout(paintBar,60); setTimeout(paintBar,400); });
     /* the IKE 1-2 tab row and the League Hub's own button rows are replaced by the menu */
     Array.prototype.forEach.call(document.querySelectorAll('.tabs'),function(t){ if(t.querySelector('[onclick*="k12.showTab"]')) t.classList.add('ikn-hide'); });
   }
@@ -14354,6 +14404,555 @@ window.IKE_SYSFIT={"F": {"0-5-0": [["200-Foot Center", "Defensive Center", "Defe
     var g=function(){ var r=o.apply(this,arguments); try{ addSel(); fitRows(); }catch(e){ console.error('lf sys',e); } return r; }; g.__s=1; k12.lineCheck=g; })(0);
   /* the selector appears as soon as Line Fit draws */
   new MutationObserver(function(){ try{ if($('lb1')&&!$('lbsys')){ addSel(); fitRows(); } }catch(e){} }).observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
+<script type="text/ike-boot">/* ===== PDO rearrange — layout only, no features removed ===== */
+/* ===== I.K.E · P-D-O rearrange only =====
+   Keeps every feature (Front, Back + matrix, Event Log, Legend, Ideal Players,
+   Rebuild, JSON, flip-card grid, Ideal Fit). Only changes layout:
+   - Data controls collapsed behind a toggle
+   - Hub opens as ranked table (flip cards still one tap away)
+   - Phone-friendly pill tabs with short labels; long labels still in title/aria
+   - Compact strip under card header
+   - Mobile accordion for deployment (desktop matrix unchanged)
+*/
+(function () {
+  'use strict';
+  if (window.__PDO_REARR__) return;
+  window.__PDO_REARR__ = 1;
+
+  function $(id) { return document.getElementById(id); }
+  function E(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  /* ---------- CSS (additive only) ---------- */
+  function injectCSS() {
+    if ($('pdo-rearr-css')) return;
+    var s = document.createElement('style');
+    s.id = 'pdo-rearr-css';
+    s.textContent = [
+      '/* rearrange — additive */',
+      '#pdoRoot.pdo-rearr{width:min(760px,calc(100vw - 12px));margin:0 auto}',
+      '.pdo-ctrl.pdo-rearr-ctrl{display:block;padding:8px 10px}',
+      '.pdo-rearr-toggle{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:8px;border:1.5px solid #8e6918;background:#0d130e;color:#e7bd3d;font:800 11px/1 Arial;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;-webkit-tap-highlight-color:transparent}',
+      '.pdo-rearr-toggle[aria-expanded="true"]{background:#e7bd3d;color:#111}',
+      '.pdo-rearr-body{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-top:10px;padding-top:10px;border-top:1px solid rgba(142,105,24,.45)}',
+      '.pdo-rearr-body[hidden]{display:none!important}',
+      '.pdo-hub{margin:0 0 8px}',
+      '.pdo-hub-h{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 10px}',
+      '.pdo-hub-h h2{margin:0;font:900 16px/1.2 Arial;color:#fff;letter-spacing:.04em}',
+      '.pdo-hub-h .sub{font:600 11px/1.3 Arial;color:#9fb3a2;width:100%}',
+      '.pdo-hub-chips{display:flex;gap:6px;flex-wrap:wrap}',
+      '.pdo-hub-chips button{padding:5px 10px;border-radius:999px;border:1px solid #3d5c3d;background:#0b120d;color:#9fb3a2;font:800 10px/1 Arial;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}',
+      '.pdo-hub-chips button.on{background:linear-gradient(180deg,#ffe775,#bd8b08);color:#111;border-color:#f0cf57}',
+      '.pdo-hub-table{width:100%;border-collapse:collapse;font-size:12.5px}',
+      '.pdo-hub-table th{text-align:left;padding:7px 6px;font:800 9.5px/1 Arial;letter-spacing:.1em;text-transform:uppercase;color:#e7bd3d;border-bottom:1px solid rgba(201,162,58,.4);background:#0b120d;position:sticky;top:0;z-index:1}',
+      '.pdo-hub-table th.n,.pdo-hub-table td.n{text-align:right}',
+      '.pdo-hub-table td{padding:9px 6px;border-bottom:1px solid rgba(255,255,255,.06);color:#e8e4d4;vertical-align:middle}',
+      '.pdo-hub-table tr{cursor:pointer}',
+      '.pdo-hub-table tr:active td,.pdo-hub-table tr:hover td{background:rgba(231,189,61,.1)}',
+      '.pdo-hub-table tr.used td:first-child{box-shadow:inset 3px 0 0 #f8c000}',
+      '.pdo-hub-table .code{font-weight:900;color:#ffe98a;letter-spacing:.04em;white-space:nowrap}',
+      '.pdo-hub-table .tac{font-weight:800;color:#fff;display:block;line-height:1.25}',
+      '.pdo-hub-table .dep{font-size:10.5px;color:#9fb3a2}',
+      '.pdo-hub-table .lit{display:inline-block;margin-left:6px;padding:1px 5px;border-radius:4px;background:#f8c000;color:#1a1200;font:900 8px/1.4 Arial;letter-spacing:.08em}',
+      '.pdo-hub-table .mute{color:#6a7a6a}',
+      '.pdo-hub-alt{margin:10px 0 0;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}',
+      '.pdo-hub-alt button{background:none;border:1px solid rgba(201,162,58,.4);border-radius:8px;color:#ffe98a;font:700 11px Arial;padding:7px 12px;cursor:pointer}',
+      '.pdo-strip{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px 4px;border-bottom:1px solid rgba(201,162,58,.25)}',
+      '.pdo-strip span{font-size:11px;border:1px solid #3d4a3d;border-radius:6px;padding:3px 8px;color:#dfe6ee;font-weight:700}',
+      '.pdo-strip span b{color:#ffe98a;font-weight:900}',
+      '.pdo-strip span.h{color:#7fe0a0}.pdo-strip span.r{color:#9ec5ff}',
+      /* pill tabs on narrow screens — labels stay; small subtitle hides on phone */
+      '@media (max-width:700px){',
+      '  #pc_wrap .pc-tabs,#pc_wrap .pdo-tabs{display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0 4px;margin:8px 0 0}',
+      '  #pc_wrap .pc-tabs::-webkit-scrollbar,#pc_wrap .pdo-tabs::-webkit-scrollbar{display:none}',
+      '  #pc_wrap .pdo-tabbtn{flex:0 0 auto;min-width:58px;padding:8px 10px;border-radius:999px;border-bottom:1.5px solid #3d5c3d;font-size:10px;letter-spacing:.06em}',
+      '  #pc_wrap .pdo-tabbtn small{display:none}',
+      '}',
+      /* short labels via data-short when present */
+      '#pc_wrap .pdo-tabbtn[data-short]::before{content:none}',
+      '@media (max-width:700px){',
+      '  #pc_wrap .pdo-tabbtn[data-short]{font-size:0}',
+      '  #pc_wrap .pdo-tabbtn[data-short]::before{content:attr(data-short);font-size:11px;font-weight:900;letter-spacing:.08em}',
+      '}',
+      /* mobile matrix accordion — desktop table stays */
+      '.pdo-mx-mobile{display:none;margin-top:8px}',
+      '@media (max-width:700px){',
+      '  #pdo_matrix table.pdo-mx{display:none}',
+      '  .pdo-mx-mobile{display:block}',
+      '  .pdo-mx-mobile:empty{display:none}',
+      '}',
+      '.mx-unit{border:1px solid rgba(201,162,58,.35);border-radius:10px;margin:0 0 8px;background:linear-gradient(180deg,#0b120d,#060806);overflow:hidden}',
+      '.mx-unit-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;background:rgba(201,162,58,.1);cursor:pointer;font:800 12px/1 Arial;color:#ffe98a;letter-spacing:.08em;text-transform:uppercase}',
+      '.mx-unit-h b{color:#fff;font-size:13px;letter-spacing:0;text-transform:none}',
+      '.mx-unit-h .cnt{color:#9fb3a2;font-weight:700;font-size:11px}',
+      '.mx-unit-b{display:none;padding:4px 8px 8px}',
+      '.mx-unit.open .mx-unit-b{display:block}',
+      '.mx-player{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;color:#e8e4d4}',
+      '.mx-player:last-child{border-bottom:none}',
+      '.mx-player .v{font-weight:900;color:#ffe98a;min-width:1.5em;text-align:right}',
+      '@media (max-width:420px){.pdo-hub-table .dep{display:none}}'
+    ].join('\n');
+    document.head.appendChild(s);
+  }
+
+  /* ---------- collapse controls (keep all fields) ---------- */
+  function collapseControls() {
+    var root = $('pdoRoot');
+    if (!root) return;
+    root.classList.add('pdo-rearr');
+    var ctrl = root.querySelector('.pdo-ctrl');
+    if (!ctrl || ctrl.classList.contains('pdo-rearr-ctrl')) return;
+    ctrl.classList.add('pdo-rearr-ctrl');
+    var kids = Array.prototype.slice.call(ctrl.children);
+    if (!kids.length) return;
+    var body = document.createElement('div');
+    body.className = 'pdo-rearr-body';
+    body.id = 'pdo_rearr_body';
+    body.hidden = true;
+    kids.forEach(function (k) { body.appendChild(k); });
+    var tog = document.createElement('button');
+    tog.type = 'button';
+    tog.className = 'pdo-rearr-toggle';
+    tog.id = 'pdo_rearr_toggle';
+    tog.setAttribute('aria-expanded', 'false');
+    tog.innerHTML = 'Data <span aria-hidden="true">▾</span>';
+    tog.onclick = function () {
+      var open = body.hidden;
+      body.hidden = !open;
+      tog.setAttribute('aria-expanded', open ? 'true' : 'false');
+      tog.innerHTML = open ? 'Data <span aria-hidden="true">▴</span>' : 'Data <span aria-hidden="true">▾</span>';
+    };
+    ctrl.appendChild(tog);
+    ctrl.appendChild(body);
+  }
+
+  /* ---------- card strip + short tab labels (keep all tabs) ---------- */
+  function enhanceCardChrome() {
+    var card = document.querySelector('#pc_wrap .pc-card');
+    if (!card) return;
+    if (!$('pdo_strip')) {
+      var top = card.querySelector('.pc-top');
+      var strip = document.createElement('div');
+      strip.className = 'pdo-strip';
+      strip.id = 'pdo_strip';
+      if (top && top.nextSibling) card.insertBefore(strip, top.nextSibling);
+      else if (top) top.after(strip);
+    }
+    /* short labels for phone — full text remains in the button for desktop */
+    var map = {
+      pt_basic: 'Stats',
+      pt_adv: 'Splits',
+      pt_events: 'Log',
+      pt_legend: 'Legend',
+      pt_fit: 'Fit',
+      pt_lines: 'Lines'
+    };
+    document.querySelectorAll('#pc_wrap .pdo-tabbtn').forEach(function (b) {
+      var pt = b.getAttribute('data-pt');
+      if (pt && map[pt] && !b.getAttribute('data-short')) b.setAttribute('data-short', map[pt]);
+    });
+  }
+
+  /* ---------- mobile matrix host (does not remove desktop table) ---------- */
+  function ensureMobileMatrixHost() {
+    var mx = $('pdo_matrix');
+    if (!mx || $('pdo_matrix_mobile')) return;
+    var mob = document.createElement('div');
+    mob.id = 'pdo_matrix_mobile';
+    mob.className = 'pdo-mx-mobile';
+    mx.parentNode.insertBefore(mob, mx.nextSibling);
+  }
+
+  /* ---------- hub ranked table — original flip grid kept ---------- */
+  var HUB_FILTER = 'all';
+  var HUB_MODE = 'table'; /* table | cards */
+  window.ikePdoHubMode = function (m) { if (m) HUB_MODE = m; return HUB_MODE; };
+
+  function usedMap() {
+    var used = {};
+    try {
+      var DB = (typeof window.DBL === 'function' ? window.DBL() : null) || window.DB || [];
+      DB.forEach(function (r) {
+        var S = r.systems || {};
+        Object.keys(S.lines || {}).forEach(function (k) {
+          used[S.lines[k]] = (used[S.lines[k]] || 0) + 1;
+        });
+        Object.keys(S.pairs || {}).forEach(function (k) {
+          used[S.pairs[k]] = (used[S.pairs[k]] || 0) + 1;
+        });
+      });
+    } catch (e) {}
+    return used;
+  }
+
+  function sysStat(code) {
+    try {
+      if (window.ikeSysAgg) {
+        var R = window.ikeSysAgg(code), T = R.A.TOTAL, H = R.A.HOME, W = R.A.AWAY;
+        if (T && T.gp) return { gp: T.gp, pts: T.pts, h: H.pts, r: W.pts };
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  function hubHTML() {
+    var used = usedMap();
+    var list = (window.SYS21 || []).slice().sort(function (a, b) { return (a.id || 0) - (b.id || 0); });
+    var rows = list.map(function (s) {
+      var u = !!used[s.code];
+      if (HUB_FILTER === 'used' && !u) return '';
+      if (HUB_FILTER === 'unused' && u) return '';
+      var st = sysStat(s.code);
+      var gp = st ? st.gp : (used[s.code] || 0);
+      var pts = st ? st.pts : '—';
+      var hr = st ? ('H ' + st.h + ' · R ' + st.r) : (u ? used[s.code] + ' unit-g' : '—');
+      return '<tr class="' + (u ? 'used' : '') + '" data-code="' + E(s.code) + '" onclick="ikePickSystem(\'' + s.code + '\')">' +
+        '<td class="n">' + s.id + '</td>' +
+        '<td><span class="code">' + E(s.code) + '</span>' + (u ? '<span class="lit">IN USE</span>' : '') + '</td>' +
+        '<td><span class="tac">' + E(s.tac) + '</span>' +
+        (s.dep ? '<span class="dep">' + E(s.dep) + '</span>' : '') + '</td>' +
+        '<td class="n">' + (u || st ? gp : '<span class="mute">—</span>') + '</td>' +
+        '<td class="n">' + (st ? pts : '<span class="mute">—</span>') + '</td>' +
+        '<td class="n"><span class="' + (st ? '' : 'mute') + '">' + hr + '</span></td>' +
+        '</tr>';
+    }).join('');
+    var nUsed = Object.keys(used).length;
+    var team = (window.TEAM && (TEAM.nick || TEAM.name)) || 'Club';
+    return '<div class="pdo-hub">' +
+      '<div class="pdo-hub-h">' +
+        '<h2>Systems (P-D-O)</h2>' +
+        '<div class="pdo-hub-chips">' +
+          '<button type="button" class="' + (HUB_FILTER === 'all' ? 'on' : '') + '" data-f="all">All 21</button>' +
+          '<button type="button" class="' + (HUB_FILTER === 'used' ? 'on' : '') + '" data-f="used">In use (' + nUsed + ')</button>' +
+          '<button type="button" class="' + (HUB_FILTER === 'unused' ? 'on' : '') + '" data-f="unused">Not used</button>' +
+        '</div>' +
+        '<div class="sub">' + E(team) + ' · tap a row for the full system card (stats, splits, lines, fit, log, legend)</div>' +
+      '</div>' +
+      '<div style="overflow-x:auto;-webkit-overflow-scrolling:touch">' +
+      '<table class="pdo-hub-table"><thead><tr>' +
+        '<th class="n">#</th><th>Code</th><th>System</th><th class="n">GP</th><th class="n">PTS</th><th class="n">H / R</th>' +
+      '</tr></thead><tbody>' +
+      (rows || '<tr><td colspan="6" class="mute">No systems match this filter.</td></tr>') +
+      '</tbody></table></div>' +
+      '<div class="pdo-hub-alt">' +
+        '<button type="button" id="pdo_hub_cards">Flip-card grid (original)</button>' +
+      '</div></div>';
+  }
+
+  function bindHub(el) {
+    el.querySelectorAll('.pdo-hub-chips button').forEach(function (b) {
+      b.onclick = function (ev) {
+        ev.stopPropagation();
+        HUB_FILTER = b.getAttribute('data-f') || 'all';
+        window.ikeSysList();
+      };
+    });
+    var alt = $('pdo_hub_cards');
+    if (alt) {
+      alt.onclick = function () {
+        HUB_MODE = 'cards';
+        if (window.__ikeSysListOrig) {
+          window.__ikeSysListOrig();
+          var g = $('pc_gate'); if (g) g.classList.add('show');
+          var cw = $('pc_wrap'); if (cw) cw.classList.remove('show');
+          /* add a way back to the table */
+          var gate = $('pc_gate');
+          if (gate && !gate.querySelector('#pdo_hub_table_back')) {
+            var bar = document.createElement('div');
+            bar.className = 'pdo-hub-alt';
+            bar.innerHTML = '<button type="button" id="pdo_hub_table_back">← Ranked table view</button>';
+            gate.insertBefore(bar, gate.firstChild);
+            $('pdo_hub_table_back').onclick = function () {
+              HUB_MODE = 'table';
+              window.ikeSysList();
+            };
+          }
+        }
+      };
+    }
+  }
+
+  function upgradeSysList() {
+    if (typeof window.ikeSysList !== 'function') return false;
+    if (window.ikeSysList.__rearr) return true;
+    window.__ikeSysListOrig = window.ikeSysList;
+    var g = function () {
+      if (HUB_MODE === 'cards') {
+        return window.__ikeSysListOrig.apply(this, arguments);
+      }
+      var el = $('pc_gate');
+      if (!el) return window.__ikeSysListOrig.apply(this, arguments);
+      el.innerHTML = hubHTML();
+      bindHub(el);
+      el.classList.add('show');
+      var cw = $('pc_wrap');
+      if (cw) cw.classList.remove('show');
+      try { if (window.ikeHydrateImgs) window.ikeHydrateImgs(); } catch (e) {}
+    };
+    g.__rearr = 1;
+    window.ikeSysList = g;
+    return true;
+  }
+
+  /* ---------- strip after render (additive) ---------- */
+  function fillStrip() {
+    var strip = $('pdo_strip');
+    if (!strip) return;
+    var sel = $('pdoSelect');
+    var code = sel && sel.value;
+    if (!code || code === 'UNRESOLVED') { strip.innerHTML = ''; return; }
+    var st = sysStat(code);
+    var S = (window.SYS_BY_CODE || {})[code];
+    var parts = [];
+    if (S) parts.push('<span><b>' + E(S.tac) + '</b></span>');
+    if (st) {
+      parts.push('<span><b>' + st.gp + '</b> GP</span>');
+      parts.push('<span><b>' + st.pts + '</b> PTS</span>');
+      parts.push('<span class="h">H ' + st.h + '</span>');
+      parts.push('<span class="r">R ' + st.r + '</span>');
+    } else {
+      parts.push('<span class="mute">Not used this season</span>');
+    }
+    strip.innerHTML = parts.join('');
+  }
+
+  function renderMobileMatrix() {
+    var mob = $('pdo_matrix_mobile');
+    var table = document.querySelector('#pdo_matrix table.pdo-mx');
+    if (!mob) return;
+    if (!table) { mob.innerHTML = ''; return; }
+    var headRow = table.querySelector('tr');
+    if (!headRow) { mob.innerHTML = ''; return; }
+    var heads = Array.prototype.map.call(headRow.querySelectorAll('th'), function (th) {
+      return th.textContent.trim();
+    });
+    var cols = heads.slice(1, heads.length - 2);
+    if (!cols.length) { mob.innerHTML = ''; return; }
+    var units = {};
+    cols.forEach(function (c) { units[c] = []; });
+    Array.prototype.forEach.call(table.querySelectorAll('tr'), function (tr, i) {
+      if (i === 0 && tr.querySelector('th')) return;
+      if (tr.classList.contains('totrow')) return;
+      var cells = tr.querySelectorAll('td');
+      if (cells.length < 2) return;
+      var name = (cells[0].textContent || '').trim();
+      if (!name || /total/i.test(name)) return;
+      cols.forEach(function (c, ci) {
+        var v = parseInt((cells[ci + 1] && cells[ci + 1].textContent) || '0', 10) || 0;
+        if (v > 0) units[c].push({ n: name, v: v });
+      });
+    });
+    mob.innerHTML = Object.keys(units).map(function (c) {
+      var list = units[c].sort(function (a, b) { return b.v - a.v; });
+      var sum = list.reduce(function (a, x) { return a + x.v; }, 0);
+      return '<div class="mx-unit open">' +
+        '<div class="mx-unit-h" onclick="this.parentNode.classList.toggle(\'open\')">' +
+        '<b>' + E(c) + '</b><span class="cnt">' + list.length + ' · ' + sum + '</span></div>' +
+        '<div class="mx-unit-b">' +
+        (list.length
+          ? list.map(function (x) {
+              return '<div class="mx-player"><span>' + E(x.n) + '</span><span class="v">' + x.v + '</span></div>';
+            }).join('')
+          : '<div class="mx-player mute">No production</div>') +
+        '</div></div>';
+    }).join('');
+  }
+
+  function upgradePdoRender() {
+    if (typeof window.pdoRender !== 'function') return false;
+    if (window.pdoRender.__rearr) return true;
+    var o = window.pdoRender;
+    window.pdoRender = function () {
+      var r = o.apply(this, arguments);
+      try {
+        enhanceCardChrome();
+        ensureMobileMatrixHost();
+        /* re-apply short labels after Ideal Players tab is injected */
+        document.querySelectorAll('#pc_wrap .pdo-tabbtn').forEach(function (b) {
+          var pt = b.getAttribute('data-pt');
+          var map = { pt_basic: 'Stats', pt_adv: 'Splits', pt_events: 'Log', pt_legend: 'Legend', pt_fit: 'Fit', pt_lines: 'Lines' };
+          if (pt && map[pt]) b.setAttribute('data-short', map[pt]);
+        });
+        fillStrip();
+        renderMobileMatrix();
+      } catch (e) { console.error('pdo rearr post', e); }
+      return r;
+    };
+    window.pdoRender.__rearr = 1;
+    return true;
+  }
+
+  /* when Ideal Players tab is added later, tag it */
+  function watchFitTab() {
+    var tabs = document.querySelector('#pc_wrap .pc-tabs, #pc_wrap .pdo-tabs');
+    if (!tabs) return;
+    var mo = new MutationObserver(function () {
+      document.querySelectorAll('#pc_wrap .pdo-tabbtn').forEach(function (b) {
+        var pt = b.getAttribute('data-pt');
+        if (pt === 'pt_fit') b.setAttribute('data-short', 'Fit');
+      });
+    });
+    mo.observe(tabs, { childList: true });
+  }
+
+  function boot(n) {
+    injectCSS();
+    collapseControls();
+    enhanceCardChrome();
+    ensureMobileMatrixHost();
+    watchFitTab();
+    var okL = upgradeSysList();
+    var okR = upgradePdoRender();
+    if ((!okL || !okR) && n < 100) {
+      setTimeout(function () { boot(n + 1); }, 200);
+      return;
+    }
+    try {
+      if (document.body.className.indexOf('systems') >= 0 && typeof window.ikeSysList === 'function') {
+        window.ikeSysList();
+      }
+    } catch (e) {}
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { boot(0); });
+  } else {
+    boot(0);
+  }
+  /* also run after IKE store boot (scripts type=text/ike-boot) */
+  if (window.IKE_STORE_READY && typeof window.IKE_STORE_READY.then === 'function') {
+    window.IKE_STORE_READY.then(function () { setTimeout(function () { boot(0); }, 50); });
+  }
+})();
+
+</script>
+<script type="text/ike-boot">/* ===== Oct 22D — the three roads: the P-D-O goes through IKE 1-4 like a player; Who's Hot (league overview, hot players, hot teams, hot systems); Goalies ===== */
+(function(){
+  function $(i){ return document.getElementById(i); }
+  function E(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function K(s){ return String(s||'').toLowerCase().replace(/[^a-z]/g,''); }
+
+  /* ---------- SYSTEM road: one P-D-O, four stages ---------- */
+  var SYS={stage:1, code:''};
+  var STAGE_TABS={2:['pt_legend','pt_fit'],3:['pt_basic'],4:['pt_adv','pt_lines','pt_events']};
+  var STAGE_NAME={2:'Scouting',3:'Season',4:'Analytics'};
+  function curTab(){ var b=document.querySelector('#pc_wrap .pdo-tabbtn.on'); return b?b.getAttribute('data-pt'):''; }
+  function cardOpen(){ var w=$('pc_wrap'); return !!(w&&w.classList.contains('show')); }
+  function codes(){ return (window.SYS21||[]).slice().sort(function(a,b){return a.id-b.id;}); }
+  function bestCode(){ var best='', bp=-1; codes().forEach(function(s){ var st=window.ikeSysStat?ikeSysStat(s.code):null; if(st&&st.pts>bp){ bp=st.pts; best=s.code; } }); return best||'1-2-2'; }
+  window.ikeSysWhere=function(){
+    if(SYS.stage===1) return [1,'The 21 Systems'];
+    if(SYS.stage===2) return [2,cardOpen()?'System Card':'The 21 Systems'];
+    if(SYS.stage===3) return [3,'Systems Season'];
+    var t=curTab(); return [4,t==='pt_lines'?'Lines':t==='pt_events'?'Event Log':'Splits'];
+  };
+  /* the Lines tab: the Deployment Matrix gets its own tab next to Splits and Log */
+  function linesTab(){
+    var cont=$('pdo_lines_container'), tabs=document.querySelector('#pc_wrap .pc-tabs'), adv=$('pt_adv'); if(!cont||!tabs||!adv) return;
+    if(!$('pt_lines')){ var p=document.createElement('div'); p.className='pdo-panel'; p.id='pt_lines'; adv.parentNode.insertBefore(p,adv.nextSibling);
+      var b=document.createElement('button'); b.className='pdo-tabbtn'; b.setAttribute('data-pt','pt_lines'); b.setAttribute('data-short','Lines'); b.setAttribute('onclick',"pdoTab('pt_lines')"); b.innerHTML='Lines<small>Deployment Matrix</small>';
+      var after=tabs.querySelector('[data-pt="pt_adv"]'); tabs.insertBefore(b,after?after.nextSibling:null); }
+    if(cont.parentNode!==$('pt_lines')) $('pt_lines').appendChild(cont);
+  }
+  function linksRow(){
+    var card=document.querySelector('#pc_wrap .pc-card'); if(!card) return; var row=$('sys_links');
+    if(!row){ row=document.createElement('div'); row.id='sys_links'; row.className='sys-links'; var strip=$('pdo_strip'), top=card.querySelector('.pc-top'); var at=strip||top; card.insertBefore(row,at?at.nextSibling:card.firstChild); }
+    row.innerHTML=[2,3,4].map(function(n){ return '<button type="button" class="'+(SYS.stage===n?'on':'')+'" onclick="ikeSysStage('+n+',ikeSysCode())">IKE '+n+' · '+STAGE_NAME[n]+'</button>'; }).join('');
+  }
+  function applyStage(){
+    var root=$('pdoRoot'); if(!root) return; root.setAttribute('data-stage',SYS.stage); linesTab(); linksRow();
+    var allow=STAGE_TABS[SYS.stage]||[];
+    document.querySelectorAll('#pc_wrap .pdo-tabbtn').forEach(function(b){ b.style.display=allow.indexOf(b.getAttribute('data-pt'))>=0?'':'none'; });
+    if(cardOpen()&&allow.length&&allow.indexOf(curTab())<0) try{ pdoTab(allow[0]); }catch(e){}
+    var back=document.querySelector('#pc_wrap .pc-back'); if(back) back.innerHTML=SYS.stage>=3?'&#8592; All 21 Systems · Season':'&#8592; All 21 Systems';
+    try{ var g=$('pc_gate'), h=g&&g.querySelector('.pdo-hub-h h2'); if(h) h.textContent='Systems Season'; }catch(e){}
+  }
+  window.ikeSysCode=function(){ var s=$('pdoSelect'); return (s&&s.value)||SYS.code||''; };
+  window.ikeSysStage=function(n,code,tab){
+    n=+n||1; if(window.ikePdoHubMode) ikePdoHubMode(n<=2?'cards':'table');
+    SYS.stage=n; if(window.ikeSystems) ikeSystems(); SYS.stage=n; if(window.ikePdoHubMode) ikePdoHubMode(n<=2?'cards':'table');
+    if(n===1||(n===3&&!code)){ try{ ikeSysList(); }catch(e){} applyStage(); window.scrollTo(0,0); paint(); return; }
+    code=code||ikeSysCode()||bestCode(); SYS.code=code;
+    try{ __pick(code); }catch(e){ console.error('sys stage',e); }
+    applyStage(); if(tab) try{ pdoTab(tab); }catch(e){} paint();
+  };
+  function paint(){ try{ if(window.ikeNavPaint) ikeNavPaint(); }catch(e){} }
+  var __pick=function(c){ ikePickSystem(c); };
+  (function wrapSys(k){
+    if(typeof window.ikePickSystem!=='function'||typeof window.ikeSysBack!=='function'||typeof window.ikeSystems!=='function'){ if(k<160) setTimeout(function(){ wrapSys(k+1); },500); return; }
+    if(window.ikePickSystem.__r) return;
+    var op=window.ikePickSystem, ob=window.ikeSysBack, oss=window.ikeSysList;
+    __pick=function(c){ return op(c); };
+    var gp=function(code){ if(SYS.stage===1) SYS.stage=2; SYS.code=code; var r=op.apply(this,arguments); applyStage(); paint(); return r; }; gp.__r=1; window.ikePickSystem=gp;
+    window.ikeSysBack=function(){ if(SYS.stage===2) SYS.stage=1; if(SYS.stage===4) SYS.stage=3; if(window.ikePdoHubMode) ikePdoHubMode(SYS.stage<=2?'cards':'table'); var r=ob.apply(this,arguments); applyStage(); paint(); return r; };
+    window.ikeSysGo=function(code){ ikeSysStage(2,code); };
+    var otab=window.pdoTab; if(typeof otab==='function'&&!otab.__r){ var gt=function(){ var r=otab.apply(this,arguments); paint(); return r; }; gt.__r=1; window.pdoTab=gt; try{ pdoTab=gt; }catch(e){} }
+    /* every old way in (IKE 4 door, IKE 3 links) starts the System road at IKE 1 */
+    var o4=window.ike4Enter; if(o4&&!o4.__road){ var g4=function(v){ if(v==='pdo'&&window.IKE_BUILTIN_READY&&document.body.className.split(' ')[0]==='player'){ ikeSysStage(1); return; } return o4.apply(this,arguments); }; g4.__road=1; g4.__s=1; window.ike4Enter=g4; }
+    var ov=window.ike4View; if(ov&&!ov.__road){ var gv=function(v){ if(v==='pdo'){ ikeSysStage(1); return; } return ov.apply(this,arguments); }; gv.__road=1; window.ike4View=gv; }
+    window.ikeSystems.__stageOk=1;
+  })(0);
+  /* the hub table and flip grid redraw: keep the stage look */
+  (function wrapList(k){ if(typeof window.ikeSysList!=='function'||!window.ikeSysList.__rearr){ if(k<160) setTimeout(function(){ wrapList(k+1); },500); return; } if(window.ikeSysList.__st) return; var o=window.ikeSysList;
+    var g=function(){ var r=o.apply(this,arguments); try{ applyStage(); var alt=$('pdo_hub_cards'), bk=$('pdo_hub_table_back'); if(alt) alt.parentNode.style.display='none'; if(bk) bk.parentNode.style.display='none'; }catch(e){} return r; }; g.__st=1; g.__rearr=1; window.ikeSysList=g; })(0);
+  (function wrapR(k){ if(typeof window.pdoRender!=='function'||!window.pdoRender.__rearr){ if(k<160) setTimeout(function(){ wrapR(k+1); },500); return; } if(window.pdoRender.__st) return; var o=window.pdoRender;
+    var g=function(){ var r=o.apply(this,arguments); try{ applyStage(); }catch(e){} return r; }; g.__st=1; window.pdoRender=g; })(0);
+
+  /* ---------- WHO'S HOT and GOALIES ---------- */
+  var HOT={page:'teams'};
+  window.ikeHotWhere=function(){ return HOT.page==='systems'?'Hot Systems':'Hot Teams'; };
+  function hotRoot(){ var r=$('ikeHot'); if(!r){ r=document.createElement('div'); r.id='ikeHot'; var lr=$('leagueRoot'); (lr&&lr.parentNode||document.body).insertBefore(r,lr?lr.nextSibling:null); } return r; }
+  function sched(){ var L=window.LEAGUE&&LEAGUE.schedule; if(!L||!L.text||typeof csvParse!=='function') return []; var R=csvParse(L.text);
+    return R.slice(1).map(function(c){ var vs=parseInt(c[3],10), hs=parseInt(c[5],10); return {day:+c[0],game:+c[1],v:String(c[2]||'').trim(),h:String(c[4]||'').trim(),vs:vs,hs:hs,ot:String(c[6]||'').trim()!==''||String(c[7]||'').trim()!=='',played:!isNaN(vs)&&!isNaN(hs)}; }).filter(function(g){ return g.v&&g.h; }); }
+  function hotTeams(){
+    var G=sched().filter(function(g){return g.played;}).sort(function(a,b){ return (a.day-b.day)||(a.game-b.game); }), T={};
+    G.forEach(function(g){ [[g.v,g.vs,g.hs],[g.h,g.hs,g.vs]].forEach(function(x){ (T[x[0]]=T[x[0]]||[]).push({gf:x[1],ga:x[2],w:x[1]>x[2],ot:g.ot}); }); });
+    var my=K((window.TEAM&&TEAM.nick)||''), rows=Object.keys(T).map(function(t){ var all=T[t], L=all.slice(-10), w=0,l=0,o=0,gf=0,ga=0;
+      L.forEach(function(r){ gf+=r.gf; ga+=r.ga; if(r.w) w++; else if(r.ot) o++; else l++; });
+      var s=0, last=all[all.length-1], kind=last?(last.w?'W':last.ot?'OTL':'L'):''; for(var i=all.length-1;i>=0;i--){ var k2=all[i].w?'W':all[i].ot?'OTL':'L'; if(k2===kind) s++; else break; }
+      var spct=all.reduce(function(a,r){ return a+(r.w?2:r.ot?1:0); },0)/(2*all.length||1), lpct=(2*w+o)/(2*L.length||1);
+      return {t:t,w:w,l:l,o:o,pts:2*w+o,gf:gf,ga:ga,streak:kind+s,lpct:lpct,spct:spct}; })
+      .sort(function(a,b){ return (b.pts-a.pts)||((b.gf-b.ga)-(a.gf-a.ga)); });
+    return '<h2 class="hot-h">Hot Teams</h2><div class="hot-sub">Every club’s last 10 games, hottest first · from the league schedule</div>'+
+      '<div class="hot-tw"><table class="hot-t"><tr><th class="n">#</th><th>Club</th><th class="n">L10</th><th class="n">PTS</th><th class="n">GF-GA</th><th class="n">Streak</th><th class="n">vs season</th></tr>'+
+      rows.map(function(r,i){ var d=r.lpct-r.spct; return '<tr'+(K(r.t)===my?' class="mine"':'')+'><td class="n">'+(i+1)+'</td><td>'+(i<3?'🔥 ':rows.length-i<=3?'🧊 ':'')+E(r.t)+'</td><td class="n">'+r.w+'-'+r.l+'-'+r.o+'</td><td class="n b">'+r.pts+'</td><td class="n">'+r.gf+'-'+r.ga+'</td><td class="n">'+E(r.streak)+'</td><td class="n">'+(d>0.0001?'<b class="up">▲ '+Math.round(d*100)+'%</b>':d<-0.0001?'<b class="dn">▼ '+Math.round(-d*100)+'%</b>':'→')+'</td></tr>'; }).join('')+'</table></div>'+
+      '<p class="hot-note">L10 = wins-losses-overtime/shootout losses over the last 10 games. “vs season” = points percentage in the last 10 against the whole season.</p>';
+  }
+  function sysName(code){ var s=codes().filter(function(x){return x.code===code;})[0]; return s?s.tac:code; }
+  function hotSystems(){
+    var my=(window.TEAM&&TEAM.nick)||'', out='', all=(window.DB||[]).slice(), n=Math.min(10,all.length);
+    /* your club: points in each system over the last 10 saved games against the season */
+    var t=function(r){ return Date.parse(String(r.created||'').replace(/ at /,' '))||0; }, last=all.slice().sort(function(a,b){ return t(a)-t(b); }).slice(-n), rows=[];
+    if(window.ikeSysAgg&&n){ var keep=window.DB; try{ window.DB=last; codes().forEach(function(s){ var R=ikeSysAgg(s.code).A.TOTAL; if(R.gp) rows.push({c:s.code,gp:R.gp,pts:R.pts}); }); } finally { window.DB=keep; }
+      rows.forEach(function(r){ var S=ikeSysStat(r.c); r.sgp=S?S.gp:0; r.spts=S?S.pts:0; r.lpg=r.gp?r.pts/r.gp:0; r.spg=r.sgp?r.spts/r.sgp:0; });
+      rows.sort(function(a,b){ return b.pts-a.pts; }); }
+    out+='<h2 class="hot-h">Hot Systems · '+E(my)+'</h2><div class="hot-sub">Your last '+n+' games: points scored in each system, against its season pace</div>'+
+      (rows.length?'<div class="hot-tw"><table class="hot-t"><tr><th>Code</th><th>System</th><th class="n">L'+n+' GP</th><th class="n">L'+n+' PTS</th><th class="n">PTS/GP</th><th class="n">Season</th></tr>'+
+      rows.map(function(r,i){ var d=r.lpg-r.spg; return '<tr onclick="ikeSysStage(3,\''+r.c+'\')" style="cursor:pointer"><td class="code">'+(i<3?'🔥 ':'')+r.c+'</td><td>'+E(sysName(r.c))+'</td><td class="n">'+r.gp+'</td><td class="n b">'+r.pts+'</td><td class="n">'+r.lpg.toFixed(2)+'</td><td class="n">'+r.spg.toFixed(2)+' '+(d>0.005?'<b class="up">▲</b>':d<-0.005?'<b class="dn">▼</b>':'')+'</td></tr>'; }).join('')+'</table></div>':'<div class="hot-sub">No saved games yet.</div>');
+    /* the league: which systems clubs leaned on over their last 10, against the season (forward lines, even strength) */
+    var TS=window.IKE_TEAM_SYS;
+    if(TS&&TS.last10&&TS.season){ var share=function(src){ var tot=0, by={}; Object.keys(src).forEach(function(tm){ var u=(src[tm]||{}).EVF||{}; Object.keys(u).forEach(function(c){ by[c]=(by[c]||0)+u[c]; tot+=u[c]; }); }); Object.keys(by).forEach(function(c){ by[c]=tot?by[c]/tot:0; }); return by; };
+      var L=share(TS.last10), S=share(TS.season), top={};
+      Object.keys(TS.last10).forEach(function(tm){ var u=(TS.last10[tm]||{}).EVF||{}, b='', bv=-1; Object.keys(u).forEach(function(c){ if(u[c]>bv){ bv=u[c]; b=c; } }); if(b) top[b]=(top[b]||0)+1; });
+      var lr=Object.keys(L).map(function(c){ return {c:c,l:L[c],s:S[c]||0,top:top[c]||0}; }).sort(function(a,b){ return b.l-a.l; }).slice(0,12);
+      out+='<h2 class="hot-h" style="margin-top:18px">Hot Systems · League</h2><div class="hot-sub">Share of even-strength forward time across all clubs, last 10 games against the season</div>'+
+        '<div class="hot-tw"><table class="hot-t"><tr><th>Code</th><th>System</th><th class="n">L10</th><th class="n">Season</th><th class="n">Change</th><th class="n">#1 for</th></tr>'+
+        lr.map(function(r){ var d=r.l-r.s; return '<tr onclick="ikeSysStage(3,\''+r.c+'\')" style="cursor:pointer"><td class="code">'+r.c+'</td><td>'+E(sysName(r.c))+'</td><td class="n b">'+Math.round(r.l*100)+'%</td><td class="n">'+Math.round(r.s*100)+'%</td><td class="n">'+(d>0.004?'<b class="up">▲ '+(d*100).toFixed(1)+'</b>':d<-0.004?'<b class="dn">▼ '+(-d*100).toFixed(1)+'</b>':'→')+'</td><td class="n">'+(r.top?r.top+' club'+(r.top>1?'s':''):'—')+'</td></tr>'; }).join('')+'</table></div>'+
+        '<p class="hot-note">The league files record how long each club plays a system, not the goals scored in it; points by system come from your own game sheets. “#1 for” = clubs whose most-used system over their last 10 is this one.</p>'; }
+    return out;
+  }
+  window.ikeHot=function(page){
+    HOT.page=page||HOT.page; try{ ikeMode('hot'); }catch(e){} document.body.style.backgroundColor='#070a07';
+    var r=hotRoot(); r.innerHTML='<div class="hot-wrap">'+(HOT.page==='systems'?hotSystems():hotTeams())+'</div>'; window.scrollTo(0,0); paint();
+  };
+  window.ikeHotPlayers=function(){ try{ ikeMode('player'); ike4View('report'); }catch(e){ console.error(e); } window.scrollTo(0,0); paint(); };
+  window.ikeGoalies=function(){ try{ ikeMode('player'); ike4View('goalie'); }catch(e){ console.error(e); } window.scrollTo(0,0); paint(); };
+  window.ikePlayer4=function(){ try{ ikeMode('player'); ike4Enter('player'); }catch(e){ console.error(e); } window.scrollTo(0,0); paint(); };
 })();
 </script>
 <script>/* ===== I.K.E APP BOOT — runs the tool's scripts once saved data is loaded =====
