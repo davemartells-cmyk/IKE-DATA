@@ -2555,10 +2555,10 @@ img.ike-puck{height:1.15em;width:1.15em;vertical-align:-.2em;display:inline-bloc
 table.sf-pt{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}table.sf-pt td,table.sf-pt th{padding:4px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;color:#eee}table.sf-pt th{color:#e7bd3d;font-size:10px;letter-spacing:.08em}table.sf-pt .n{text-align:right}
 .sf-ls{display:block;font-size:11px;color:#e7bd3d;font-weight:800;margin:4px 0}.sf-ls select{width:100%;margin-top:3px}
 .sf-lf{margin-top:8px;border:1px solid rgba(231,189,61,.45);border-radius:10px;padding:8px}
-/* the front grows to hold the who-fits box; the back covers the same height */
-.sd-card .sd-front{position:relative;inset:auto;min-height:296px;overflow:visible}.sd-card .sd-front>*{flex-shrink:0}
 table.sf-pt td.pr{color:#f5b342!important;font-weight:700}table.sf-pt td.se{color:#4ade80!important;font-weight:700}table.sf-pt td.ad{color:#6aa9e0!important;font-weight:700}table.sf-pt td.no{color:#ff8a8a!important}
 .sf-lf{padding:8px 10px!important;margin-top:10px!important}.sf-lf .sf-h{letter-spacing:.08em}
+#ike4Split .spl-door[onclick*="'pdo'"]{display:none!important}
+#pt_fit{padding:6px 2px}
 </style>
 </head>
 
@@ -14291,10 +14291,13 @@ window.IKE_SYSFIT={"F": {"0-5-0": [["200-Foot Center", "Defensive Center", "Defe
     return '<div class="sf-box" onclick="event.stopPropagation()"><div class="sf-h">WHO FITS · '+E((window.TEAM&&TEAM.nick)||'')+'</div>'+out+'<div class="sf-cap">Tap a name for his IKE 2 card.</div></div>';
   }
   window.ikeSysOpenPlayer=function(n){ if(window.ikeTo12) ikeTo12(n); };
-  (function wrapList(k){ if(typeof window.ikeSysList!=='function'){ if(k<120) setTimeout(function(){ wrapList(k+1); },500); return; } if(window.ikeSysList.__f) return; var o=window.ikeSysList;
-    var g=function(){ var r=o.apply(this,arguments); try{ document.querySelectorAll('#pc_gate .sd-card').forEach(function(c){ var b=c.querySelector('.sd-code b'), code=b&&b.textContent.trim(); if(!code) return;
-      var f=c.querySelector('.sd-front'); if(f&&!f.querySelector('.sf-box')){ var h=f.querySelector('.sd-hint'); var d=document.createElement('div'); d.innerHTML=fitBox(code); f.insertBefore(d.firstChild,h||null); } }); }catch(e){ console.error('sysfit',e); } return r; };
-    g.__f=1; window.ikeSysList=g; })(0);
+  /* an opened system gets one more tab: the ideal players for it, for line building */
+  function fitTab(){ var tabs=document.querySelector('#pc_wrap .pc-tabs'), leg=$('pt_legend'); if(!tabs||!leg||$('pt_fit')) return;
+    var b=document.createElement('button'); b.className='pdo-tabbtn'; b.setAttribute('data-pt','pt_fit'); b.setAttribute('onclick',"pdoTab('pt_fit')"); b.innerHTML='Ideal Players<small>For line building</small>'; tabs.appendChild(b);
+    var d=document.createElement('div'); d.className='pdo-panel'; d.id='pt_fit'; d.innerHTML='<div id="pc_fit"></div>'; leg.parentNode.insertBefore(d,leg.nextSibling); }
+  function fillFit(){ fitTab(); var el=$('pc_fit'), sel=$('pdoSelect'), code=sel&&sel.value; if(!el) return; el.innerHTML=code?fitBox(code):'<div class="sf-cap">Open a system to see its ideal players.</div>'; }
+  (function wrapR(k){ if(typeof window.pdoRender!=='function'){ if(k<120) setTimeout(function(){ wrapR(k+1); },500); return; } if(window.pdoRender.__f) return; var o=window.pdoRender;
+    var g=function(){ var r=o.apply(this,arguments); try{ fillFit(); }catch(e){ console.error('fit tab',e); } return r; }; g.__f=1; window.pdoRender=g; fillFit(); })(0);
 
   /* ---------- IKE 2 · Systems (P-D-O): the same P-D-O section, shown in IKE 2 ---------- */
   var HOME=null;
@@ -14311,8 +14314,11 @@ window.IKE_SYSFIT={"F": {"0-5-0": [["200-Foot Center", "Defensive Center", "Defe
     window.scrollTo(0,0); try{ if(window.ikeNavPaint) ikeNavPaint(); }catch(e){}
   };
   window.ikeSysGo=function(code){ ikeSystems(); setTimeout(function(){ try{ ikePickSystem(code); }catch(e){} },60); };
-  (function wrap4(k){ if(typeof window.ike4Enter!=='function'){ if(k<120) setTimeout(function(){ wrap4(k+1); },500); return; } if(window.ike4Enter.__s) return; var o=window.ike4Enter;
-    var g=function(){ putBack(); return o.apply(this,arguments); }; g.__s=1; window.ike4Enter=g; })(0);
+  /* the P-D-O lives in IKE 2 now: every way into it from IKE 4 or IKE 3 lands there */
+  (function wrap4(k){ if(typeof window.ike4Enter!=='function'||typeof window.ike4View!=='function'){ if(k<120) setTimeout(function(){ wrap4(k+1); },500); return; } if(window.ike4Enter.__s) return; var o=window.ike4Enter, ov=window.ike4View;
+    var g=function(v){ if(v==='pdo'){ if(window.IKE_BUILTIN_READY&&document.body.className.split(' ')[0]==='player'){ ikeSystems(); return; } v='player'; } putBack(); return o.call(this,v); }; g.__s=1; window.ike4Enter=g;
+    window.ike4View=function(v){ if(v==='pdo'){ ikeSystems(); return; } return ov.apply(this,arguments); };
+    var vb=$('vbtn_pdo'); if(vb){ vb.innerHTML='Player Card<br><small style="font-size:9px;letter-spacing:.06em">Analytics</small>'; vb.setAttribute('onclick',"ike4Enter('player')"); } })(0);
   (function wrapMode(k){ if(typeof window.ikeMode!=='function'){ if(k<120) setTimeout(function(){ wrapMode(k+1); },500); return; } if(window.ikeMode.__s) return; var o=window.ikeMode;
     var g=function(m){ if(m!=='systems') putBack(); return o.apply(this,arguments); }; g.__s=1; window.ikeMode=g; try{ ikeMode=g; }catch(e){} })(0);
 
