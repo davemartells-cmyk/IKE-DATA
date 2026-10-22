@@ -14142,6 +14142,14 @@ window.IKE_TEAM_SYS={"gp":{"Blackhawks":8,"Golden Knights":9,"Panthers":8,"Hurri
     mo.observe(document.body,{childList:true,subtree:true,characterData:true}); }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
+
+/* Oct 21D — Profile on the IKE 4 card goes straight to that player's IKE 1 card */
+(function wrapProfile(n){
+  if(typeof window.ikeCardTab!=='function'||typeof window.ikeTo12!=='function'){ if(n<120) setTimeout(function(){ wrapProfile(n+1); },500); return; }
+  if(window.ikeCardTab.__p) return; var o=window.ikeCardTab;
+  var g=function(tab){ if(tab==='profile'){ var nm=((document.querySelector('#ikeCard .ic-name')||{}).textContent||'').trim(); if(nm){ ikeTo12(nm); return; } } return o.apply(this,arguments); };
+  g.__p=1; window.ikeCardTab=g; try{ ikeCardTab=g; }catch(e){}
+})(0);
 </script>
 <script>/* ===== I.K.E APP BOOT — runs the tool's scripts once saved data is loaded =====
    The tool's scripts are held (type="text/ike-boot") until IndexedDB has been read,
