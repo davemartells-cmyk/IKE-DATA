@@ -4236,7 +4236,7 @@ function restrengthGoals(r){
       else pens.push({team:team,at:t,start:t,end:t+(mins>=5?300:120),major:mins>=5});
       return;
     }
-    if((m=b.match(/^goal\s+by\s+(.+?)\s*-/i))){
+    if((m=b.match(/^goal\s+by\s+(.+?)\s+-\s/i))){
       var e=0,o=0;pens.forEach(function(p){if(p.start>t)return;p.team==="OIL"?e++:o++;});
       var st=o>e?"PP":(e>o?"PK":"EV");
       if(ours[m[1].trim()]){strs.push(st);if(st==="PP")release("OPP",t);}

@@ -4090,7 +4090,7 @@ function parseEvents(txt){
       if(pending&&/with a rebound/i.test(body)){var sd=pending.roster?"for":"against";sd==="for"?tc.rbFor++:tc.rbAgainst++;rebound={side:sd,endT:absT+4};}
       pending=null;continue;
     }
-    if((m=body.match(/^goal\s+by\s+(.+?)\s*-\s*(.+?)\s*:\s*(\d+)\s*-\s*(.+?)\s*:\s*(\d+)\.?$/i))){
+    if((m=body.match(/^goal\s+by\s+(.+?)\s+-\s+(.+?)\s*:\s*(\d+)\s*-\s*(.+?)\s*:\s*(\d+)\.?$/i))){
       var scorer=norm(m[1]),isPS=!!(pending&&pending.ps);
       if(isPS){pending.ps.result="GOAL";pending.ps.raw.push(body);}
       if(isRoster(scorer)){sit==="PP"&&tc.ppGF++;tc.goalsFor++;if(!isPS){tc.sogFor++;STR[sit].sf++;}if(pending&&pending.reb){tc.rbShotFor++;tc.rbGoalFor++;}push({type:"Goal",player:resolve(scorer),score:norm(m[2])+" "+m[3]+"–"+m[5]+" "+norm(m[4]),reb:!!(pending&&pending.reb),dfl:!!(pending&&pending.deflected),ps:isPS,str:sit,t:absT});if(sit==="PP")releaseMinor("OPP",absT);}
@@ -4277,7 +4277,7 @@ function restrengthGoals(r){
       else pens.push({team:team,at:t,start:t,end:t+(mins>=5?300:120),major:mins>=5});
       return;
     }
-    if((m=b.match(/^goal\s+by\s+(.+?)\s*-/i))){
+    if((m=b.match(/^goal\s+by\s+(.+?)\s+-\s/i))){
       var e=0,o=0;pens.forEach(function(p){if(p.start>t)return;p.team==="OIL"?e++:o++;});
       var st=o>e?"PP":(e>o?"PK":"EV");
       if(ours[m[1].trim()]){strs.push(st);if(st==="PP")release("OPP",t);}
