@@ -6,17 +6,27 @@ const { chromium } = require('playwright'); const fs=require('fs'), path=require
  const idx=JSON.parse(fs.readFileSync(path.join(dir,'IKE_DCHL_Season.json'),'utf8'));
  const files=[['DCHL/IKE_DCHL_Season.json',fs.readFileSync(path.join(dir,'IKE_DCHL_Season.json'),'utf8')]];
  for(const g of idx.games){ const f=path.join(dir,g.file); if(fs.existsSync(f)) files.push(['DCHL/'+g.file,fs.readFileSync(f,'utf8')]); }
+ /* league day of every sheet, keyed by its title and Created line (the reader keeps both on each game) */
+ const DAY={}; for(const [pth,txt] of files){ const m=/^([^\n]+)\r?\nCreated - ([^\n]+)/m.exec(txt); if(!m) continue; const g=idx.games.find(x=>'DCHL/'+x.file===pth); if(g) DAY[m[1].trim()+'|'+m[2].trim()]=g.day; }
  const b=await chromium.launch(); const p=await b.newPage();
  await p.addInitScript(()=>{ window.IKE_NO_ONLINE=true; window.IKE_NO_BUILTIN=true; });
  await p.goto('file://'+path.resolve(html),{timeout:120000}); await p.waitForFunction(()=>typeof ikeFolderPick==='function'&&document.getElementById('lfoldTeam'),null,{timeout:120000});
  await p.evaluate(async(files)=>{ const list=files.map(([pth,txt])=>{const f=new File([txt],pth.split('/').pop());Object.defineProperty(f,'webkitRelativePath',{value:pth});return f;});
    await ikeFolderPick({target:{files:list,value:''}}); },files);
  const teams=await p.evaluate(()=>[...document.getElementById('lfoldTeam').options].map(o=>o.value));
- const res=await p.evaluate(async(teams)=>{
+ const res=await p.evaluate(async([teams,DAY])=>{
    const F=[['int','fpbpInterceptions'],['cmp','fpbpCompleted'],['pas','fpbpPasses'],['dfl','dfl'],['post','post'],['sa','sa'],['take','take'],['give','give'],['blk','blk'],['dump','fpbpDumpIns'],['hit','hg'],['g','g'],['a1','a1'],['a2','a2'],['ht','ht'],['reb','reb'],['rebg','rebG']];
+   const SP={}, SP10={}, LOG={};
    const A={}, G={}, CL={}, GS={};
    const H=[['g','g'],['a1','a1'],['a2','a2'],['hit','hg'],['blk','blk'],['take','take'],['give','give'],['sa','sa'],['sog','sog'],['pm','pm'],['pim','pim'],['fw','fw'],['fl','fl'],['int','fpbpInterceptions'],['cmp','fpbpCompleted'],['pas','fpbpPasses'],['ht','ht'],['reb','reb'],['dfl','dfl'],['fight','__fight']];
    for(const club of teams){ await ikeFolderTeam(club);
+     /* Oct 23: every club's points by P-D-O system (season and last 10) and its scoring log, read from its own game sheets */
+     try{ const codes=(window.SYS21||[]).map(s=>s.code), keep=window.DB, ts=r=>Date.parse(String(r.created||'').replace(/ at /,' '))||0;
+       const agg=(list)=>{ const o={}; window.DB=list; try{ codes.forEach(c=>{ const R=window.ikeSysAgg(c).A, T=R.TOTAL; if(T.gp) o[c]=[T.gp,T.pts,R.HOME.pts,R.AWAY.pts,T.evg,T.ppg,T.shg,T.eva,T.ppa,T.sha]; }); } finally { window.DB=keep; } return o; };
+       if(window.ikeSysAgg){ SP[club]=agg(keep.slice()); SP10[club]=agg(keep.slice().sort((a,b)=>ts(a)-ts(b)).slice(-10)); }
+       LOG[club]=[]; keep.forEach(r=>{ const P=r.players||{}, L=(r.systems&&r.systems.lines)||{}, D=(r.systems&&r.systems.pairs)||{}, t=String(r.title||'').split(' vs '), opp=t[0]===club?t[1]:t[0];
+         (r.goals||[]).forEach(go=>{ const p=P[go.scorer]||{}, code=(p.lineNumber&&L[p.lineNumber])||(p.pairNumber&&D[p.pairNumber])||'';
+           LOG[club].push([ts(r),opp||'',r.road?1:0,go.per||0,go.clk||go.t||'',go.str||(go.tag==='PP'?'PP':go.tag==='SH'?'PK':'EV'),go.scorer||'',go.a1||'',go.a2||'',code,DAY[String(r.title||'').trim()+'|'+String(r.created||'').trim()]||0]); }); }); }catch(e){ console.error('sysp',club,e); }
      for(const r of DB){ const pb=!!(r.fullPbp&&r.fullPbp.found), P=r.players||{};
        const t=Date.parse(String(r.created||'').replace(/ at /,' '))||0; (CL[club]=CL[club]||[]).push(t);
        const FG={}; (r.ev||[]).forEach(e=>{ if(e.ty==='Penalty'&&/fight/i.test(String(e.infraction||''))&&P[e.p]) FG[e.p]=(FG[e.p]||0)+1; });
@@ -43,7 +53,7 @@ const { chromium } = require('playwright'); const fs=require('fs'), path=require
      for(let i=g.length-1;i>=0&&!(g[i][1]>0);i--) ng++;
      for(let i=g.length-1;i>=0&&!(g[i][2]>0);i--) np++;
      st.p[n]=[ng,np]; });
-   return {cols:cols,p:o,l10:l10,st:st}; },teams);
+   return {cols:cols,p:o,l10:l10,st:st,sysp:{cols:['gp','pts','h','r','evg','ppg','shg','eva','ppa','sha'],season:SP,last10:SP10},log:{cols:['t','opp','road','per','clk','str','g','a1','a2','sys','day'],c:LOG}}; },[teams,DAY]);
  res.game=idx.lastGameSynced; res.day=idx.lastDaySynced;
  fs.writeFileSync(out,JSON.stringify(res)); console.log('players',Object.keys(res.p).length,'clubs',teams.length); await b.close();
 })();
