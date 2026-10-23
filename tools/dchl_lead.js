@@ -18,6 +18,7 @@ const { chromium } = require('playwright'); const fs=require('fs'), path=require
    const F=[['int','fpbpInterceptions'],['cmp','fpbpCompleted'],['pas','fpbpPasses'],['dfl','dfl'],['post','post'],['sa','sa'],['take','take'],['give','give'],['blk','blk'],['dump','fpbpDumpIns'],['hit','hg'],['g','g'],['a1','a1'],['a2','a2'],['ht','ht'],['reb','reb'],['rebg','rebG']];
    const SP={}, SP10={}, LOG={};
    const A={}, G={}, CL={}, GS={};
+   const FC={}; /* Oct 23 Forecasting: every game a player dressed in, with his club, league day, goals and assists */
    const H=[['g','g'],['a1','a1'],['a2','a2'],['hit','hg'],['blk','blk'],['take','take'],['give','give'],['sa','sa'],['sog','sog'],['pm','pm'],['pim','pim'],['fw','fw'],['fl','fl'],['int','fpbpInterceptions'],['cmp','fpbpCompleted'],['pas','fpbpPasses'],['ht','ht'],['reb','reb'],['dfl','dfl'],['fight','__fight']];
    for(const club of teams){ await ikeFolderTeam(club);
      /* Oct 23: every club's points by P-D-O system (season and last 10) and its scoring log, read from its own game sheets */
@@ -32,6 +33,7 @@ const { chromium } = require('playwright'); const fs=require('fs'), path=require
        const FG={}; (r.ev||[]).forEach(e=>{ if(e.ty==='Penalty'&&/fight/i.test(String(e.infraction||''))&&P[e.p]) FG[e.p]=(FG[e.p]||0)+1; });
        const GG={},GP={}; (r.goals||[]).forEach(x=>{ if(x.scorer){ GG[x.scorer]=(GG[x.scorer]||0)+1; GP[x.scorer]=(GP[x.scorer]||0)+1; } [x.a1,x.a2].forEach(a=>{ if(a) GP[a]=(GP[a]||0)+1; }); });
        for(const n in P){ if(!n||n==='null') continue; (GS[n]=GS[n]||[]).push([t,GG[n]||0,GP[n]||0]); }
+       { const dy=DAY[String(r.title||'').trim()+'|'+String(r.created||'').trim()]||0; for(const n in P){ if(!n||n==='null') continue; const AA={}; (r.goals||[]).forEach(x=>{ [x.a1,x.a2].forEach(q=>{ if(q) AA[q]=(AA[q]||0)+1; }); }); (FC[n]=FC[n]||[]).push([t,dy,club,GG[n]||0,AA[n]||0]); } }
        for(const n in P){ if(!n||n==='null') continue; const s=Object.assign({},P[n],{__fight:FG[n]||0}); (G[n]=G[n]||[]).push([t,club,pb?1:0].concat(H.map(([k,f])=>+(s[f]||0)))); }
        for(const n in P){ if(!n||n==='null') continue; const s=P[n];
          const a=A[n]||(A[n]={gp:0,pg:0,cl:[],ow:0,ol:0,nw:0,nl:0,dw:0,dl:0,fight:0}); F.forEach(([k])=>{ if(a[k]==null) a[k]=0; });
@@ -53,7 +55,14 @@ const { chromium } = require('playwright'); const fs=require('fs'), path=require
      for(let i=g.length-1;i>=0&&!(g[i][1]>0);i--) ng++;
      for(let i=g.length-1;i>=0&&!(g[i][2]>0);i--) np++;
      st.p[n]=[ng,np]; });
-   return {cols:cols,p:o,l10:l10,st:st,sysp:{cols:['gp','pts','h','r','evg','ppg','shg','eva','ppa','sha'],season:SP,last10:SP10},log:{cols:['t','opp','road','per','clk','str','g','a1','a2','sys','day'],c:LOG}}; },[teams,DAY]);
+   /* Forecasting: per-club totals [club,gp,g,a] and his own 10 most recent games, any club, oldest first [day,club,g,a] */
+   const fc={c:{},r:{}}; Object.keys(FC).forEach(n=>{ const g=FC[n].slice().sort((a,b)=>(a[0]-b[0])||(a[1]-b[1])), by={};
+     g.forEach(x=>{ const b=by[x[2]]||(by[x[2]]=[x[2],0,0,0,x[0]]); b[1]++; b[2]+=x[3]; b[3]+=x[4]; b[4]=x[0]; });
+     fc.c[n]=Object.values(by).sort((a,b)=>a[4]-b[4]).map(b=>b.slice(0,4)); fc.r[n]=g.slice(-10).map(x=>[x[1],x[2],x[3],x[4]]); });
+   return {cols:cols,p:o,l10:l10,st:st,fc:fc,sysp:{cols:['gp','pts','h','r','evg','ppg','shg','eva','ppa','sha'],season:SP,last10:SP10},log:{cols:['t','opp','road','per','clk','str','g','a1','a2','sys','day'],c:LOG}}; },[teams,DAY]);
+ /* Forecasting split and last 10 come from the box-score rows themselves, so GP matches the league's count */
+ const FT={}; for(const [pth,txt] of files) FT[pth]=txt;
+ res.fc=require('./fc_box.js')(idx.games,g=>FT['DCHL/'+g.file]);
  res.game=idx.lastGameSynced; res.day=idx.lastDaySynced;
  fs.writeFileSync(out,JSON.stringify(res)); console.log('players',Object.keys(res.p).length,'clubs',teams.length); await b.close();
 })();
