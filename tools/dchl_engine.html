@@ -3678,8 +3678,11 @@ function extractOppLines(txt,oppNick){
   if(!ok)return null;
   for(var i=1;i<lines.length;i++){if(lines[i].trim()==="5 vs 5 Forward"&&key(lines[i-1])===ok){fIdx=i;break;}}
   if(fIdx<0)return null;
-  var map={};
-  for(var j=fIdx+2;j<lines.length;j++){var t=lines[j].trim();if(/^5 vs 5 Defense/.test(t)||/^Power Play/.test(t))break;var c=lines[j].split(/\t/).map(function(x){return x.trim();});if(/^\d+$/.test(c[0])&&c.length>=4){var no=parseInt(c[0],10);[c[1],c[2],c[3]].forEach(function(nm){var k=key(nm);if(k&&!map[k])map[k]=no;});}}
+  var map={},hdr=(lines[fIdx+1]||"").split(/\t/).map(function(x){return x.trim();}),ci=-1,rows=[];
+  for(var h=1;h<=3;h++)if(/^cent(er|re)$|^c$/i.test(hdr[h]||""))ci=h;
+  for(var j=fIdx+2;j<lines.length;j++){var t=lines[j].trim();if(/^5 vs 5 Defense/.test(t)||/^Power Play/.test(t))break;var c=lines[j].split(/\t/).map(function(x){return x.trim();});if(/^\d+$/.test(c[0])&&c.length>=4)rows.push(c);}
+  if(ci>0)rows.forEach(function(c){var k=key(c[ci]);if(k&&!map[k])map[k]=parseInt(c[0],10);});
+  rows.forEach(function(c){var no=parseInt(c[0],10);[c[1],c[2],c[3]].forEach(function(nm){var k=key(nm);if(k&&!map[k])map[k]=no;});});
   return Object.keys(map).length?map:null;
 }
 function extractLines(txt){
@@ -3892,7 +3895,7 @@ function parseFullPBP(txt){
     var fo=line.match(/^(.+?)\s+wins\s+face-?off\s+(?:versus|against)\s+(.+?)\s+in\s+(.+?)\s+zone\.?$/i);
     if(fo){var fw=resolve(fo[1])||norm(fo[1]);
       var fside=resolve(fo[1])?"OIL":(resolve(fo[2])?"OPP":sideFor(fo[1]));
-      fpFo.push({period:period,coarseTime:coarse,zone:zoneFromText(fo[3]),won:fside==="OIL",our:{F:curU.OIL.F,D:curU.OIL.D},opp:{F:curU.OPP.F,D:curU.OPP.D}});
+      fpFo.push({period:period,coarseTime:coarse,zone:zoneFromText(fo[3]),won:fside==="OIL",ourTk:fside==="OIL"?fw:(resolve(fo[2])||norm(fo[2])),oppTk:fside==="OIL"?norm(fo[2]):norm(fo[1]),our:{F:curU.OIL.F,D:curU.OIL.D},opp:{F:curU.OPP.F,D:curU.OPP.D}});
       startPossession(fw);currentZone=zoneFromText(fo[3]);continue;}
     /* A goal: the side whose score went up, and both teams' units on the ice when it went in. */
     var gm=line.match(/^Goal\s+by\s+(.+?)\s+-\s+(.+?)\s*:\s*(\d+)\s*-\s*(.+?)\s*:\s*(\d+)\.?$/i);
@@ -4373,7 +4376,21 @@ function computeRecord(g){
   if(g.lines){lm=g.lines.lines.map(function(L){return {no:L.no,lw:L.lw,c:L.c,rw:L.rw,sys:L.sys||null};});zl={};[1,2,3,4].forEach(function(k){zl[k]={OZ:[0,0],DZ:[0,0],NZ:[0,0]};});
     g.events.forEach(function(x){if(x.type==="Faceoff Win"||x.type==="Faceoff Loss"){var ln=g.lines.playerLine[x.player];if(ln&&zl[ln])zl[ln][x.zone][x.type==="Faceoff Win"?0:1]++;}});}
   var mu={};
-  if(g.lines){g.events.forEach(function(x){
+  /* Oct 24: each draw goes to the forward lines the full play-by-play has ON THE ICE at that faceoff
+     ("Normal Forward Lineup #4 - ... are on ice"), so a centre who is also listed as a winger on
+     another line no longer lands in the wrong column. Special-teams draws (no even-strength line on
+     the ice) fall back to the taker's line, as before. Games without the full play-by-play keep the
+     old reading below. */
+  var fpf=((g.fullPbp&&g.fullPbp.faceoffs)||[]).filter(function(f){return f.oppTk&&f.ourTk&&f.our&&f.our.F&&f.opp&&f.opp.F&&!/\bperiod\b/i.test(f.ourTk+" "+f.oppTk);});
+  if(g.lines&&fpf.length){fpf.forEach(function(f){
+    var ev=f.our&&f.our.F&&f.our.F.st==="EV"&&f.opp&&f.opp.F&&f.opp.F.st==="EV";
+    var myLine=ev?f.our.F.no:g.lines.playerLine[resolve(f.ourTk)||f.ourTk];if(!myLine||myLine>4)return;
+    var oppLine=ev?f.opp.F.no:((g.oppLineMap&&g.oppLineMap[key(f.oppTk)])||0);if(oppLine>4)oppLine=0;
+    var mk=myLine+"|"+oppLine+"|"+(oppLine?"":key(f.oppTk||""))+"|"+f.zone;
+    var e=mu[mk]=mu[mk]||{myLine:myLine,oppLine:oppLine,oppName:f.oppTk||"",zone:f.zone,w:0,l:0};
+    if(f.won)e.w++;else e.l++;
+  });}
+  else if(g.lines){g.events.forEach(function(x){
     if(x.type!=="Faceoff Win"&&x.type!=="Faceoff Loss")return;
     var myLine=g.lines.playerLine[x.player];if(!myLine)return;
     var oppLine=(g.oppLineMap&&g.oppLineMap[key(x.opponent)])||0;
