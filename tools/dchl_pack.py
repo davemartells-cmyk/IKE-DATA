@@ -119,8 +119,27 @@ if os.path.exists(tp):
     try: TEAMPRO=[r for r in json.load(open(tp,encoding='utf-8')) if r.get('Name')]
     except Exception: TEAMPRO=None
 lead=json.load(open(leadf)) if leadf!='-' and os.path.exists(leadf) else None
+# Oct 24: NHL ID + sweater number per player for the Depth Chart photos — the shared IKE_NHL_IDs.json
+# (in the data folder or the folder above it), with the newest snapshot's league IDs and jersey numbers on top
+NHL={}
+for f in (os.path.join(src,'IKE_NHL_IDs.json'),os.path.join(src,'..','IKE_NHL_IDs.json')):
+    if os.path.exists(f):
+        try:
+            for k,v in json.load(open(f,encoding='utf-8')).get('players',{}).items():
+                if v.get('id'): NHL[re.sub(r'\s*\(R\)\s*$','',k)]=[str(v['id']),v.get('num')]
+        except Exception: pass
+        break
+for f in ('DCHL-PlayerRoster.json','DCHL-GoalerRoster.json'):
+    fp=os.path.join(D,f)
+    if not os.path.exists(fp): continue
+    try:
+        for x in json.load(open(fp,encoding='utf-8')):
+            n=re.sub(r'\s*\(R\)\s*$','',x.get('Name') or ''); old=NHL.get(n) or [None,None]
+            nid=str(x['NHLID']) if x.get('NHLID') else old[0]
+            if nid: NHL[n]=[nid,x.get('Jersey') or old[1]]
+    except Exception: pass
 meta={'league':'DCHL','day':idx['lastDaySynced'],'game':idx['lastGameSynced'],'at':idx.get('syncedAt',''),'snapshot':os.path.basename(D),'games':len(files)-1,'rev':__import__('time').strftime('%Y-%m-%dT%H:%M:%SZ',__import__('time').gmtime())}
-pack={'meta':meta,'files':files,'slots':slots,'lead':lead,'stars':{'day':last,'list':stars},'sys':SYSP,'teamx':TEAMX,'teampro':TEAMPRO}
+pack={'meta':meta,'files':files,'slots':slots,'lead':lead,'stars':{'day':last,'list':stars},'sys':SYSP,'teamx':TEAMX,'teampro':TEAMPRO,'nhl':NHL}
 os.makedirs(out,exist_ok=True)
 open(os.path.join(out,'ike_dchl_pack.json.gz'),'wb').write(gzip.compress(json.dumps(pack,ensure_ascii=False,separators=(',',':')).encode(),9))
 json.dump(meta,open(os.path.join(out,'latest.json'),'w'),indent=1)
