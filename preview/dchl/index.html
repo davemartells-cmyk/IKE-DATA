@@ -5165,9 +5165,10 @@ function processData(){
   window.IKE_LOADED=(seasonData.games||[]).length;window.IKE_AGG=aggregatedPlayers;
   var sel=document.getElementById('playerSelect');
   sel.innerHTML='<option value="">Select Player...</option>';
-  Object.keys(aggregatedPlayers).sort().forEach(function(n){var o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});
+  Object.keys(aggregatedPlayers).sort().forEach(function(n){if(!n||n==='null'||n==='undefined')return;var o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});
+  try{ if(window.ikeStarSeason) ikeStarSeason(); }catch(_e){}
   sel.disabled=false;sel.onchange=function(){if(this.value)render(aggregatedPlayers[this.value]);};
-  var first=Object.keys(aggregatedPlayers).sort()[0];if(first){sel.value=first;render(aggregatedPlayers[first]);}
+  var first=Object.keys(aggregatedPlayers).sort().filter(function(n){return n&&n!=='null'&&n!=='undefined';})[0];if(first){sel.value=first;render(aggregatedPlayers[first]);}
 }
 
 
@@ -7866,7 +7867,8 @@ try{renderAll();}catch(e){console.error("renderAll",e);}
       (window.DB||[]).forEach(function(r){ Object.keys(r.players||{}).forEach(function(k){ names[k]=1; }); });
       var keep=ps.value;
       ps.innerHTML = '<option value="">Team report</option>' +
-        Object.keys(names).sort().map(function(k){ return '<option value="'+k+'">'+k+'</option>'; }).join('');
+        Object.keys(names).sort().filter(function(k){ return k&&k!=='null'&&k!=='undefined'; }).map(function(k){ return '<option value="'+k+'">'+k+'</option>'; }).join('');
+      try{ if(window.ikeStarSeason) setTimeout(ikeStarSeason,0); }catch(_e){}
       ps.value = keep || '';
       ps.onchange = function(){ ST.player=ps.value; window.rptGenerate(); };
     }
@@ -10681,6 +10683,24 @@ function posGroup(p) {
   return 'W';
 }
 function clubRoster() { return ALL.filter(function (p) { return p.team === CLUB; }); }
+/* Oct 24C: the trade tool's built-in bank is as of its build day — each player's club and ratings
+   follow the current league Player / Goalie Roster files, so traded players move with the trade. */
+window.ike5Sync = function () {
+  if (typeof csvParse !== 'function' || !window.LEAGUE) return 0;
+  var Kn = function (x) { return String(x || '').toLowerCase().replace(/\(r\)/g, '').replace(/[^a-z]/g, ''); }, n = 0;
+  [['playerRoster', 'Player Name', AI, false], ['goalieRoster', 'Goalie Name', GI, true]].forEach(function (x) {
+    var L = LEAGUE[x[0]]; if (!L || !L.text) return;
+    var rows = csvParse(L.text); if (rows.length < 2) return;
+    var h = rows[0].map(function (v) { return String(v).trim(); }), iN = h.indexOf(x[1]), iT = h.indexOf('Team Name'); if (iN < 0 || iT < 0) return;
+    var cur = {}; rows.slice(1).forEach(function (c) { cur[Kn(c[iN])] = c; });
+    ALL.forEach(function (p) { if (p.pick || p.G !== x[3]) return; var c = cur[Kn(p.name)]; if (!c) return;
+      var t = String(c[iT] || '').trim(); if (t && t !== p.team) { p.team = t; n++; }
+      for (var a in x[2]) { var i = h.indexOf(a); if (i >= 0) { var v = parseFloat(c[i]); if (!isNaN(v)) p[a] = v; } } });
+  });
+  BYNAME = {}; ALL.forEach(function (p) { BYNAME[p.name + '|' + p.team] = p; });
+  try { fillSel('outSel', clubRoster()); if (document.getElementById('inTeam').value) fillIn(); } catch (e) {}
+  return n;
+};
 
 function L1(p, roster) {
   if (p.pick) return { verdict: 'Future Asset', why: 'Draft capital - no immediate roster need is addressed.' };
@@ -11491,6 +11511,7 @@ function initReports() {
 
 document.querySelectorAll("#tradeRoot img[data-img]").forEach(function(im){var s=IKE_IMG[im.getAttribute("data-img")];if(s)im.src=s;});
 init();
+try { window.ike5Sync(); } catch (e) {}
 initReports();
 }catch(e){console.error("IKE5:",e);}
 })();
@@ -11988,7 +12009,30 @@ try{ikeHydrateImgs();}catch(e){}
       if(LEAGUE.playerRoster&&L===LEAGUE.playerRoster&&ix.SK>=0){ var rat={}; rows.slice(1).forEach(function(c){ var o={}; Object.keys(RI).forEach(function(k){ var v=parseFloat(c[ix[k]]); if(!isNaN(v)) o[k]=v; }); rat[K(c[iN])]=o; });
         R.forEach(function(r){ var o=rat[K(r[0])]; if(!o) return; var ch=0; Object.keys(RI).forEach(function(k){ if(o[k]!=null&&+r[RI[k]]!==o[k]){ r[RI[k]]=o[k]; ch=1; } });
           if(ch) r[16]=Math.round((r[7]+r[13]+r[11]+r[14]+r[15]+r[8]+r[5]+r[9]+r[6]+r[10])/10*10)/10; }); } }catch(e){ console.error('ratings',e); }
+    /* Oct 24C: IKE 1's player list was filled before trades were read — refill it, keep the pick */
+    if(!window.__ikeRefill){ window.__ikeRefill=1; try{ var ps=document.getElementById('pselect'); if(ps&&window.k12&&k12.fillP){ var pv=ps.value; k12.fillP(); if(pv) ps.value=pv; } }catch(e){} finally{ window.__ikeRefill=0; } }
+    try{ if(window.ike5Sync) ike5Sync(); }catch(e){ console.error('ike5 sync',e); }
+    try{ if(window.ikeStarSeason) ikeStarSeason(); }catch(e){}
     return n;
+  };
+  /* Oct 24C: names on our club's current pro roster (league Player + Goalie Roster files); null until loaded */
+  window.ikeCurRosterSet=function(){
+    var club=(window.TEAM&&TEAM.nick)||'Oilers', out={}, any=false;
+    [['playerRoster','Player Name'],['goalieRoster','Goalie Name']].forEach(function(x){
+      var L=window.LEAGUE&&LEAGUE[x[0]]; if(!L||!L.text||typeof csvParse!=='function') return;
+      var rows=csvParse(L.text); if(rows.length<2) return;
+      var h=rows[0].map(function(v){return String(v).trim();}), iN=h.indexOf(x[1]), iT=h.indexOf('Team Name'); if(iN<0||iT<0) return;
+      any=true; rows.slice(1).forEach(function(c){ if(String(c[iT]||'').trim()===club) out[K(c[iN])]=1; });
+    });
+    return any?out:null;
+  };
+  /* season lists keep everyone who played for us this season; a star marks a player no longer on the roster */
+  window.ikeStarSeason=function(){
+    var S=window.ikeCurRosterSet();
+    ['playerSelect','ike_sel','rptPlayer'].forEach(function(id){ var sel=document.getElementById(id); if(!sel) return;
+      Array.prototype.slice.call(sel.options).forEach(function(o){ if(!o.value) return;
+        if(o.value==='null'||o.value==='undefined'){ o.remove(); return; }
+        var t=o.value+(S&&!S[K(o.value)]?' \u2B50':''); if(o.textContent!==t) o.textContent=t; }); });
   };
   var _lp=window.leagueParse;
   if(typeof _lp==='function'){ window.leagueParse=function(){ var o=_lp.apply(this,arguments); try{ window.ikeRefreshBankTeams(); }catch(e){} return o; }; try{ leagueParse=window.leagueParse; }catch(e){} }
