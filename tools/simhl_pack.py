@@ -189,10 +189,20 @@ for g in idx['games']:
         n=mm.group(2).strip(); tm=ro.get(n) or ({0:g['visitor'],1:g['home']}.get(gl.get(n)) if n in gl else '')
         stars.append({'n':{'1':'1st','2':'2nd','3':'3rd'}[mm.group(1)],'p':n,'t':tm or '','g':g['game']})
 lead=json.load(open(leadf)) if leadf!='-' and os.path.exists(leadf) else None
+# Oct 24: NHL ID + sweater number per player for the Depth Chart photos — the shared IKE_NHL_IDs.json
+# (in the data folder or the folder above it); SIMHL's own files carry neither
+NHL={}
+for f in (os.path.join(src,'IKE_NHL_IDs.json'),os.path.join(src,'..','IKE_NHL_IDs.json')):
+    if os.path.exists(f):
+        try:
+            for k,v in json.load(open(f,encoding='utf-8')).get('players',{}).items():
+                if v.get('id'): NHL[re.sub(r'\s*\(R\)\s*$','',k)]=[str(v['id']),v.get('num')]
+        except Exception: pass
+        break
 meta={'league':'SIMHL','day':idx['lastDaySynced'],'game':idx['lastGameSynced'],'at':idx.get('syncedAt',''),'snapshot':os.path.basename(D),'games':len(files)-1,'rev':__import__('datetime').datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')}
 pack={'meta':meta,'files':files,'slots':{'teamStat':teamstat,'schedule':schedule},
       'simhl':{'simhlSkaters':rd('SIMHL-Players.csv'),'simhlGoalies':rd('SIMHL-Goalies.csv')},'lead':lead,
-      'sys':SYSP,'teamx':TEAMX,'teampro':TEAMPRO,'stars':{'day':last,'list':stars}}
+      'sys':SYSP,'teamx':TEAMX,'teampro':TEAMPRO,'stars':{'day':last,'list':stars},'nhl':NHL}
 os.makedirs(out,exist_ok=True)
 open(os.path.join(out,'ike_simhl_pack.json.gz'),'wb').write(gzip.compress(json.dumps(pack,ensure_ascii=False,separators=(',',':')).encode(),9))
 json.dump(meta,open(os.path.join(out,'latest.json'),'w'),indent=1)
