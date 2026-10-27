@@ -182,9 +182,9 @@ for g in idx['games']:
     m=re.search(r'\n3 Stars[^\n]*\n((?:\d - [^\n]+\n){1,3})',t)
     if not m: continue
     ro=roster(t); gl={}
-    for mm in re.finditer(r'\n([^\n(]+?) \(([A-Z]{2,4})\), \d+ saves',t): gl[mm.group(1).strip()]=len(gl)
+    for mm in re.finditer(r'\n([^\n(]+?) \(([A-Z-]{2,4})\), \d+ saves',t): gl[mm.group(1).strip()]=len(gl)
     for l in m.group(1).strip().split('\n'):
-        mm=re.match(r'(\d) - (.+?) \(([A-Z]{2,4})\)',l)
+        mm=re.match(r'(\d) - (.+?) \(([A-Z-]{2,4})\)',l)
         if not mm: continue
         n=mm.group(2).strip(); tm=ro.get(n) or ({0:g['visitor'],1:g['home']}.get(gl.get(n)) if n in gl else '')
         stars.append({'n':{'1':'1st','2':'2nd','3':'3rd'}[mm.group(1)],'p':n,'t':tm or '','g':g['game']})

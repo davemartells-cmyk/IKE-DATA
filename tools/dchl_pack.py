@@ -22,7 +22,7 @@ def team_of(t,name,g):
     for side in (g['visitor'],g['home']):
         m=re.search(r'(?:^|\n)'+re.escape(side)+r'\nPlayer Name\tPOS[^\n]*\n([\s\S]*?)(?=\n[^\n\t]+\nPlayer Name\tPOS|\n\n)',t)
         if m and re.search(r'(?:^|\n)'+re.escape(name)+r'\t',m.group(1)): return side
-    gl=re.findall(r'\n([^\n]+?) \(([A-Z]{2,4})\), \d+ saves',t)
+    gl=re.findall(r'\n([^\n]+?) \(([A-Z-]{2,4})\), \d+ saves',t)
     for i,(n,a) in enumerate(gl):
         if n==name: return g['visitor'] if i==0 else g['home']
     return ''
@@ -33,7 +33,7 @@ for g in idx['games']:
     m=re.search(r'\n3 Stars[^\n]*\n((?:\d - [^\n]+\n){1,3})',t)
     if not m: continue
     for l in m.group(1).strip().split('\n'):
-        mm=re.match(r'(\d) - (.+?) \(([A-Z]{2,4})\)',l)
+        mm=re.match(r'(\d) - (.+?) \(([A-Z-]{2,4})\)',l)
         if mm: stars.append({'n':{'1':'1st','2':'2nd','3':'3rd'}[mm.group(1)],'p':mm.group(2),'t':team_of(t,mm.group(2),g),'g':g['game']})
 
 # team strategy usage: every club's Lines tab carries PHY-DF-OF per unit and the time each unit played
