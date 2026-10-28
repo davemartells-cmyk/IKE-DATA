@@ -10,3 +10,5 @@ Updated by the nightly 8 pm pull:
 2. `python3 -I tools/simhl_pack.py <E:\IKE\Data\SIMHL copy> lead.json SIMHL` builds the pack.
    It stops (exit 2) if the newest pull's `SIMHL-ProTeamStats.txt` is missing or has no puck time, and names the file to pull again. Only after checking, `--carry-puck` pushes the games anyway and keeps the last real puck time.
 3. Commit and push.
+
+The DCHL pack (`tools/dchl_pack.py`) has the same check: it stops (exit 2) if the newest pull is missing any of the seven STHS exports or its `STHSTeamStat.CSV` has no puck time, and names the file; `--force` builds anyway.

@@ -9,6 +9,23 @@ snaps=sorted(d for d in glob.glob(os.path.join(src,'snapshots','day-*')) if os.p
 D=snaps[-1]
 M={'teamStat':'STHSTeamStat.CSV','schedule':'STHSSchedule.CSV','playerStat':'STHSPlayerStat.CSV','playerInfo':'STHSPlayerInformation.CSV',
    'playerRoster':'STHSPlayerRoster.CSV','goalieStat':'STHSGoalieStat.CSV','goalieRoster':'STHSGoaliesRoster.CSV'}
+# Oct 28 guard: build only from the newest pull, and only when that pull is complete — all seven STHS
+# exports present and the Team Stat file carrying puck time. Otherwise stop and name the file to pull
+# again, instead of quietly pushing an older or empty table. (--force builds anyway.)
+if '--force' not in sys.argv:
+    newest=sorted(glob.glob(os.path.join(src,'snapshots','day-*')))[-1]
+    def _stop(msg):
+        sys.stderr.write('\nSTOP — '+msg+'\nPull it again into '+newest+' and re-run (or re-run with --force to build anyway).\n\n'); sys.exit(2)
+    miss=[f for f in M.values() if not os.path.exists(os.path.join(newest,f))]
+    if miss: _stop(os.path.basename(newest)+' is missing '+', '.join(miss)+'.')
+    import csv as _csv
+    _r=list(_csv.reader(open(os.path.join(newest,'STHSTeamStat.CSV'),encoding='utf-8',errors='replace')))
+    _h=[x.strip() for x in _r[0]] if _r else []; _pz=[i for i,x in enumerate(_h) if x[:3] in ('PZ ','PC ')]
+    def _n(x):
+        try: return float(str(x).replace('%','').replace(',','') or 0)
+        except ValueError: return 0
+    if not _pz or not any(_n(row[i]) for row in _r[1:] for i in _pz if i<len(row)):
+        _stop(os.path.basename(newest)+'/STHSTeamStat.CSV has no puck time (PZ / PC columns are all 0) — the download came in incomplete.')
 slots={k:open(os.path.join(D,f),encoding='utf-8',errors='replace').read() for k,f in M.items() if os.path.exists(os.path.join(D,f))}
 def strip(t):   # drop the site menu above the box score
     i=t.find('\nCreated - ')
