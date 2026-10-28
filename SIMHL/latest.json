@@ -1,9 +1,11 @@
 {
  "league": "SIMHL",
- "day": 26,
- "game": 179,
- "at": "2026-10-26",
- "snapshot": "day-026",
- "games": 179,
- "rev": "2026-10-26T00:10:09Z"
+ "day": 29,
+ "game": 198,
+ "at": "2026-10-27",
+ "snapshot": "day-029",
+ "games": 198,
+ "rev": "2026-10-28T02:34:56Z",
+ "puckTimeThroughDay": 26,
+ "puckTimeThroughGame": 179
 }
