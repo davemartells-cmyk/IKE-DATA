@@ -7,6 +7,8 @@ import csv,io,re,json,gzip,os,sys,glob
 src,leadf,out=sys.argv[1:4]
 idx=json.load(open(os.path.join(src,'IKE_SIMHL_Season.json'),encoding='utf-8'))
 snaps=sorted(d for d in glob.glob(os.path.join(src,'snapshots','day-*')) if os.path.exists(os.path.join(d,'SIMHL-ProTeamStats.txt')))
+if not snaps:
+    sys.stderr.write('\nSTOP — no SIMHL-ProTeamStats.txt in any snapshots/ day-* folder (the league team table: records, PP/PK, puck time).\nSupply the real STHS client export into the newest snapshot and re-run.\n\n'); sys.exit(2)
 D=snaps[-1]; rd=lambda f:open(os.path.join(D,f),encoding='utf-8',errors='replace').read()
 # Oct 28 guard: the pack must be built from the newest pull, and that pull must carry the league's team
 # table WITH puck time. If not, stop and say exactly which file to pull again — never push zeros quietly.
