@@ -20,15 +20,48 @@ for l in L:
     elif mode=='st':
         st[c[0]]={k:(float(x.strip().rstrip('%')) if x.strip() else 0.0) for k,x in zip(hdr[1:],c[1:])}
 assert len(rec)==32 and len(st)==32, (len(rec),len(st))
+# Oct 28 — empty-net goals, counted from each game's timed play-by-play: a goal scored while the OTHER
+# club's goalie is pulled is an empty-net goal for the club that scored it (not the club that pulled).
+EN={}
+for g in idx['games']:
+    f=os.path.join(src,g['file'])
+    if not os.path.exists(f): continue
+    t=open(f,encoding='utf-8',errors='replace').read(); i=t.find('Play-by-Play\n1st period')
+    if i<0: continue
+    j=t.find('Full Play-by-Play',i); seg=t[i:j if j>0 else len(t)]; pulled=None; sc={}
+    for l in seg.split('\n'):
+        if 'is pulled from the net' in l:
+            m=re.search(r'- ([A-Z][A-Za-z .]+?), .*?is pulled from the net',l); pulled=m.group(1).strip() if m else None; continue
+        m=re.search(r'Goal by .+? - (.+?) : (\d+) - (.+?) : (\d+)',l)
+        if m:
+            a,x,b,y=m.group(1).strip(),int(m.group(2)),m.group(3).strip(),int(m.group(4)); who=a if x>sc.get(a,0) else b; sc[a]=x; sc[b]=y
+            if pulled and who!=pulled: EN[who]=EN.get(who,0)+1
+            pulled=None
+        if re.match(r'^\d\w\w period|^Overtime',l): pulled=None
+# Oct 28 — puck time: SIMHL publishes no puck time. When the newest snapshot carries none, keep the real
+# seconds already in the pack in <out> (and the day / game they run through) instead of writing zeros.
+PZK=['PZ DF','PZ OF','PZ NT','PC DF','PC OF','PC NT']
+PRK=['PuckTimeInZoneDF','PuckTimeInZoneOF','PuckTimeInZoneNT','PuckTimeControlinZoneDF','PuckTimeControlinZoneOF','PuckTimeControlinZoneNT']
+has_puck=any(st[t].get(k,0) for t in st for k in PZK)
+PUCK={}; _sd=int(re.sub(r'\D','',os.path.basename(D)) or 0)   # the snapshot the puck seconds come from
+puck_thru=(_sd,max([g['game'] for g in idx['games'] if g.get('day',0)<=_sd] or [0]))
+if not has_puck:
+    puck_thru=(None,None); prev=os.path.join(out,'ike_simhl_pack.json.gz')
+    if os.path.exists(prev):
+        pp=json.loads(gzip.decompress(open(prev,'rb').read())); pm=pp.get('meta',{})
+        puck_thru=(pm.get('puckTimeThroughDay',pm.get('day')),pm.get('puckTimeThroughGame',pm.get('game')))
+        for r in pp.get('teampro',[]): PUCK[r['Name']]={'gp':r.get('PuckTimeGP',r.get('GP',0)),'v':[r.get(k,0) for k in PRK]}
+def puck_sec(t,i): return round(st[t][PZK[i]]*60) if has_puck else (PUCK.get(t,{'v':[0]*6})['v'][i])
+def puck_gp(t): return rec[t]['all'][0] if has_puck else PUCK.get(t,{'gp':0})['gp']
 blk=lambda v:[v[0],v[1],v[2],0,v[3],v[4],v[5],v[6],v[7],v[8],v[7]-v[8]]
 rows=[]
 for t in sorted(rec):
     A=rec[t]['all'];S=st[t];pts=2*(A[1]+A[3]+A[5])+A[4]+A[6]
     n={'G':A[7],'P':pts,'PCT':round(pts/(2*A[0]),3) if A[0] else 0,'SHF':S['SHF'],'SHA':S['SHA'],'SHB':S['SHB'],'Pim':S['Pim'],'Hit':S['Hit'],
        'PPA':S['PPA'],'PPG':S['PPG'],'PP%':S['PP%'],'PKA':S['PKA'],'PK GA':S['PK GA'],'PK%':S['PK%'],'PK GF':S['PK GF'],
-       'PZ DF':S['PZ DF'],'PC DF':S['PC DF'],'PZ OF':S['PZ OF'],'PC OF':S['PC OF'],'PZ NT':S['PZ NT'],'PC NT':S['PC NT'],
+       'PZ DF':puck_sec(t,0)/60,'PC DF':puck_sec(t,3)/60,'PZ OF':puck_sec(t,1)/60,'PC OF':puck_sec(t,4)/60,'PZ NT':puck_sec(t,2)/60,'PC NT':puck_sec(t,5)/60,
        'FO% OZ':S['FO% OZ'],'FO% DZ':S['FO% DZ'],'FO% NT':S['FO% NT'],'SP1':S['SP1'],'SP2':S['SP2'],'SP3':S['SP3'],'SP4':S['SP4'],
-       'G P1':S['GP1'],'G P2':S['GP2'],'G P3':S['GP3'],'G P4OT':S['GP4'],'HP GP':A[0],'PZ GP':A[0],'SO':S.get('SO',0),'EG':S.get('EG',0)}
+       'G P1':S['GP1'],'G P2':S['GP2'],'G P3':S['GP3'],'G P4OT':S['GP4'],'HP GP':A[0],'PZ GP':puck_gp(t),'SO':S.get('SO',0),'EG':EN.get(t,0)}
     rows.append((t,rec[t],n))
 names=list(rows[0][2].keys()); B=['GP','W','L','T','OTW','OTL','SOW','SOL','GF','GA','Diff']
 o=io.StringIO();w=csv.writer(o,lineterminator='\n');w.writerow(['No','Name']+B*3+names)
@@ -169,9 +202,9 @@ for tm in sorted(rec):
     TEAMPRO.append({'Name':tm,'GP':A[0],'W':A[1],'L':A[2],'OTW':A[3],'OTL':A[4],'SOW':A[5],'SOL':A[6],'Points':2*(A[1]+A[3]+A[5])+A[4]+A[6],'GF':A[7],'GA':A[8],
       'HomeGP':Hm[0],'HomeW':Hm[1],'HomeL':Hm[2],'HomeOTW':Hm[3],'HomeOTL':Hm[4],'HomeSOW':Hm[5],'HomeSOL':Hm[6],'HomeGF':Hm[7],'HomeGA':Hm[8],
       'PPAttemp':S['PPA'],'PPGoal':S['PPG'],'PKAttemp':S['PKA'],'PKGoalGA':S['PK GA'],'PKGoalGF':S['PK GF'],'ShotsFor':S['SHF'],'ShotsAga':S['SHA'],'ShotsBlock':S['SHB'],
-      'PuckTimeInZoneDF':round(S['PZ DF']*60),'PuckTimeInZoneOF':round(S['PZ OF']*60),'PuckTimeInZoneNT':round(S['PZ NT']*60),
-      'PuckTimeControlinZoneDF':round(S['PC DF']*60),'PuckTimeControlinZoneOF':round(S['PC OF']*60),'PuckTimeControlinZoneNT':round(S['PC NT']*60),
-      'Shutouts':S.get('SO',0),'EmptyNetGoal':S.get('EG',0),'Pim':S['Pim'],'Hits':S['Hit'],
+      'PuckTimeInZoneDF':puck_sec(tm,0),'PuckTimeInZoneOF':puck_sec(tm,1),'PuckTimeInZoneNT':puck_sec(tm,2),
+      'PuckTimeControlinZoneDF':puck_sec(tm,3),'PuckTimeControlinZoneOF':puck_sec(tm,4),'PuckTimeControlinZoneNT':puck_sec(tm,5),'PuckTimeGP':puck_gp(tm),
+      'Shutouts':S.get('SO',0),'EmptyNetGoal':float(EN.get(tm,0)),'Pim':S['Pim'],'Hits':S['Hit'],
       'FaceOffWonDefensifZone':z['DZ'][0],'FaceOffTotalDefensifZone':z['DZ'][1],'FaceOffWonOffensifZone':z['OZ'][0],'FaceOffTotalOffensifZone':z['OZ'][1],
       'FaceOffWonNeutralZone':z['NZ'][0],'FaceOffTotalNeutralZone':z['NZ'][1]})
 # last game day's 3 stars
@@ -199,7 +232,7 @@ for f in (os.path.join(src,'IKE_NHL_IDs.json'),os.path.join(src,'..','IKE_NHL_ID
                 if v.get('id'): NHL[re.sub(r'\s*\(R\)\s*$','',k)]=[str(v['id']),v.get('num')]
         except Exception: pass
         break
-meta={'league':'SIMHL','day':idx['lastDaySynced'],'game':idx['lastGameSynced'],'at':idx.get('syncedAt',''),'snapshot':os.path.basename(D),'games':len(files)-1,'rev':__import__('datetime').datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')}
+meta={'league':'SIMHL','day':idx['lastDaySynced'],'game':idx['lastGameSynced'],'at':idx.get('syncedAt',''),'snapshot':os.path.basename(D),'games':len(files)-1,'rev':__import__('datetime').datetime.now(__import__('datetime').timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),'puckTimeThroughDay':puck_thru[0],'puckTimeThroughGame':puck_thru[1]}
 pack={'meta':meta,'files':files,'slots':{'teamStat':teamstat,'schedule':schedule},
       'simhl':{'simhlSkaters':rd('SIMHL-Players.csv'),'simhlGoalies':rd('SIMHL-Goalies.csv')},'lead':lead,
       'sys':SYSP,'teamx':TEAMX,'teampro':TEAMPRO,'stars':{'day':last,'list':stars},'nhl':NHL}
