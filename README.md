@@ -8,4 +8,5 @@ League data the I.K.E apps read online, so the phone is current without redeploy
 Updated by the nightly 8 pm pull:
 1. `node tools/simhl_lead.js tools/empire_engine.html <E:\IKE\Data\SIMHL copy> lead.json` counts the play-by-play leaders with the Empire tool's own game reader.
 2. `python3 -I tools/simhl_pack.py <E:\IKE\Data\SIMHL copy> lead.json SIMHL` builds the pack.
+   It stops (exit 2) if the newest pull's `SIMHL-ProTeamStats.txt` is missing or has no puck time, and names the file to pull again. Only after checking, `--carry-puck` pushes the games anyway and keeps the last real puck time.
 3. Commit and push.

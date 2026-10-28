@@ -8,6 +8,15 @@ src,leadf,out=sys.argv[1:4]
 idx=json.load(open(os.path.join(src,'IKE_SIMHL_Season.json'),encoding='utf-8'))
 snaps=sorted(d for d in glob.glob(os.path.join(src,'snapshots','day-*')) if os.path.exists(os.path.join(d,'SIMHL-ProTeamStats.txt')))
 D=snaps[-1]; rd=lambda f:open(os.path.join(D,f),encoding='utf-8',errors='replace').read()
+# Oct 28 guard: the pack must be built from the newest pull, and that pull must carry the league's team
+# table WITH puck time. If not, stop and say exactly which file to pull again — never push zeros quietly.
+# (--carry-puck lets a pull go out anyway, keeping the last real puck time from the pack in <out>.)
+CARRY='--carry-puck' in sys.argv
+newest=sorted(glob.glob(os.path.join(src,'snapshots','day-*')))[-1]
+def _stop(msg):
+    sys.stderr.write('\nSTOP — '+msg+'\nPull that file again into '+newest+' and re-run. To push the games anyway and keep the last real puck time, re-run with --carry-puck.\n\n'); sys.exit(2)
+if os.path.normpath(newest)!=os.path.normpath(D) and not CARRY:
+    _stop(os.path.basename(newest)+' has no SIMHL-ProTeamStats.txt (the league team table: records, PP/PK, puck time).')
 # team stats in the tool's Team Stat layout
 L=rd('SIMHL-ProTeamStats.txt').split('\n'); rec,st,mode={}, {},None
 for l in L:
@@ -43,6 +52,8 @@ for g in idx['games']:
 PZK=['PZ DF','PZ OF','PZ NT','PC DF','PC OF','PC NT']
 PRK=['PuckTimeInZoneDF','PuckTimeInZoneOF','PuckTimeInZoneNT','PuckTimeControlinZoneDF','PuckTimeControlinZoneOF','PuckTimeControlinZoneNT']
 has_puck=any(st[t].get(k,0) for t in st for k in PZK)
+if not has_puck and not CARRY:
+    _stop(os.path.basename(D)+'/SIMHL-ProTeamStats.txt has no puck time (PZ / PC columns are all 0) — the download came in incomplete.')
 PUCK={}; _sd=int(re.sub(r'\D','',os.path.basename(D)) or 0)   # the snapshot the puck seconds come from
 puck_thru=(_sd,max([g['game'] for g in idx['games'] if g.get('day',0)<=_sd] or [0]))
 if not has_puck:
