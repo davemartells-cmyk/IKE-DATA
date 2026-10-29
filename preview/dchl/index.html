@@ -14183,8 +14183,12 @@ window.IKE_TEAM_SYS={"gp":{"Flyers":58,"Lightning":54,"Blues":58,"Blackhawks":55
     var idx=null; try{ idx=JSON.parse(F['IKE_SIMHL_Season.json']||F['IKE_DCHL_Season.json']||'null'); }catch(e){}
     if(!idx||!idx.games) return; var out=[];
     idx.games.forEach(function(g){ var t=F[g.file]; if(!t) return; var m=t.match(/3 Stars[^\n]*\r?\n([\s\S]{0,300})/); if(!m) return;
-      var st=[]; m[1].split(/\r?\n/).slice(0,3).forEach(function(l){ var q=l.match(/^\s*([123])\s*-\s*(.+?)\s*\(([A-Z]{2,3})\)/); if(q) st.push({r:+q[1],p:q[2],t:AB2N[q[3]]||q[3]}); });
+      var st=[]; m[1].split(/\r?\n/).slice(0,3).forEach(function(l){ var q=l.match(/^\s*([123])\s*-\s*(.+?)\s*\(([A-Z][A-Z-]{1,3})\)/); if(q) st.push({r:+q[1],p:q[2],t:AB2N[q[3]]||q[3]}); });
       if(st.length) out.push({game:g.game,day:g.day,v:g.visitor,h:g.home,stars:st}); });
+    /* Oct 29: the league sheets use their own short names (SIMHL LAS, VGS, WIN…; DCHL LOS, MON, HAR…). A code the app does not know goes to the club, of the two playing, that it turns up with most */
+    var seen={}; out.forEach(function(x){ x.stars.forEach(function(s){ if(s.t===x.v||s.t===x.h) return; var c=seen[s.t]=seen[s.t]||{}; c[x.v]=(c[x.v]||0)+1; c[x.h]=(c[x.h]||0)+1; }); });
+    var fix={}; Object.keys(seen).forEach(function(a){ var c=seen[a], b=Object.keys(c).sort(function(p,q){ return c[q]-c[p]; }); if(b.length&&(b.length<2||c[b[0]]>c[b[1]])) fix[a]=b[0]; });
+    out.forEach(function(x){ x.stars.forEach(function(s){ if(fix[s.t]) s.t=fix[s.t]; }); });
     window.IKE_STARS_ALL=out;
   };
   window.ikeStarsBoard=function(n){ /* n = games per club; 0 = season */
