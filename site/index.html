@@ -118,6 +118,15 @@ select,input[type=text]{background:var(--panel2);color:var(--ink);border:1px sol
 @media (max-width:1100px){.clubgrid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:760px){.clubgrid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:1100px){.tiles{grid-template-columns:repeat(4,1fr)}}
+.pbox .grip{color:var(--gold);cursor:grab;font-size:13px}
+.pbox .nm{font-weight:600;font-size:14.5px}
+.pbox .tag{margin-left:auto;color:var(--gold);font-weight:700;font-size:12px}
+.face{position:relative;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#232065;color:#cdd6f4;font-weight:700;overflow:hidden;flex:none}
+.face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.chip2{background:#241d08;color:var(--gold);border:1px solid #6b5510;border-radius:20px;padding:1px 9px;font-size:11px;font-weight:700;margin-left:8px;white-space:nowrap}
+.lrowwrap{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.lrowwrap .rl{width:118px;flex:none;padding-top:13px;font-weight:800;color:var(--dim);font-size:13.5px}
+.lrow{display:grid;gap:8px;flex:1}
 </style>
 </head>
 <body>
@@ -478,6 +487,79 @@ function nextOpponent(club){
   return g? (g.home===club?g.vis:g.home) : IDX.clubs.find(c=>c!==club);
 }
 
+/* ---- real lines: parsed from the club's most recent game sheet in the pack ---- */
+function mug(name){ const e=PACK.nhl&&PACK.nhl[name]; return e? "https://cdn.nhle.com/photos/mugs/"+e[0]+".jpg" : ""; }
+function faceHtml(name,size){
+  size=size||40; const u=mug(name);
+  const ini=name.split(" ").map(w=>w[0]).slice(0,2).join("");
+  return '<span class="face" style="width:'+size+"px;height:"+size+"px;font-size:"+Math.round(size*0.36)+'px">'+esc(ini)+(u? '<img src="'+u+'" alt="" loading="lazy" onerror="this.remove()">':"")+"</span>";
+}
+let SEASON_IDX=null; const LINES_CACHE={};
+function seasonIdx(){ if(SEASON_IDX) return SEASON_IDX; try{ SEASON_IDX=JSON.parse(PACK.files["IKE_"+(PACK.meta.league||"DCHL")+"_Season.json"]); }catch(e){ SEASON_IDX={games:[]}; } return SEASON_IDX; }
+const LINE_SECTIONS={"5 vs 5 Forward":["f",3],"5 vs 5 Defense":["d",2],"Power Play Forward":["ppf",3],"Power Play Defense":["ppd",2],"Penalty Kill 4 Players Forward":["pkf",2],"Penalty Kill 4 Players Defense":["pkd",2]};
+function parseLines(text,club){
+  const L={f:[],d:[],ppf:[],ppd:[],pkf:[],pkd:[]};
+  const lines=text.split(/\r?\n/); const clubs=new Set(IDX.clubs);
+  let cur=null, inBlock=false, got=false;
+  for(let i=0;i<lines.length;i++){
+    const ln=lines[i];
+    if(!inBlock){
+      if(ln===club && LINE_SECTIONS[lines[i+1]||""]){ inBlock=true; }
+      continue;
+    }
+    if(clubs.has(ln) && ln!==club && LINE_SECTIONS[lines[i+1]||""]) break;
+    if(LINE_SECTIONS[ln]){ cur=LINE_SECTIONS[ln]; continue; }
+    if(cur && /^\d+$/.test(ln.split("\t")[0])){
+      const cells=ln.split("\t"); const names=cells.slice(1,1+cur[1]).filter(Boolean);
+      let k=1+cur[1]; if(cells[k]==="") k++;
+      const pdo=cells.slice(k,k+3).join("-");
+      const tp=(cells.find(c=>/^\d+%$/.test(c))||"");
+      if(names.length===cur[1]){ L[cur[0]].push({names:names,code:pdo,tp:tp}); got=true; }
+    }
+  }
+  if(!got || !L.f.length) return null;
+  return L;
+}
+function clubGoalies(club){
+  try{ return goaliesOf(club).slice(0,2).map(g=>g.name); }catch(e){ return []; }
+}
+function clubLines(club){
+  if(LINES_CACHE[club]) return LINES_CACHE[club];
+  const games=(seasonIdx().games||[]);
+  let g=null;
+  for(let i=games.length-1;i>=0;i--){ if(games[i].visitor===club||games[i].home===club){ g=games[i]; break; } }
+  let out=null;
+  if(g && PACK.files[g.file]){ const p=parseLines(PACK.files[g.file],club); if(p){ p.game=g.game; p.day=g.day; out=p; } }
+  if(!out){
+    const slots=defaultLines(club);
+    const grp=(a,n)=>{ const o=[]; for(let i=0;i<a.length;i+=n) o.push({names:a.slice(i,i+n).map(x=>x.name),code:"",tp:""}); return o; };
+    out={f:grp(slots.slice(0,12),3), d:grp(slots.slice(12,18),2), ppf:[],ppd:[],pkf:[],pkd:[], projected:true, g:slots.slice(18,20).map(x=>x.name)};
+  }
+  const gg=clubGoalies(club);
+  out.g=gg.length? gg : (out.g||[]);
+  LINES_CACHE[club]=out;
+  return out;
+}
+function lineSlots(club){
+  const L=clubLines(club); const slots=[];
+  L.f.forEach(r=>["LW","C","RW"].forEach(t=>slots.push(t)));
+  L.d.forEach(r=>["LD","RD"].forEach(t=>slots.push(t)));
+  (L.g||[]).forEach(()=>slots.push("G"));
+  return slots;
+}
+function realFlat(club){
+  const L=clubLines(club); const flat=[];
+  L.f.forEach(r=>r.names.forEach(n=>flat.push(n)));
+  L.d.forEach(r=>r.names.forEach(n=>flat.push(n)));
+  (L.g||[]).forEach(n=>flat.push(n));
+  return flat;
+}
+function myLinesFlat(club){
+  const slots=lineSlots(club);
+  try{ const s=JSON.parse(localStorage.getItem("ike_lines_v2_"+club)||"null"); if(Array.isArray(s)&&s.length===slots.length) return s; }catch(e){}
+  return realFlat(club);
+}
+
 /* ================= 04 MATCHUPS ================= */
 const MU_SUBS=[
  {id:"depth",label:"DEPTH CHART"},{id:"linematch",label:"LINE MATCHUP"},
@@ -504,16 +586,26 @@ function linesGrid(slots,locked){
 function viewMatchups(sub){
   sub=sub||"depth";
   const mine=myClub();
-  if(!MU) MU={opp:nextOpponent(mine),lines:linesFor(mine)};
+  if(!MU) MU={opp:nextOpponent(mine)};
   if(sub==="depth"){
     muChrome(sub,'<button class="act" id="saveLines">SAVE LINES</button>');
-    const olines=defaultLines(MU.opp);
-    $("#view").innerHTML=
-      '<div class="selrow"><label>OPPONENT</label><select id="oppSel">'+IDX.clubs.filter(c=>c!==mine).map(c=>'<option value="'+esc(c)+'"'+(c===MU.opp?" selected":"")+">"+esc(c)+"</option>").join("")+"</select>"+
-      '<span class="note">Drag your players to set the lines. The opponent\'s chart is read-only.</span></div>'+
-      '<div class="half"><div class="card"><h3>Our Lines — Interactive · '+esc(mine)+'</h3>'+linesGrid(MU.lines,false)+'</div>'+
-      '<div class="card"><h3>Opponent Lines — Read Only · '+esc(MU.opp)+'</h3>'+linesGrid(olines,true)+"</div></div>";
-    $("#oppSel").addEventListener("change",e=>{ MU.opp=e.target.value; viewMatchups("depth"); });
+    const L=clubLines(mine), slots=lineSlots(mine);
+    if(!MU.dflat || MU.dclub!==mine){ MU.dflat=myLinesFlat(mine); MU.dclub=mine; }
+    const flat=MU.dflat;
+    const box=i=>'<div class="pbox" draggable="true" data-slot="'+i+'"><span class="grip">⠿</span>'+faceHtml(flat[i],38)+'<span class="nm">'+esc(flat[i])+'</span><span class="tag">'+slots[i]+"</span></div>";
+    let idx=0;
+    const row=(label,r,n)=>{ let cells=""; for(let k=0;k<n;k++) cells+=box(idx++); return '<div class="lrowwrap"><span class="rl">'+label+(r&&r.code? '<span class="chip2">'+r.code+" · "+r.tp+"</span>":"")+'</span><div class="lrow" style="grid-template-columns:repeat('+n+',1fr)">'+cells+"</div></div>"; };
+    let h='<p class="note" style="margin-bottom:14px">'+(L.projected? "Projected from the roster — no game-sheet lines found for this club." : "Your lines as set for Game "+L.game+" · Day "+L.day+", taken from the game sheet. Drag to rearrange them; Save stores your copy on this device.")+' <a href="#" id="resetLines" style="color:var(--gold)">Reset to the set lines</a></p>';
+    h+='<div class="card"><h3>Your Lines · '+esc(mine)+"</h3>";
+    L.f.forEach((r,i)=>{ h+=row("L"+(i+1),r,3); });
+    L.d.forEach((r,i)=>{ h+=row("D"+(i+1),r,2); });
+    if(L.g&&L.g.length){ let cells=""; for(let k=0;k<L.g.length;k++) cells+=box(idx++); h+='<div class="lrowwrap"><span class="rl">Goalies</span><div class="lrow" style="grid-template-columns:repeat('+L.g.length+',1fr)">'+cells+"</div></div>"; }
+    h+="</div>";
+    const specRows=(rows,pre)=>rows.map((r,i)=>'<p class="note" style="margin:3px 0"><b style="color:var(--ink)">'+pre+(i+1)+"</b> · "+r.names.map(esc).join(" · ")+(r.code? ' <span class="chip2">'+r.code+" · "+r.tp+"</span>":"")+"</p>").join("");
+    if(L.ppf.length||L.pkf.length){
+      h+='<div class="card" style="margin-top:16px"><h3>Special Teams Lines — As Set</h3><div class="grid" style="grid-template-columns:1fr 1fr;gap:6px 28px"><div>'+(L.ppf.length? '<p class="pagesub" style="margin:0 0 4px">Power Play Forwards</p>'+specRows(L.ppf,"PP"):"")+(L.ppd.length? '<p class="pagesub" style="margin:10px 0 4px">Power Play Defense</p>'+specRows(L.ppd,"PP"):"")+'</div><div>'+(L.pkf.length? '<p class="pagesub" style="margin:0 0 4px">Penalty Kill Forwards</p>'+specRows(L.pkf,"PK"):"")+(L.pkd.length? '<p class="pagesub" style="margin:10px 0 4px">Penalty Kill Defense</p>'+specRows(L.pkd,"PK"):"")+"</div></div></div>";
+    }
+    $("#view").innerHTML=h;
     let dragI=null;
     document.querySelectorAll(".pbox[data-slot]").forEach(b=>{
       b.addEventListener("dragstart",()=>{ dragI=+b.dataset.slot; b.classList.add("drag"); });
@@ -522,13 +614,33 @@ function viewMatchups(sub){
       b.addEventListener("dragleave",()=>b.classList.remove("over"));
       b.addEventListener("drop",e=>{ e.preventDefault(); b.classList.remove("over");
         const j=+b.dataset.slot; if(dragI===null||dragI===j) return;
-        const t=MU.lines[dragI].name; MU.lines[dragI].name=MU.lines[j].name; MU.lines[j].name=t;
+        const t=MU.dflat[dragI]; MU.dflat[dragI]=MU.dflat[j]; MU.dflat[j]=t;
         viewMatchups("depth"); });
     });
     $("#saveLines").addEventListener("click",()=>{
-      try{ localStorage.setItem("ike_lines_"+mine,JSON.stringify(MU.lines)); }catch(e){}
+      try{ localStorage.setItem("ike_lines_v2_"+mine,JSON.stringify(MU.dflat)); }catch(e){}
       const b=$("#saveLines"); b.textContent="SAVED ✓"; setTimeout(()=>{ if($("#saveLines")) $("#saveLines").textContent="SAVE LINES"; },1600);
     });
+    const rlx=$("#resetLines");
+    if(rlx) rlx.addEventListener("click",e=>{ e.preventDefault(); try{ localStorage.removeItem("ike_lines_v2_"+mine); }catch(err){} MU.dflat=null; viewMatchups("depth"); });
+    return;
+  }
+  if(sub==="linematch"){
+    muChrome(sub);
+    const side=(club,flat)=>{
+      const L=clubLines(club), slots=lineSlots(club); let idx=0, h="";
+      const row=(label,r,n)=>{ let cells=""; for(let k=0;k<n;k++){ const nm=flat[idx]; cells+='<div class="pbox lockbox">'+faceHtml(nm,34)+'<span class="nm">'+esc(nm)+'</span><span class="tag">'+slots[idx]+"</span></div>"; idx++; } return '<div class="lrowwrap"><span class="rl">'+label+(r&&r.code? '<span class="chip2">'+r.code+" · "+r.tp+"</span>":"")+'</span><div class="lrow" style="grid-template-columns:repeat('+n+',1fr)">'+cells+"</div></div>"; };
+      L.f.forEach((r,i)=>{ h+=row("L"+(i+1),r,3); });
+      L.d.forEach((r,i)=>{ h+=row("D"+(i+1),r,2); });
+      if(L.g&&L.g.length){ let cells=""; for(let k=0;k<L.g.length;k++){ const nm=flat[idx]; cells+='<div class="pbox lockbox">'+faceHtml(nm,34)+'<span class="nm">'+esc(nm)+'</span><span class="tag">G</span></div>'; idx++; } h+='<div class="lrowwrap"><span class="rl">Goalies</span><div class="lrow" style="grid-template-columns:repeat('+L.g.length+',1fr)">'+cells+"</div></div>"; }
+      return h;
+    };
+    $("#view").innerHTML=
+      '<div class="selrow"><label>OPPONENT</label><select id="oppSel">'+IDX.clubs.filter(c=>c!==mine).map(c=>'<option value="'+esc(c)+'"'+(c===MU.opp?" selected":"")+">"+esc(c)+"</option>").join("")+"</select>"+
+      '<span class="note">Your lines against theirs — as set in each club\'s most recent game.</span></div>'+
+      '<div class="half"><div class="card"><h3>Your Lines · '+esc(mine)+'</h3>'+side(mine,myLinesFlat(mine))+'</div>'+
+      '<div class="card"><h3>'+esc(MU.opp)+' Lines</h3>'+side(MU.opp,realFlat(MU.opp))+"</div></div>";
+    $("#oppSel").addEventListener("change",e=>{ MU.opp=e.target.value; viewMatchups("linematch"); });
     return;
   }
   if(sub==="fotable"){
@@ -671,17 +783,17 @@ function viewAdvanced(){
   }else{
     const trios=triosOf(ADV.club);
     const trioRows=trios.map(t=>'<div class="rowline"><span class="who" style="font-size:14.5px">'+esc(t.k)+'</span><span class="badge">'+t.n+" goals together</span></div>").join("");
-    const lines=linesFor(ADV.club), L=PACK.lead, hi=L.cols.indexOf("hit"), bi=L.cols.indexOf("blk");
+    const Lreal=clubLines(ADV.club), L=PACK.lead, hi=L.cols.indexOf("hit"), bi=L.cols.indexOf("blk");
     const stat=(n,ix)=>{ const a=L.p[n]; return a?a[ix]:0; };
     let pairRows="";
-    for(let d=0;d<3;d++){
-      const A=lines[12+d*2].name, B=lines[12+d*2+1].name;
+    Lreal.d.forEach((r,d)=>{
+      const A=r.names[0], B=r.names[1];
       const pts=seasonPts(A)+seasonPts(B), hb=stat(A,hi)+stat(A,bi)+stat(B,hi)+stat(B,bi);
       pairRows+='<div class="rowline"><span class="who" style="font-size:14.5px">D'+(d+1)+" · "+esc(A)+" — "+esc(B)+'</span><span class="what">'+pts+' combined PTS · '+hb+" hits + blocks</span></div>";
-    }
+    });
     body='<div class="grid" style="grid-template-columns:1fr 1fr"><div class="card"><h3>Forward Lines — Trios</h3>'+
       '<p class="note" style="margin-bottom:8px">Scoring trios from the goal log — goals where all three were on the scoresheet.</p>'+(trioRows||'<p class="note">No three-man scoring plays recorded.</p>')+"</div>"+
-      '<div class="card"><h3>Defence Pairs</h3><p class="note" style="margin-bottom:8px">Pairs as set on the depth chart · season production.</p>'+pairRows+"</div></div>";
+      '<div class="card"><h3>Defence Pairs</h3><p class="note" style="margin-bottom:8px">Pairs as set in the club\'s most recent game · season production.</p>'+pairRows+"</div></div>";
   }
   $("#view").innerHTML=head+body;
   $("#advClub").addEventListener("change",e=>{ ADV.club=e.target.value; viewAdvanced(); });
