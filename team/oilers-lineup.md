@@ -10,16 +10,16 @@ Data basis: DCHL Day 107/108 pack, Oilers 69 GP. Nothing here is entered in the 
 - Goaltending: Skinner .904 (50 GP), Tarasov .917 (25 GP).
 - Line churn: Oilers top-3 lines/pairs changed 12 times in 24 snapshots (most in league); no forward trio over ~45 ES min together.
 
-## Proposed lineup (Dave's lines, Nov 8)
+## Forward lines — SETTLED by Dave, Nov 8 (version B trios)
 | Line | LW | C | RW | ES time |
 |---|---|---|---|---|
-| 1 | Suzuki | Stamkos | Karlsson | 35% |
-| 2 | Panarin | Landeskog | Lehkonen | 33% |
-| 3 | Foudy | Staal | Donato | 32% |
+| 1 | Foudy | Stamkos | Karlsson | ~34% |
+| 2 | Panarin | Suzuki | Donato | ~33% |
+| 3 | Landeskog | Staal | Lehkonen | ~33% |
 | 4 | Stephenson, Marchment, Ryan | | | 0% (dressed, spare) |
 
-- Open: Suzuki is listed C only. Either keep him at LW (if the DCHL doesn't penalise out-of-position) or flip to Stamkos LW / Suzuki C.
-- Watch Staal's energy at 32% plus PK duty; if it drops, Line 3 to 28% and give Line 1 the rest.
+- Line order is a label only (no line matching in STHS); three balanced lines at equal time.
+- Watch during the freeze: Landeskog+Staal (−3 in ~64 min), Foudy's penalties, Staal's energy (ES + PK load).
 
 D pairs (reunite the proven ones):
 - Davidson–Morrissey, Schmidt–Ristolainen (each 300+ min at +4 in tracked games), Gardiner–Gavrikov kept together as pair 3.
@@ -66,3 +66,4 @@ Plan: freeze for 10 games after entry, then compare GF/GA.
   Claude: breaks up F–S–K (only proven trio, +6 in ~143 min) and Suzuki+Donato (best scoring pair); keeps Landeskog+Staal (−3). Leans B. Needs from Ike if D stays alive: Donato with Stamkos/Karlsson, Landeskog+Foudy, Staal+Foudy on-ice.
   STILL NEEDED FOR C: Suzuki+Lehkonen, Panarin+Lehkonen, Staal+Donato, Landeskog+Donato on-ice numbers.
   REQUEST FOR IKE (earlier, superseded by the line above): on-ice even-strength points and GF/GA when together, from the play-by-play games — Panarin–Suzuki–Donato (and each pair in it), Landeskog–Lehkonen, Landeskog–Staal.
+- Nov 8 — Dave: forwards settled as version B trios (table at top). Remaining before entry: Dave's yes on D pairs, PK pairs, strategy codes, goalie split.
