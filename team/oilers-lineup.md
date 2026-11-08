@@ -67,3 +67,4 @@ Plan: freeze for 10 games after entry, then compare GF/GA.
   STILL NEEDED FOR C: Suzuki+Lehkonen, Panarin+Lehkonen, Staal+Donato, Landeskog+Donato on-ice numbers.
   REQUEST FOR IKE (earlier, superseded by the line above): on-ice even-strength points and GF/GA when together, from the play-by-play games — Panarin–Suzuki–Donato (and each pair in it), Landeskog–Lehkonen, Landeskog–Staal.
 - Nov 8 — Dave: forwards settled as version B trios (table at top). Remaining before entry: Dave's yes on D pairs, PK pairs, strategy codes, goalie split.
+- Nov 8 — Dave: line order flipped — L1 Landeskog–Staal–Lehkonen (shutdown, faceoffs), L2 Foudy–Stamkos–Karlsson, L3 Panarin–Suzuki–Donato. Base strategy 0-3-2. Full proposal sent to Ike via Dave as a copy block for confirm/counter.
