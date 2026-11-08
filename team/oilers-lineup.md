@@ -13,10 +13,10 @@ Data basis: DCHL Day 107/108 pack, Oilers 69 GP. Nothing here is entered in the 
 ## Forward lines — SETTLED by Dave, Nov 8 (version B trios)
 | Line | LW | C | RW | ES time |
 |---|---|---|---|---|
-| 1 | Foudy | Stamkos | Karlsson | ~34% |
-| 2 | Panarin | Suzuki | Donato | ~33% |
-| 3 | Landeskog | Staal | Lehkonen | ~33% |
-| 4 | Stephenson, Marchment, Ryan | | | 0% (dressed, spare) |
+| 1 | Landeskog | Staal | Lehkonen | ~34% |
+| 2 | Foudy | Stamkos | Karlsson | ~33% |
+| 3 | Panarin | Suzuki | Donato | ~33% |
+| 4 | Marchment | Stephenson | Ryan | 0% (dressed, spare; Stephenson takes draws, 53.9%) |
 
 - Line order is a label only (no line matching in STHS); three balanced lines at equal time.
 - Watch during the freeze: Landeskog+Staal (−3 in ~64 min), Foudy's penalties, Staal's energy (ES + PK load).
@@ -68,3 +68,4 @@ Plan: freeze for 10 games after entry, then compare GF/GA.
   REQUEST FOR IKE (earlier, superseded by the line above): on-ice even-strength points and GF/GA when together, from the play-by-play games — Panarin–Suzuki–Donato (and each pair in it), Landeskog–Lehkonen, Landeskog–Staal.
 - Nov 8 — Dave: forwards settled as version B trios (table at top). Remaining before entry: Dave's yes on D pairs, PK pairs, strategy codes, goalie split.
 - Nov 8 — Dave: line order flipped — L1 Landeskog–Staal–Lehkonen (shutdown, faceoffs), L2 Foudy–Stamkos–Karlsson, L3 Panarin–Suzuki–Donato. Base strategy 0-3-2. Full proposal sent to Ike via Dave as a copy block for confirm/counter.
+- Nov 8 — Dave: never Marchment at C (30% faceoffs; L4 can still get minutes) — Stephenson centres L4. PP units written strictly LW–C–RW; Donato is not a PP centre.
