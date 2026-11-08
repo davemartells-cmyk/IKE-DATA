@@ -43,3 +43,5 @@ Plan: freeze for 10 games after entry, then compare GF/GA.
 
 ## Log
 - Nov 8 — Claude: file started from the Nov 8 conversation with Dave and Ike's deep dive + Oilers-only PP table.
+- Nov 8 — Dave's newer forward idea (replaces the table above until settled): L1 Landeskog–Stamkos–Suzuki (RW), L2 Lehkonen–Karlsson–Panarin (RW), L3 Foudy–Staal–Donato.
+  Claude: Suzuki is C-only, so RW is out of position again. In-position alternative: L1 Landeskog–Stamkos–Karlsson (= PP1 forwards exactly), L2 Lehkonen–Suzuki–Panarin. Faceoffs barely change (Suzuki 51.6% vs Karlsson 52.4%). Dave to decide.
