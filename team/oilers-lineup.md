@@ -47,3 +47,5 @@ Plan: freeze for 10 games after entry, then compare GF/GA.
   Claude: Suzuki is C-only, so RW is out of position again. In-position alternative: L1 Landeskog–Stamkos–Karlsson (= PP1 forwards exactly), L2 Lehkonen–Suzuki–Panarin. Faceoffs barely change (Suzuki 51.6% vs Karlsson 52.4%). Dave to decide.
 - Nov 8 — Ike (relayed by Dave): Suzuki as an Oiler — wing 9 GP, 3 pts (0.33/game; games 776, 788, 810, 904, 913, 934, 961, 1014 at RW, 972 at LW); centre 60 GP, 52 pts (0.87/game). Points to keeping him at C.
   Claude: agreed. Leading option is now L1 Landeskog–Stamkos–Karlsson, L2 Lehkonen–Suzuki–Panarin, L3 Foudy–Staal–Donato. Caveat for Ike if he has time: check linemates and ice time in those 9 wing games (if they were bottom-six games, part of the drop is the role, not the position).
+- Nov 8 — Dave: Suzuki stays at C. Stamkos C with Karlsson RW together; Landeskog LW with Suzuki.
+  Claude's fill for the open spots (Dave to confirm): L1 Panarin–Stamkos–Karlsson, L2 Landeskog–Suzuki–Lehkonen, L3 Foudy–Staal–Donato. Alternative: swap Panarin and Lehkonen.
