@@ -77,3 +77,20 @@ Plan: freeze for 10 games after entry, then compare GF/GA.
   Basis: league's fewest-shots-against teams all run 0-2-3 up front (Leafs 81%, Kraken 99%, Golden Knights 65%, Predators 53%); L1 trio's only history 0-3-2 ~37 min 1–1; Staal 0 min in attack settings; 1-1-3 team-wide ~166 min 6–6. D settings match each pair's best record (D–M 0-4-1 ~337 min +6; S–R 0-3-2 ~340 min +4).
   Open for Dave: Ike's counter Donato for Marchment on PP2 (Marchment 0 PP pts in 4 PP min). Watch during freeze: Ryan cold on PK2; 1-2-2 is −2 in ~121 min since Stamkos (tied/down-1 states). Score-state history not in game sheets.
 - Nov 8 — ENTERED and saved on dchl.sths.ca (verified via the league API), before Day 109 at Flames: L1 Landeskog–Staal–Lehkonen 0-3-2 33%, L2 Foudy–Stamkos–Karlsson 0-1-4 33%, L3 Panarin–Suzuki–Donato 0-1-4 33%, L4 = Stamkos trio again 1%; D 37/35/25/3; PP/PK and score states per final block. Goalie unchanged (Skinner G1). 10-game freeze starts.
+- Nov 11 — Dave → Ike (via Claude): **go deep on the three freeze games** — Day 109 at Flames W 5–1 (game 1077), Day 110 at Lightning L 2–4 (game 1084), Day 111 vs Sabres L 3–4 (game 1089). All three have full play-by-play (E:\IKE\Data\DCHL\games\ and the IKE-DATA DCHL pack). Dave's question: the scores don't tell the whole story. Is Stamkos (Foudy–Stamkos–Karlsson) playing worse since the Nov 9 swap put that trio in the doubled L3/L4 slot?
+  Claude's first pass (ES only, from the full play-by-play on-ice lineups; TOI is approximate, within ~1 min of the Lines tab):
+  | Foudy–Stamkos–Karlsson | ES min | Shot attempts for–against | CF% | CF/60 | CA/60 | GF–GA |
+  |---|---|---|---|---|---|---|
+  | As L1/L2 (12 full-PBP games incl. 1077) | 161 | 264–158 | 63% | 98 | 59 | 16–10 |
+  | Doubled L3+L4 (1084, 1089) | 33 | 42–53 | 44% | 77 | 97 | 0–3 |
+  - Competition unchanged: as L3/L4 they still spent ~63% of their minutes against the opponent's L1/L2 (61% before). The slot number is a label; it didn't buy easier matchups.
+  - Load went up: the double gave them 16–17 ES min a game (was ~13.5), on top of PP1. Stamkos 18:44 total vs BUF. Only 2 straight-back-to-back L3→L4 shifts in the two games.
+  - Whole team was under water: team ES CF% 48% at TB, 47% vs BUF. Worst line vs BUF was Panarin–Suzuki–Donato (35% in 14.6 min). BUF goals: one 5v5 vs F–S–K (Walman 15:26 1st), one 5v5 vs Staal line (Point 4:30 3rd), two Sabres PP.
+  - Game 1077 (still L2 then): F–S–K 77% CF, 2–0 GF. Team 72%.
+  ASK FOR IKE — please dig into all three games and add your read below:
+  1. Per line and per D pair, ES on-ice: attempts, shots, GF/GA, zone starts, and who they faced (opponent line and pair), for each game.
+  2. Stamkos individually: shots/attempts, faceoffs by zone, giveaways/takeaways, how he was on the ice for each goal against.
+  3. Fatigue check: shift lengths and ES+PP+PK load for Stamkos, Karlsson and Foudy by period. Does their play drop in the 3rd? Compare that to game 1077.
+  4. Special teams in all three: PP 2/7, 0/5, and BUF game; the 2 PP goals against vs BUF — which PK unit, and how they happened.
+  5. Goaltending: Skinner at TB, Tarasov vs BUF. Were the goals against stoppable (rebounds, deflections, screens)?
+  6. Your verdict: is it the slot/double, the load, the opponents (TB, BUF), or noise in a 33-minute sample? Any change you'd recommend now, or hold the freeze (7 games left)?
