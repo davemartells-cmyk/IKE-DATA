@@ -133,3 +133,21 @@ The full tour board (wish list PO 90+ ×18, working tier PO 80–85 ×39, gap cl
 | Peyton Shore | none shown | 2026 NHL Draft eligible | https://www.eliteprospects.com/player/890146/peyton-shore |
 
 Notes: EP only publishes numeric draft rankings for top prospects — only Poletin (#130) and Fiddler (#23) carry one, so "none shown" is the honest entry for the rest, not a zero. Four roster players are already NHL-drafted: Poletin, Fiddler, Vanek, Sklenicka. Spellings as on EP differ in two cases (EP: "Marek Sklenička", "Urijah Moosetail", "Cash Arcand Vandale" without the hyphen). One soft spot: Kaden Allan's EP profile crawl predates his 2026-27 stats, so his EP line is unverified (chl.ca showed Saskatoon, 6 GP, 0 PTS). Next from this desk: the trade-target EP columns, then the rest of the league.
+- Nov 11 — Raiders front office: TRADE-TARGET LIST, EP columns completed (this table supersedes the "EP pull pending" version above). Full detail is in the front-office pull EP_Targets_Pull_2026-11-11.md.
+
+| Player | Pos | Current sim team | Elite Prospects rating | Draft status | One-line note |
+|---|---|---|---|---|---|
+| Christopher Kokkoris | D | Lethbridge | none shown | 2028 NHL eligible (WHL 2025, R1 #8, Edmonton) | PO 90 in the sim, healthy scratch; a piece in the built Poletin ask to Zachary. Real life: 6'6" D, Edmonton, 10 GP, 2 PTS |
+| Owen Archer | D | Lethbridge | none shown | 2028 NHL eligible (WHL 2025, R2 #32, Red Deer) | PO 84, scratch; Zachary is open to moving him — ball with us. Real life: Drumheller (AJHL), 16 GP |
+| Brook Haile | D | Kamloops | none shown | 2028 NHL eligible (WHL 2025, R1 #21, Seattle) | PO 84; in Dave's live counter (Coupland + Dillard for Jim + Haile) |
+| Cruz Jim | D | Kamloops | none shown | 2028 NHL eligible (WHL 2025, R1 #12, Brandon) | PO 87; same counter. Real life: Brandon, 13 GP, 4 PTS |
+| Kalen Miles | C | Penticton | none shown | 2028 NHL eligible (WHL 2025, R1 #10, Wenatchee) | PO 88; offer decision open with Dave. Real life: Wenatchee, 16 GP, 5 PTS |
+| Eli McKamey | RW | Swift Current | none shown | 2027 NHL eligible (WHL 2024, R2 #35, Victoria) | PO 80; in our live offer to Jared Down. Real life: Tri-City, 18 GP, 15 PTS — matches his GM's billing |
+| Roan Greschuk | D | Tri-City | none shown | 2028 NHL eligible (WHL 2025, R1 #19, Victoria) | PO 84, scratch; Quick wants a high pick back. Real life: Drumheller (AJHL), 14 GP |
+| Mathis Preston | RW | Vancouver | #33 (EP, 2026 NHL Draft) | NHL drafted — 2026, Round 2, #50, Anaheim Ducks | PO 86; parked — needs the Tri-City 2028 2nd freed from the Swift Current offer. Real life: Vancouver, 18 GP, 26 PTS — his real stock is high |
+| Landon Dupont | D | Regina | none shown (projected #1 for 2027 by other outlets — not an EP ranking) | 2027 NHL eligible (WHL 2024, R1 #1 overall, Everett — exceptional status) | PO 94 — wish-list headliner. Real life: University of Michigan (NCAA), 8 GP, 8 PTS |
+| Kayden Stroeder | C | Red Deer | none shown | 2027 NHL eligible (WHL 2024, R1 #5, Edmonton) | PO 91 — wish list. Real life: Edmonton, 15 GP, 18 PTS |
+| Jaxon Jacobson | C | Spokane | none shown | 2027 NHL eligible (WHL 2023, R1 #5, Brandon) | PO 88; crown-jewel price. Real life: Brandon captain, 19 GP, 19 PTS |
+| Cruz Nicolay | D | Spokane | none shown | 2028 NHL eligible (WHL 2025, R2 #27, Regina) | PO 82, scratch; Spokane held — Dave handles Shaun personally. EP shows no 2026-27 stat line for him yet |
+
+One gap, stated plainly: direct EP profile links are verified for Preston (https://www.eliteprospects.com/player/628115/mathis-preston); for the other 11, EP's search blocked the pull tool, so the office file links each player's EP team page rather than guessing profile URLs. The vitals, draft data and stat lines above all come from EP pages. Still to come from this desk: the seven-player deep-dive (reads being assembled) and the league-wide EP pass.
