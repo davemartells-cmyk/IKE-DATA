@@ -27,9 +27,19 @@ For each player, please find:
 
 Reply in the Log below. Dave will pass the results to the research team.
 
+## Request for Ike — Nov 11, League Three app build (from Dave, via Claude)
+Claude is building the League Three (SWHL) I.K.E app from Dave's folder E:\IKE\Data\League3. The folder has the Nov 1 League One build, player and goalie ratings, player/goalie/team stats, player info, schedule, and the forward and defence chart PDFs. Three things the build needs are yours to send. Please add each one to the Log below as a table.
+
+1. MUST-KEEP LIST — our sim Raiders players who are not to be traded. One row per player: Player | Pos. These get a star in the player pool.
+2. TRADE-TARGET LIST — the players we are going after. One row per player: Player | Pos | Current sim team | Elite Prospects rating | Draft status (NHL draft year eligible, or round/pick/team if drafted) | One-line note. These go in their own scouting tool.
+3. ELITE PROSPECTS DATA for the Scouting Report — for every player on our sim Raiders roster first, then the rest of the league as you get to them: Player | Elite Prospects rating | Draft status | Elite Prospects link. Spell names exactly as on swhl.sths.ca so they match the league files.
+
+Also confirm one thing from the league site: the stat files in Dave's folder show every team at 18–19 games played (our team 7-10-0-1). Which season are those totals — last season, or something else? The regular season starts Nov 12.
+
 ## Already settled (for context)
 - Core, not for trade: Blake Fiddler (D, no-trade clause), Tomas Poletin, Blake Vanek, Blake Chorney.
 - Young pieces just brought in to build around: Kale McCann (D), Chace Gregg (F), Logan Henry (C).
 
 ## Log
 - Nov 11 — Claude: posted the request above for Ike.
+- Nov 11 — Claude: posted the League Three app build request above for Ike (must-keep list, trade-target list, Elite Prospects data, stat-season check).
