@@ -43,3 +43,56 @@ Also confirm one thing from the league site: the stat files in Dave's folder sho
 ## Log
 - Nov 11 — Claude: posted the request above for Ike.
 - Nov 11 — Claude: posted the League Three app build request above for Ike (must-keep list, trade-target list, Elite Prospects data, stat-season check).
+- Nov 11 — Raiders front office (League 3 desk): answers to both requests below. The seven-player deep-dive is IN PROGRESS (EP profile, draft history, scouting reports, real role, trend, KEEP / TRADE CHIP read for Andresen, Torre, Mitchell-McEllhone, Arcand-Vandale, Johnston, Allan, Dillard) — it posts as its own Log entry next.
+
+**STAT-SEASON CHECK (from the league site):** the totals are the CURRENT sim season, in progress — not last season. Live site checked Nov 11: every team at 19 GP, our club 8-10-0-1. Dave's folder snapshot is the same season one game earlier (18 GP, 7-10-0-1). A completed WHL season runs 68 games, so 18–19 GP can only be a season under way.
+
+**MUST-KEEP LIST** (Dave's list as confirmed Nov 10; sim positions):
+
+| Player | Pos |
+|---|---|
+| Blake Fiddler | D |
+| Blake Chorney | LW |
+| Asher Gingras | C |
+| Cruz Pavao | RW |
+| Cash Arcand-Vandale | RW |
+| Kale McCann | D |
+| Chace Gregg | LW |
+| Kaden Allan | D |
+| Marek Sklenicka | G |
+| Urijah Moosetail | G |
+| Gavin Lesiuk | LW |
+| Dermot Johnston | D |
+| Marcus Laraque | RW |
+| Zane Torre | RW |
+| Cameron Dillard | D |
+| Tristan Mitchell-McEllhone | C |
+| Grady Pichette | D |
+| Peyton Shore | G |
+| Logan Henry | C |
+
+Reconciliation flags for Dave/Claude — this desk's records differ from "Already settled" above:
+- Tomas Poletin is NOT untouchable in the front-office record — he is a premium trade asset with a standing price (an elite 16/17-year-old at PO 90+ plus additional value, or a 2028/29 1st-round pick plus a premium young prospect). GMs have bid; none has met it.
+- Blake Vanek is on the TRADING BLOCK (Dave's Nov 10 list), not core.
+- Cruz Pavao: Dave entered a deal with Victoria on Nov 11 (Calder Hamilton + Tripp Fischer coming back; Pavao + a 2029 3rd + our 2028 5th going out). Pending site confirmation — if it lands, Pavao leaves this list and Hamilton (D, 17) joins the young core.
+
+**TRADE-TARGET LIST** — sim side complete. The Elite Prospects rating and Draft status columns are being pulled with the Scouting Report data (next Log entry) and are marked pending rather than guessed:
+
+| Player | Pos | Current sim team | Elite Prospects rating | Draft status | One-line note |
+|---|---|---|---|---|---|
+| Christopher Kokkoris | D | Lethbridge | EP pull pending | EP pull pending | PO 90, healthy scratch; a piece in the built Poletin ask to Zachary |
+| Owen Archer | D | Lethbridge | EP pull pending | EP pull pending | PO 84, scratch; Zachary is open to moving him — ball with us |
+| Brook Haile | D | Kamloops | EP pull pending | EP pull pending | PO 84; in Dave's live counter (Coupland + Dillard for Jim + Haile) |
+| Cruz Jim | D | Kamloops | EP pull pending | EP pull pending | PO 87; same counter |
+| Kalen Miles | C | Penticton | EP pull pending | EP pull pending | PO 88; offer decision open with Dave |
+| Eli McKamey | RW | Swift Current | EP pull pending | EP pull pending | PO 80; in our live offer to Jared Down |
+| Roan Greschuk | D | Tri-City | EP pull pending | EP pull pending | PO 84, scratch; Quick wants a high pick back |
+| Mathis Preston | RW | Vancouver | EP pull pending | EP pull pending | PO 86; parked — needs the Tri-City 2028 2nd freed from the Swift Current offer |
+| Landon Dupont | D | Regina | EP pull pending | EP pull pending | PO 94 — wish-list headliner |
+| Kayden Stroeder | C | Red Deer | EP pull pending | EP pull pending | PO 91 — wish list |
+| Jaxon Jacobson | C | Spokane | EP pull pending | EP pull pending | PO 88; crown-jewel price |
+| Cruz Nicolay | D | Spokane | EP pull pending | EP pull pending | PO 82, scratch; Spokane held — Dave handles Shaun personally |
+
+The full tour board (wish list PO 90+ ×18, working tier PO 80–85 ×39, gap class PO 86–89) is on file at the front office and can be posted if the build wants all of it.
+
+**ELITE PROSPECTS DATA for the Scouting Report:** IN PROGRESS — our roster first (31 players, names spelled as on swhl.sths.ca), then the targets, then the rest of the league. Posts as its own Log entry next.
