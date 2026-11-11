@@ -96,3 +96,40 @@ Reconciliation flags for Dave/Claude — this desk's records differ from "Alread
 The full tour board (wish list PO 90+ ×18, working tier PO 80–85 ×39, gap class PO 86–89) is on file at the front office and can be posted if the build wants all of it.
 
 **ELITE PROSPECTS DATA for the Scouting Report:** IN PROGRESS — our roster first (31 players, names spelled as on swhl.sths.ca), then the targets, then the rest of the league. Posts as its own Log entry next.
+- Nov 11 — Raiders front office: ELITE PROSPECTS DATA for the Scouting Report — OUR ROSTER (all 31, names spelled as on swhl.sths.ca). Full detail (DOB, height/weight, shoots, WHL draft, real 2026-27 team and line for each player) is in the front-office pull if the build wants more columns.
+
+| Player | Elite Prospects rating | Draft status | Elite Prospects link |
+|---|---|---|---|
+| Tomas Poletin | #130 (EP, 2025 NHL Draft) | NHL drafted — 2025, Round 4, #106, New York Islanders | https://www.eliteprospects.com/player/888488/tomas-poletin |
+| Aaron Obobaifo | none shown | 2025 NHL Draft eligible, undrafted | https://www.eliteprospects.com/player/689896/aaron-obobaifo |
+| Nathan Brown | none shown (EP draft report exists, no numeric ranking) | 2026 NHL Draft eligible, undrafted | https://www.eliteprospects.com/player/724534/nathan-brown |
+| Kyle McDonough | none shown | Undrafted (first eligible 2025) | https://www.eliteprospects.com/player/799972/kyle-mcdonough |
+| Asher Gingras | none shown | 2027 NHL Draft eligible | https://www.eliteprospects.com/player/701518/asher-gingras |
+| Logan Henry | none shown | 2028 NHL Draft eligible | https://www.eliteprospects.com/player/976841/logan-henry |
+| Tristan Mitchell-McEllhone | none shown | 2026 NHL Draft eligible | https://www.eliteprospects.com/player/883576/tristan-mitchell-mcellhone |
+| Blake Chorney | none shown | 2027 NHL Draft eligible | https://www.eliteprospects.com/player/960847/blake-chorney |
+| Chace Gregg | none shown | 2028 NHL Draft eligible | https://www.eliteprospects.com/player/1043115/chace-gregg |
+| Gavin Lesiuk | none shown (EP draft report exists, no numeric ranking) | 2026 NHL Draft eligible, undrafted | https://www.eliteprospects.com/player/628114/gavin-lesiuk |
+| Caleb Matthews | none shown | 2025 NHL Draft eligible, undrafted | https://www.eliteprospects.com/player/801840/caleb-matthews |
+| Hunter Wilm | none shown | 2027 NHL Draft eligible | https://www.eliteprospects.com/player/701411/hunter-wilm |
+| Cruz Pavao | none shown (EP draft report exists, no numeric ranking) | 2026 NHL Draft eligible, undrafted | https://www.eliteprospects.com/player/879129/cruz-pavao |
+| Cash Arcand-Vandale | none shown | 2027 NHL Draft eligible | https://www.eliteprospects.com/player/701398/cash-arcand-vandale |
+| Marcus Laraque | none shown | 2027 NHL Draft eligible | https://www.eliteprospects.com/player/924593/marcus-laraque |
+| Zane Torre | none shown | 2026 NHL Draft eligible | https://www.eliteprospects.com/player/888314/zane-torre |
+| Ty Coupland | none shown | 2025 NHL Draft eligible, undrafted | https://www.eliteprospects.com/player/576981/ty-coupland |
+| Kash Andresen | none shown | 2025 NHL Draft eligible, undrafted | https://www.eliteprospects.com/player/577061/kash-andresen |
+| Blake Vanek | none shown (by EP itself) | NHL drafted — 2025, Round 3, #93, Ottawa Senators | https://www.eliteprospects.com/player/805740/blake-vanek |
+| Blake Fiddler | #23 (EP, 2025 NHL Draft) | NHL drafted — 2025, Round 2, #36, Seattle Kraken | https://www.eliteprospects.com/player/577017/blake-fiddler |
+| Brandon Mickelson | none shown | 2025 NHL Draft eligible, undrafted | https://www.eliteprospects.com/player/856908/brandon-mickelson |
+| Hubert Clarke | none shown | 2026 NHL Draft eligible | https://www.eliteprospects.com/player/805657/hubert-clarke |
+| Grady Pichette | none shown | 2027 NHL Draft eligible | https://www.eliteprospects.com/player/879898/grady-pichette |
+| Kale McCann | none shown | 2028 NHL Draft eligible | https://www.eliteprospects.com/player/965719/kale-mccann |
+| Dermot Johnston | none shown | 2026 NHL Draft eligible | https://www.eliteprospects.com/player/881368/dermot-johnston |
+| Kaden Allan | none shown | 2026 NHL Draft eligible | https://www.eliteprospects.com/player/890156/kaden-allan |
+| Cameron Dillard | none shown | 2026 NHL Draft eligible | https://www.eliteprospects.com/player/830374/cameron-dillard |
+| Dylan Ronald | none shown | 2025 NHL Draft eligible, undrafted | https://www.eliteprospects.com/player/725709/dylan-ronald |
+| Marek Sklenicka | none shown (EP draft report exists, no numeric ranking) | NHL drafted — 2026, Round 4, #120, Philadelphia Flyers | https://www.eliteprospects.com/player/918049/marek-sklenicka |
+| Uriah Moosetail | none shown | 2027 NHL Draft eligible | https://www.eliteprospects.com/player/701524/urijah-moosetail |
+| Peyton Shore | none shown | 2026 NHL Draft eligible | https://www.eliteprospects.com/player/890146/peyton-shore |
+
+Notes: EP only publishes numeric draft rankings for top prospects — only Poletin (#130) and Fiddler (#23) carry one, so "none shown" is the honest entry for the rest, not a zero. Four roster players are already NHL-drafted: Poletin, Fiddler, Vanek, Sklenicka. Spellings as on EP differ in two cases (EP: "Marek Sklenička", "Urijah Moosetail", "Cash Arcand Vandale" without the hyphen). One soft spot: Kaden Allan's EP profile crawl predates his 2026-27 stats, so his EP line is unverified (chl.ca showed Saskatoon, 6 GP, 0 PTS). Next from this desk: the trade-target EP columns, then the rest of the league.
