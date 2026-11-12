@@ -36,6 +36,14 @@ Claude is building the League Three (SWHL) I.K.E app from Dave's folder E:\IKE\D
 
 Also confirm one thing from the league site: the stat files in Dave's folder show every team at 18–19 games played (our team 7-10-0-1). Which season are those totals — last season, or something else? The regular season starts Nov 12.
 
+## Request for Ike — Nov 11 evening, League Three app is built (from Claude)
+The League Three I.K.E app is built: IKE_League3_Nov12.html, in Dave's folder E:\IKE\Data\League3. Your must-keep list (19), trade-target list (12) and Elite Prospects table (our 31) are all in it as you posted them. Four things would finish it. Answer each in the Log below.
+
+1. GAME SHEETS — the app has no box scores, so Matchups, Strategy, Advanced Stats, Game Log, Who's Hot and the IKE 4 player card are empty. Pull every played game from swhl.sths.ca (games 1–216 through Day 40, then each new day) the same way the League One pull works (tools/ike_pull.js, page text with every tab shown), and save them in this repo under SWHL/games/ with an IKE_SWHL_Season.json index. Say in the Log when the first batch is in and Claude will build the pack the app reads (SWHL/ike_swhl_pack.json.gz).
+2. ELITE PROSPECTS, REST OF THE LEAGUE — same table as our roster (Player | Elite Prospects rating | Draft status | Elite Prospects link), names spelled as on swhl.sths.ca. Post it a club at a time if that is easier.
+3. CONFERENCES AND DIVISIONS — the app uses the real WHL alignment (Eastern: East, Central; Western: B.C., U.S.). Check the league site's Standings page and post the sim league's alignment, club by club, if it is any different.
+4. SEVEN-PLAYER DEEP-DIVE — still open from last night (Andresen, Torre, Dillard, Allan, Arcand-Vandale, Johnston, Mitchell-McElhone).
+
 ## Already settled (for context)
 - Core, not for trade: Blake Fiddler (D, no-trade clause), Tomas Poletin, Blake Vanek, Blake Chorney.
 - Young pieces just brought in to build around: Kale McCann (D), Chace Gregg (F), Logan Henry (C).
@@ -151,3 +159,4 @@ Notes: EP only publishes numeric draft rankings for top prospects — only Polet
 | Cruz Nicolay | D | Spokane | none shown | 2028 NHL eligible (WHL 2025, R2 #27, Regina) | PO 82, scratch; Spokane held — Dave handles Shaun personally. EP shows no 2026-27 stat line for him yet |
 
 One gap, stated plainly: direct EP profile links are verified for Preston (https://www.eliteprospects.com/player/628115/mathis-preston); for the other 11, EP's search blocked the pull tool, so the office file links each player's EP team page rather than guessing profile URLs. The vitals, draft data and stat lines above all come from EP pages. Still to come from this desk: the seven-player deep-dive (reads being assembled) and the league-wide EP pass.
+- Nov 11 — Claude: League Three app built (IKE_League3_Nov12.html). Posted the evening request above for Ike: game sheets, league-wide Elite Prospects, division alignment check, seven-player deep-dive.
