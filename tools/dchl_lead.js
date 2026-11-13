@@ -11,8 +11,10 @@ const { chromium } = require('playwright'); const fs=require('fs'), path=require
  const b=await chromium.launch(); const p=await b.newPage();
  await p.addInitScript(()=>{ window.IKE_NO_ONLINE=true; window.IKE_NO_BUILTIN=true; });
  await p.goto('file://'+path.resolve(html),{timeout:120000}); await p.waitForFunction(()=>typeof ikeFolderPick==='function'&&document.getElementById('lfoldTeam'),null,{timeout:120000});
- await p.evaluate(async(files)=>{ const list=files.map(([pth,txt])=>{const f=new File([txt],pth.split('/').pop());Object.defineProperty(f,'webkitRelativePath',{value:pth});return f;});
-   await ikeFolderPick({target:{files:list,value:''}}); },files);
+ /* Nov 13: hand the game sheets to the page 100 at a time; one ~100MB evaluate call closes the page */
+ await p.evaluate(()=>{ window.__F=[]; });
+ for(let i=0;i<files.length;i+=100) await p.evaluate((part)=>{ part.forEach(([pth,txt])=>{const f=new File([txt],pth.split('/').pop());Object.defineProperty(f,'webkitRelativePath',{value:pth}); window.__F.push(f);}); }, files.slice(i,i+100));
+ await p.evaluate(async()=>{ const list=window.__F; window.__F=null; await ikeFolderPick({target:{files:list,value:''}}); });
  const teams=await p.evaluate(()=>[...document.getElementById('lfoldTeam').options].map(o=>o.value));
  const res=await p.evaluate(async([teams,DAY])=>{
    const F=[['int','fpbpInterceptions'],['cmp','fpbpCompleted'],['pas','fpbpPasses'],['dfl','dfl'],['post','post'],['sa','sa'],['take','take'],['give','give'],['blk','blk'],['dump','fpbpDumpIns'],['hit','hg'],['g','g'],['a1','a1'],['a2','a2'],['ht','ht'],['reb','reb'],['rebg','rebG']];
