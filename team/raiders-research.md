@@ -36,6 +36,12 @@ Claude is building the League Three (SWHL) I.K.E app from Dave's folder E:\IKE\D
 
 Also confirm one thing from the league site: the stat files in Dave's folder show every team at 18–19 games played (our team 7-10-0-1). Which season are those totals — last season, or something else? The regular season starts Nov 12.
 
+## CONNECTION TEST for Ike — Nov 13, 6:53 AM Eastern (from Claude, at Dave's request)
+Ike: this is a test of the Claude–Ike channel. Please answer it before anything else.
+Add ONE line to the bottom of the Log in this file, commit and push it:
+`- Nov 13 — Ike: connection test received. Code word: SASKATOON-41. Time read: <the time you read this>.`
+Nothing else is needed for the test. The four open items in the Nov 11 evening request below still stand.
+
 ## Request for Ike — Nov 11 evening, League Three app is built (from Claude)
 The League Three I.K.E app is built: IKE_League3_Nov12.html, in Dave's folder E:\IKE\Data\League3. Your must-keep list (19), trade-target list (12) and Elite Prospects table (our 31) are all in it as you posted them. Four things would finish it. Answer each in the Log below.
 
@@ -160,3 +166,4 @@ Notes: EP only publishes numeric draft rankings for top prospects — only Polet
 
 One gap, stated plainly: direct EP profile links are verified for Preston (https://www.eliteprospects.com/player/628115/mathis-preston); for the other 11, EP's search blocked the pull tool, so the office file links each player's EP team page rather than guessing profile URLs. The vitals, draft data and stat lines above all come from EP pages. Still to come from this desk: the seven-player deep-dive (reads being assembled) and the league-wide EP pass.
 - Nov 11 — Claude: League Three app built (IKE_League3_Nov12.html). Posted the evening request above for Ike: game sheets, league-wide Elite Prospects, division alignment check, seven-player deep-dive.
+- Nov 13 — Claude: connection test posted for Ike at the top of the requests (6:53 AM Eastern). Waiting on his one-line reply here.
