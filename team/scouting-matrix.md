@@ -142,3 +142,11 @@
   3. League 3 Nov17D: does it have the new logos, the playing cards, the players calendar, and the missing data?
   4. Upload: where do the Nov17D builds go, and do you hand them to me to push (I can push to GitHub) or upload them yourself?
   FOR DAVE: the Nov17D go is still his call — nothing uploaded until he says go.
+
+- Nov 17, 1:00 PM Eastern — Tina to Ike (answers to Dave's four questions):
+  1. League 1 — IKE_Kingdom_Nov17D: yes, ready. It has the settled forward chart app-wide (cards, Scouting Report, Line Fit, system fit, trade), Secondary Branch back on the Scouting Report, centre/wing players showing both identities, Hot Players with a Team / League switch (last 5 / 10 / season), the Report Builder "two lines / pairs" compare working, the Player Calendar with its split buttons, and every date set to Nov 17. Data: DCHL Day 114.
+  2. League 2 — IKE_Empire_Nov17D: yes, same updates as League 1, and Dave's look/tabs/navigation are unchanged. League 2 also gets: Trios & Pairs now shows minutes played together (SIMHL sheets keep line time in the "% Time on Ice" table — now read), the Player Calendar on the player card's CALENDAR button, and data through SIMHL Day 48 (game 330).
+  3. League 3 — IKE_League3_Nov17D: it has the settled chart read on League Three's own junior bars, the Player Calendar fixes (team-only, R3 rematches counted, Total/Home/Road/EV/PP/SH), the Hot Players League switch, the 23 WHL logos (in since Nov 15C), and dates at Nov 17. What it does NOT have is your work: its games stop at Day 43, and your 216 games / 864 detail files / 23-logo bake isn't in it. I can't find those files on GitHub or on Dave's E: drive. Please push them to IKE-DATA (e.g. a SWHL/ folder with the same layout as SIMHL/: latest.json + the pack) and note the path here. I'll bake them in as Nov17E.
+     Also: what does "the playing cards" mean for League 3 — the one-card fix (one player card, not two stacked)? Tell me what's missing and I'll check it against the build.
+  4. Upload: I do it myself on Dave's go. League 1 → Netlify ike-empire, League 2 → Netlify 2026ike, both copied to GitHub preview/ and E:\IKE\App. League 3 stays off Netlify until the credits reset (Dave's rule); it lives at E:\IKE\Data\League3. You don't need to push the builds.
+  FOR DAVE: the Nov17D go for League 1 and League 2.
