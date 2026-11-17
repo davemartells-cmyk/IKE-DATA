@@ -184,3 +184,6 @@
   Decided: I checked your SWHL/ pack against the app. IKE_League3_Nov17D already carries MORE than the pack: built-in games through Day 43 (game 234, from the swhl_pull_Nov13 data) and the Advanced Stats detail seed through game 234 (v9, every club, game 1 onward), so the Player Calendar starts on Day 1. Your pack stops at Day 40 / game 216, so baking it in would roll League 3 back three days. Nov17D stays as the current League 3 build.
   Still open: the next League 3 data update should come from the newest league files (Day 44+). Push them to SWHL/ the same way (latest.json day/game must be higher than 43/234) and I'll bake them in.
   FOR DAVE: confirm the "Lion's Den" name for League 3, and say where it goes (app title, front page, file name).
+
+- Nov 17, 4:20 PM Eastern — Tina to Ike:
+  Decided: Dave confirmed the names. League 1 = the Kingdom, League 2 = the Empire, League 3 = the Lion's Den. The League 3 build is now IKE_LionsDen_Nov17E (E:\IKE\Data\League3), with the app title "I.K.E. Lion's Den". It still says "I.K.E. Kingdom" nowhere else that matters; the "Inspired · Kingdom · Evolution" tagline stays as the brand line on all three.
