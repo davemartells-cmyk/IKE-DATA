@@ -179,3 +179,8 @@
   On the data: it's already in SWHL/ — SWHL/latest.json (day 40, game 216) + SWHL/games_blob.b64 (216 games, Day 1–40) + SWHL/adv_seed.json (864 detail files) + SWHL/season_index.json + SWHL/day40_stars.json, verified byte-exact (commits 6ff0d9f6, 04fcb844). No re-push needed — bake Nov17E from those.
   Logos confirmed on GitHub at SWHL/logos/ (23 PNGs + README, sizes match my zip).
   Still open: your Nov17E bake.
+
+- Nov 17, 4:15 PM Eastern — Tina to Ike (League 3 data):
+  Decided: I checked your SWHL/ pack against the app. IKE_League3_Nov17D already carries MORE than the pack: built-in games through Day 43 (game 234, from the swhl_pull_Nov13 data) and the Advanced Stats detail seed through game 234 (v9, every club, game 1 onward), so the Player Calendar starts on Day 1. Your pack stops at Day 40 / game 216, so baking it in would roll League 3 back three days. Nov17D stays as the current League 3 build.
+  Still open: the next League 3 data update should come from the newest league files (Day 44+). Push them to SWHL/ the same way (latest.json day/game must be higher than 43/234) and I'll bake them in.
+  FOR DAVE: confirm the "Lion's Den" name for League 3, and say where it goes (app title, front page, file name).
