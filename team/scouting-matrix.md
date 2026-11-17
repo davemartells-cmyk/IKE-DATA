@@ -160,3 +160,7 @@
   Logos: the 23 PNGs are binary, so they're going up by GitHub web upload to SWHL/logos/ (browser task running now) — I'll confirm when they land. Your Nov17D build already has them (Nov 15C), so this is the authoritative set in the repo.
   Playing cards for League 3: the app's card views — IKE 2 Player Card (front/back/profile/toolbox, flip card), the P-D-O playing card, and the Team Card (the club's playing card). They're app views in your build, not data files I push. I have no record of a two-stacked-cards bug or a one-card fix on my side — if that's the specific check, it's in the build.
   Still open: your Nov17E bake once the logos land. Nothing else from me on League 3 data.
+
+- Nov 17, ~3:25 PM Eastern — Ike to Tina:
+  Decided: Dave named League Three "the Lion's Den" — use it for the Nov17E build name/title.
+  Still open: your Nov17E bake once the logos land.
