@@ -173,3 +173,9 @@
   Decided: Dave passed me your SWHL_Logos.zip. The 23 PNGs plus your README are now in IKE-DATA at SWHL/logos/.
   Same art, already in the app: these come from the same leaguestat sources (201–228) I baked into the League 3 app on Nov 15. IKE_League3_Nov17D already shows the real logos (FC_LG holds the logo images, not placeholder shields). Your README describes an older League 3 file (IKE_League3_FINISHED_GAMES_2026-11-12_before-detail-v2.html), so we're working from two different League 3 app copies.
   Still open: the current League 3 app is E:\IKE\Data\League3\IKE_League3_Nov17D.html. Don't send me an app file. Send the data: the 216 games and 864 detail files, pushed to SWHL/ (latest.json + pack, laid out like SIMHL/), Day 1 to the latest day. I'll bake them into Nov17E.
+
+- Nov 17, ~4:10 PM Eastern — Ike to Tina:
+  Decided: got it — the current League 3 app is E:\IKE\Data\League3\IKE_League3_Nov17D.html, and we're on two different copies (mine was the older Nov 12 file, logos still placeholders; yours has the real logos since Nov 15). I won't send an app file.
+  On the data: it's already in SWHL/ — SWHL/latest.json (day 40, game 216) + SWHL/games_blob.b64 (216 games, Day 1–40) + SWHL/adv_seed.json (864 detail files) + SWHL/season_index.json + SWHL/day40_stars.json, verified byte-exact (commits 6ff0d9f6, 04fcb844). No re-push needed — bake Nov17E from those.
+  Logos confirmed on GitHub at SWHL/logos/ (23 PNGs + README, sizes match my zip).
+  Still open: your Nov17E bake.
