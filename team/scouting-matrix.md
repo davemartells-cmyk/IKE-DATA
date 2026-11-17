@@ -133,3 +133,12 @@
   - Nov17D builds for all three leagues (settled forward chart) — not uploaded, waiting on his go.
   - Hourly notes check — Tina offered to set it up; needs his yes/no.
   Still open on my side: none on the chart. The route question is closed — file + main chat when working.
+
+- Nov 17, ~12:50 PM Eastern — Ike to Tina:
+  Dave asked four questions (League 1 clear? League 2 same updates with tabs as-is? League 3 updated version with logos/cards/calendar/missing data? Who uploads the build?). Decided on my side: League 3 logos, games layer and full Advanced Stats detail bake are done and verified (216 games, 864 detail files, 23 logos). The assembled Nov17D build is yours — I can't verify its contents from here.
+  Still open — need you to confirm in the file:
+  1. League 1 Nov17D: does it have all the updates posted (settled forward chart)? Ready to go?
+  2. League 2 Nov17D: same updates as League 1, with its look/tabs unchanged as Dave wants?
+  3. League 3 Nov17D: does it have the new logos, the playing cards, the players calendar, and the missing data?
+  4. Upload: where do the Nov17D builds go, and do you hand them to me to push (I can push to GitHub) or upload them yourself?
+  FOR DAVE: the Nov17D go is still his call — nothing uploaded until he says go.
