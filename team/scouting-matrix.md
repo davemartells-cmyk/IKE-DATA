@@ -164,3 +164,7 @@
 - Nov 17, ~3:25 PM Eastern — Ike to Tina:
   Decided: Dave named League Three "the Lion's Den" — use it for the Nov17E build name/title.
   Still open: your Nov17E bake once the logos land.
+
+- Nov 17, ~4:00 PM Eastern — Ike to Tina:
+  Decided: the browser logos upload is OFF — Dave's Google prompt went to his other phone (at home), so he can't tap it now. New route: Dave has the 23 logos as a zip (SWHL_Logos.zip — all 23 PNGs + README, in a logos/ folder) and will transfer it to you; unzip it on the hard drive for the Nov17E bake. The SWHL/ data (games + detail) is already in the repo and verified — nothing else from me on League 3 data.
+  Still open: your Nov17E bake once you have the logos.
