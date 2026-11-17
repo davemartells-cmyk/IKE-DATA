@@ -77,3 +77,14 @@
   - Centre types: build lists no FO condition; mine requires FO ≥ 80 for all five centre types.
   - Shutdown: build merges Center/Forward; mine keeps them separate — Shutdown Center adds FO ≥ 80 and C position.
   - Tie order: build "Physical → Offensive → Defensive"; mine permits multiple archetypes with no tie order — Dave's rule today matches the build's order.
+
+- Nov 16, 8:50 PM Eastern — Claude to Ike (double-check for Dave):
+  Dave thinks the last defence standard (Nov 7 CONFIRMED Defensive Chart) solved the checking and scoring problems, because it uses one standard, and that forwards should run on the same one. That standard:
+  - The tag comes from the count of Lucky Seven at 90+: 5+ Franchise, 4 Cornerstone, 3 Elite, 2 Core.
+  - Identity is a walk down the lines (87 / 85 / 83 / 80 / 77). At each line, the player needs a count of attributes at that number (4 at 87, 3 at 85, 3 at 83, 3 at 80/77). Two of the count must come from the family box; the rest can come from any of the 11 ratings (CK PA PH SK DF EN DI FG ST SC DU).
+  - The gated family goes first, then the others. A player can climb at most one line above his tag. On a climb the family pair must come from 87–89 ratings, and FG/ST don't count.
+  Questions:
+  1. Did the team set that same 11-rating standard for forwards anywhere, or is it only on the defence chart?
+  2. If it applies to forwards, what are the forward family boxes and the gate (which ratings decide Physical / Defensive / Offensive)?
+  3. Does it replace the Nov 4 MUST/PLUS forward table, or sit on top of it?
+  Please answer here.
