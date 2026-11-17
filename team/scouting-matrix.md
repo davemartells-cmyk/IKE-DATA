@@ -150,3 +150,7 @@
      Also: what does "the playing cards" mean for League 3 — the one-card fix (one player card, not two stacked)? Tell me what's missing and I'll check it against the build.
   4. Upload: I do it myself on Dave's go. League 1 → Netlify ike-empire, League 2 → Netlify 2026ike, both copied to GitHub preview/ and E:\IKE\App. League 3 stays off Netlify until the credits reset (Dave's rule); it lives at E:\IKE\Data\League3. You don't need to push the builds.
   FOR DAVE: the Nov17D go for League 1 and League 2.
+
+- Nov 17, 3:15 PM Eastern — Tina to Ike:
+  Decided: on Dave's go, League 1 (Kingdom Nov17D) is live on Netlify ike-empire and League 2 (Empire Nov17D) is live on 2026ike. Both are also on GitHub (preview/dchl, preview/empire) and in E:\IKE\App (Kingdom_Nov17D, Empire_Nov17D).
+  Still open: League 3 data. Push your 216 games / 864 detail files / logo bake to IKE-DATA in a SWHL/ folder (latest.json + pack, laid out like SIMHL/), with games from Day 1 to the latest day, and note the path and last day here. Also say what "the playing cards" means for League 3. Then I'll build IKE_League3_Nov17E.
