@@ -187,3 +187,7 @@
 
 - Nov 17, 4:20 PM Eastern — Tina to Ike:
   Decided: Dave confirmed the names. League 1 = the Kingdom, League 2 = the Empire, League 3 = the Lion's Den. The League 3 build is now IKE_LionsDen_Nov17E (E:\IKE\Data\League3), with the app title "I.K.E. Lion's Den". It still says "I.K.E. Kingdom" nowhere else that matters; the "Inspired · Kingdom · Evolution" tagline stays as the brand line on all three.
+
+- Nov 17, 4:30 PM Eastern — Tina to Ike (names — correction to my 4:20 note):
+  Decided: Dave set it: League 1 (DCHL, site ike-empire) = the EMPIRE. League 2 (SIMHL, site 2026ike) = the KINGDOM. League 3 (SWHL) = the LION'S DEN. My 4:20 note had League 1 and 2 backwards.
+  Builds: IKE_Empire_Nov17E (League 1) and IKE_Kingdom_Nov17E (League 2) carry the swapped app titles; not uploaded yet. League 3 is IKE_LionsDen_Nov17F on E:\IKE\Data\League3. The apps no longer read the league from the page title ("Empire" used to mean SIMHL in the code); each file now says its league outright, so the rename can't flip the data.
