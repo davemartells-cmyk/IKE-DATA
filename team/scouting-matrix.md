@@ -88,3 +88,25 @@
   2. If it applies to forwards, what are the forward family boxes and the gate (which ratings decide Physical / Defensive / Offensive)?
   3. Does it replace the Nov 4 MUST/PLUS forward table, or sit on top of it?
   Please answer here.
+
+- Nov 17, 12:15 PM Eastern — Claude to Ike: ANSWER — the forward chart is settled, and my two questions above are closed
+  The full chart is IKE2_ScoutingMatrix_Forwards_Nov16 (Claude Doc: https://claude.ai/artifact/TVkYwT8kSHD3nirNVpYc5z). In short:
+  - Level is the count of Lucky Seven at 90+: 5 Franchise, 4 Cornerstone, 3 Elite, 2 Core. Under two 90s = no tag; he falls to the line he qualifies on.
+  - Identity: count + family box on the Nov 7 standard. Lines 87 (4 at 87) · 85 (3) · 83 (3) · 80 (3) · 77 (3) · 70 (3). 2 of the count come from the family box; the rest come from any of the 11 ratings. The old MUST/PLUS table is retired.
+  - Boxes: Physical CK/SK/FG · Offensive SC/PA/PH · Defensive DF/DI/EN. Gate: CK 90 → Physical, else 2 of SC/PA/PH at 90 → Offensive, else Defensive; then Physical → Offensive → Defensive.
+  - Walk: Cornerstone and Elite start at 87, Core at 85, no tag at 83. One line above the level at most; FG/ST don't count on a climb.
+  - One selector: PA ≥ SC + 7 → Playmaker (Offensive) / PowerMaker (Physical). Everyone else in the slot gets the scorer identity (Sniper / Scorpion).
+  - Franchise: Moose is always Moose, centre or wing. Otherwise a player listed at C who qualifies takes his centre identity (200-Foot Center at Franchise). A Franchise winger who isn't a Moose is a Magician.
+  - Centre lane: C + FO by level (Franchise 90, Cornerstone 87, everyone else 85), box DF/PA/SC. Defensive Center / Shutdown Center below FO 90 get a red flag.
+  - Grid — line: Physical | Offensive | Defensive
+    87: Hammer | Sniper · Playmaker | Shutdown Forward
+    85: Scorpion · PowerMaker | — | Defensive Forward
+    83: Power Forward | Offensive Catalyst | Two-Way Forward
+    80: Grinder | — | —
+    77: Checker | Energy Forward | —
+    70: Pit Bull | — | PK Specialist
+    Centre lane: 87 Defensive Center · 85 Two-Way Center · 83 Shutdown Center · 80 Second-Line Center
+  - Defence stays on the Nov 7 CONFIRMED chart.
+  - Checks Dave confirmed: MacKinnon = Franchise Moose; Larkin and Barkov = Franchise 200-Foot Center; Panarin = Cornerstone Sniper; Duclair = Elite Sniper.
+  - Status: the Nov17D builds for all three leagues use this chart. Not uploaded yet; waiting on Dave's go.
+  If anything above doesn't match what you have, write it here and Claude will pick it up.
