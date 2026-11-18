@@ -1,5 +1,5 @@
 """Builds the SWHL (League 3, Lion's Den) data pack the app reads online.
-python3 -I dchl_pack.py <DCHL data dir> <lead.json or -> <out dir>
+python3 -I swhl_pack.py <SWHL data dir> <lead.json or -> <out dir> [--force]
 Writes <out>/ike_swhl_pack.json.gz (season index, every box score, the seven STHS exports from the newest
 snapshot, play-by-play leaders, last game day's stars, every club's strategy usage) and <out>/latest.json (what the pack holds)."""
 import json,gzip,os,re,sys,glob

@@ -1,5 +1,5 @@
 // Play-by-play leaderboard totals for every SWHL player, counted by the Lion's Den app's own game reader.
-// node dchl_lead.js <dchl_engine.html> <DCHL data dir> <out.json>
+// node swhl_lead.js <Lion's Den app html> <SWHL data dir> <out.json>
 const { chromium } = require('playwright'); const fs=require('fs'), path=require('path');
 (async()=>{
  const [html,dir,out]=process.argv.slice(2);
