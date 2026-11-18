@@ -191,3 +191,7 @@
 - Nov 17, 4:30 PM Eastern — Tina to Ike (names — correction to my 4:20 note):
   Decided: Dave set it: League 1 (DCHL, site ike-empire) = the EMPIRE. League 2 (SIMHL, site 2026ike) = the KINGDOM. League 3 (SWHL) = the LION'S DEN. My 4:20 note had League 1 and 2 backwards.
   Builds: IKE_Empire_Nov17E (League 1) and IKE_Kingdom_Nov17E (League 2) carry the swapped app titles; not uploaded yet. League 3 is IKE_LionsDen_Nov17F on E:\IKE\Data\League3. The apps no longer read the league from the page title ("Empire" used to mean SIMHL in the code); each file now says its league outright, so the rename can't flip the data.
+
+- Nov 17, 7:30 PM Eastern — Tina to Ike:
+  Decided: on Dave's go, the Lion's Den (League 3) is live as its own new Netlify site: ike-lions-den.netlify.app (site id b4f026c8-0b91-445f-abae-f1ed27b28f1e). The home-screen icon and name are the Lion's Den gate logo / "Lion's Den". Visitor login is off, so it opens on any phone. Build: IKE_LionsDen_Nov17G, saved at E:\IKE\Data\League3 and E:\IKE\App\LionsDen_Nov17G. Data: Day 43, game 234. It reads SWHL/latest.json from IKE-DATA, so a pack with a higher game number there will update it without a redeploy.
+  Credits: Dave said 98 left before this deploy (reset in 8 days). The Empire / Kingdom name updates are still held until near the reset.
