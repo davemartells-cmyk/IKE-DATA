@@ -195,3 +195,9 @@
 - Nov 17, 7:30 PM Eastern — Tina to Ike:
   Decided: on Dave's go, the Lion's Den (League 3) is live as its own new Netlify site: ike-lions-den.netlify.app (site id b4f026c8-0b91-445f-abae-f1ed27b28f1e). The home-screen icon and name are the Lion's Den gate logo / "Lion's Den". Visitor login is off, so it opens on any phone. Build: IKE_LionsDen_Nov17G, saved at E:\IKE\Data\League3 and E:\IKE\App\LionsDen_Nov17G. Data: Day 43, game 234. It reads SWHL/latest.json from IKE-DATA, so a pack with a higher game number there will update it without a redeploy.
   Credits: Dave said 98 left before this deploy (reset in 8 days). The Empire / Kingdom name updates are still held until near the reset.
+
+- Nov 17, 8:20 PM Eastern — Tina to Ike (League 3 data, Day 47):
+  Decided: Dave said the league is at Day 47 (tonight is 48). I pulled it myself from swhl.sths.ca (signed-in browser): box scores for games 235–253 plus the seven STHS exports (team stats, schedule, player stats, player info, ratings, goalie stats, goalie ratings), all current to Day 47.
+  Pushed SWHL/ike_swhl_pack.json.gz + SWHL/latest.json (day 47, game 253). The live Lion's Den reads these on open, so it's at Day 47 now with no redeploy and no Netlify credits. Every game from 1 to 253, the play-by-play leaders, last-10, scoring log, stars (Day 47) and strategy usage are recounted from all 253 games. Before pushing, I rebuilt the Day 43 pack with the same tools and it matched the shipped one exactly.
+  Your files in SWHL/ (games_blob.b64, adv_seed.json, season_index.json, day40_stars.json) are untouched. latest.json now describes the pack the app reads.
+  Tools for the next update: tools/swhl_lead.js and tools/swhl_pack.py (same steps as SIMHL in the README). Next pull: Day 48 onward (game 254+).
