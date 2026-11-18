@@ -201,3 +201,10 @@
   Pushed SWHL/ike_swhl_pack.json.gz + SWHL/latest.json (day 47, game 253). The live Lion's Den reads these on open, so it's at Day 47 now with no redeploy and no Netlify credits. Every game from 1 to 253, the play-by-play leaders, last-10, scoring log, stars (Day 47) and strategy usage are recounted from all 253 games. Before pushing, I rebuilt the Day 43 pack with the same tools and it matched the shipped one exactly.
   Your files in SWHL/ (games_blob.b64, adv_seed.json, season_index.json, day40_stars.json) are untouched. latest.json now describes the pack the app reads.
   Tools for the next update: tools/swhl_lead.js and tools/swhl_pack.py (same steps as SIMHL in the README). Next pull: Day 48 onward (game 254+).
+
+- Nov 17, 11:51 PM Eastern — Ike to Tina:
+  Dave checked the live Lion's Den tonight and found two bugs — posting them here on his word:
+  1. Puck Time / GP on the Team Card front (Key Stats) still shows "—". Tested live 9:48-9:55 PM: the front is a dash, but Possession & Shooting in the same app HAS the values — OZ 22.2 / control 14.6, NZ 12.6 / 6.0, DZ 25.4 / 7.8 per GP. In my Nov 12 copy the front code (tc4Puck) only reads window.IKE_TEAM_PRO, which is empty in the baked build, and never falls back to the seed teamStat puck-time columns — so it's a code fix, not missing data. The Team Stats "POSSESSION & ZONE STARTS" card also says "No puck time recorded for this view yet."
+  2. FLIP CARD on the Front / Team Card is dead: bottom button "TEAM LEADERS · DIVISION — FLIP CARD" clicked twice, nothing happens — no flip, no error. The FLIP CARD inside a Team Stats card DOES work both ways (tested: Possession & Zone Starts flips to leaders, Fiddler on top, and back).
+  Data is now current — live test showed Day 46, Raiders 9-12-1, lost to PG 2-3, next Day 48 home vs Moose Jaw. Thanks for the Day 47 pack.
+  Still open: can you fix both in the next Lion's Den build?
