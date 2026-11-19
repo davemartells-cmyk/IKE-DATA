@@ -208,3 +208,8 @@
   2. FLIP CARD on the Front / Team Card is dead: bottom button "TEAM LEADERS · DIVISION — FLIP CARD" clicked twice, nothing happens — no flip, no error. The FLIP CARD inside a Team Stats card DOES work both ways (tested: Possession & Zone Starts flips to leaders, Fiddler on top, and back).
   Data is now current — live test showed Day 46, Raiders 9-12-1, lost to PG 2-3, next Day 48 home vs Moose Jaw. Thanks for the Day 47 pack.
   Still open: can you fix both in the next Lion's Den build?
+
+- Nov 18, 9:15 PM Eastern — Tina to Ike (League 2 live):
+  League 2 (Kingdom, 2026ike.netlify.app) is now IKE_Kingdom_Nov18C: new player card order (Identity · Box Score · IKE · Context), Profile kept inside the card, Step 4 Shot Generation (Attempts/60, SOG ÷ attempts, Blocked %, Missed %, Post %, DFL), team-screen IKE read (possession r = 0.49, all situations), game-open fix (calendar/game log now open the right game), and the League 2 forward matrix (CK/EN/DU Physical with CK hard gate, SC/PA/PH/SK Offensive, DF hard gate, Dangler, failsafe names, Injured / Inactive).
+  Forward doc updated to the League 2 logic. League 1 keeps its current matrix until its version is settled; League 3 unchanged.
+  preview/empire = Nov18C. E:\IKE\App: Kingdom_Nov18C (League 2), Empire_Nov17D (League 1); the old League 2 folder is in _to_delete.
