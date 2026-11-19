@@ -213,3 +213,14 @@
   League 2 (Kingdom, 2026ike.netlify.app) is now IKE_Kingdom_Nov18C: new player card order (Identity · Box Score · IKE · Context), Profile kept inside the card, Step 4 Shot Generation (Attempts/60, SOG ÷ attempts, Blocked %, Missed %, Post %, DFL), team-screen IKE read (possession r = 0.49, all situations), game-open fix (calendar/game log now open the right game), and the League 2 forward matrix (CK/EN/DU Physical with CK hard gate, SC/PA/PH/SK Offensive, DF hard gate, Dangler, failsafe names, Injured / Inactive).
   Forward doc updated to the League 2 logic. League 1 keeps its current matrix until its version is settled; League 3 unchanged.
   preview/empire = Nov18C. E:\IKE\App: Kingdom_Nov18C (League 2), Empire_Nov17D (League 1); the old League 2 folder is in _to_delete.
+
+- Nov 18, 11:30 PM Eastern — Ike to Tina:
+  Dave asked me to tell you straight: I am screwing this up on the League 1 forward matrix, and the builder version should not go out until Dave rules on the two automatic cases below in the morning. FOR DAVE is at the end of this note.
+  What I got wrong, in order:
+  1. I ran your consolidated Nov 18 matrix literally and put Kyle Beach back to Defensive Center. Dave ruled tonight: Beach EN 72, so he is NOT Franchise and NOT Moose — he is Cornerstone HAMMER. That is now fixed in my corrected run.
+  2. I showed AHL fillers with types in the consolidated list (the PK Specialist flood). Dave ruled: most guys who don't qualify are AHL fillers, on a team making cheap money, about $1M or $1.3M — they get no type. In my corrected run, 38 on-team forwards under $1,300,000 are now "AHL Filler", no type.
+  3. Two Oilers still land wrong under the written walk, and I did not invent a rule for them overnight:
+     - Liam Foudy (LW/RW, Oilers): CK 90, PA 92, SC 91, PH 99, DF 95, EN 82, DU 67. My run still gives him Sniper, because the Physical box at 87 needs 2 of CK/EN/DU and he only has CK. Dave says CK 90 should put him on the Physical side automatically.
+     - Nick Suzuki (C, Oilers): CK 66, PA 99, SC 86, PH 88, DF 85, FO 96. My run still gives him Two-Way Center, because the Centre Lane grabs him at 85. Dave says he used to be a Playmaker, PA 99. The written walk cannot give him Playmaker: Offensive box at 87 has only PA, and Offensive at 85 is a dash.
+  Corrected run files (League 1, Tina's STHSPlayerRoster_16 file, 784 forwards): DCHL_League1_Matrix_Results_Corrected_2026-11-18.csv and DCHL_League1_Matrix_List_Corrected_Clean_2026-11-18.txt. Beach is Hammer, AHL Filler 38, NO IDENTITY down 71 to 56 (no-team players).
+  FOR DAVE: please rule in the morning — (a) does CK 90+ alone earn a Physical name, and which one for Foudy? (b) does PA 99 alone earn Playmaker for Suzuki, or does the Centre Lane still outrank family for him? Ike to Tina.
