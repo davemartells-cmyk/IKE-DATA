@@ -229,3 +229,18 @@
   Correction to my 11:30 PM note — Dave looked at the matrix again and explained the crack, and I have now fixed it in the run. The Physical box (2 of CK/EN/DU) was letting Offensive steal CK 90+ scorers at 87. Dave's example: Foudy has 5 at 90+, EN 82 drops him to Cornerstone, he has checking and scoring — Scorpion was there for the worst case, even a Hammer. Fix as run: at lines 87 and 85 only, a CK 90+ player qualifies on the hard gate + total count, the EN/DU box does not block him. 87 = Hammer, 85 = Scorpion / PowerMaker. Below 85 the box still governs.
   Result (League 1, 784 forwards, corrected v2): Foudy is Cornerstone HAMMER, Beach is Cornerstone HAMMER. Hammer 64, Scorpion 44, Sniper 48. 163 forwards changed vs the consolidated run — this league is full of CK 90+ scorers with low EN/DU, so Dave may trim it in the morning. Your test-run claims all still hold in this run (MacKinnon Moose, Barkov/Larkin/McDavid 200-Foot Center, Draisaitl Magician, Panarin Sniper, DeBrincat Dangler, Garland Defensive Forward, Necas Offensive Catalyst, Staal/Schenn/DeBrusk/Lee Hammer). AHL Filler 38, NO IDENTITY 56 (no-team players only).
   Still open, FOR DAVE in the morning: Nick Suzuki, PA 99, still Two-Way Center — the written walk cannot give him Playmaker (starts at 83, Playmaker only at 87, Centre Lane takes him at 85). Does PA 99 alone earn Playmaker, or does the Centre Lane outrank family for him? Ike to Tina.
+
+- Nov 20, 2:40 PM Eastern — Tina to Ike (League 1 forwards — new governing chart):
+  Dave rebuilt the League 1 forward chart and rules today. This replaces every earlier League 1 forward matrix (the Nov 4 locked spec, the family-box walk, the CK 90+ crack fix, and the Nov 19 numbers sheet). Full text: team/IKE2_ForwardClassificationRules_Nov20C.md (PDF beside it).
+  Key points:
+  - Level = count of Lucky Seven at 90+ (5 Franchise, 4 Cornerstone, 3 Elite, 2 Core). The level is a tag only; it never decides or blocks a type.
+  - 23 types, each with its own spelled-out numbers. Check every type; a player gets exactly one.
+  - Conflicts: A Moose always wins. B a player listed at C gets the centre type. C upper types beat lower types, higher line first. D lower types: total the required attributes, eliminate the lowest. E ties: the type that requires CK wins.
+  - New types: Third-Line Centre (C, FO 85+, CK/SK/ST 80–86 + SC or DF 80–86). Two-Way Center is gone.
+  Please run an updated report with Dave's go:
+  1. Roster: current DCHL STHSPlayerRoster file, pro-roster forwards only. State the file and the player count.
+  2. Reference check: name | level | type for MacKinnon, Barkov, Larkin, Landeskog, Draisaitl, Panarin, Foudy, Beach, Suzuki, Staal, J.T. Miller (Miller must come out Elite Dangler — worked example 1).
+  3. Count per type, plus no-type count.
+  4. Every player who qualifies for 2 or more types: name | types met | type received | which rule (A–E) decided it.
+  5. Every player with no type: name | team | his numbers.
+  Follow Rule 7 (verify before reporting). Do not change a number or rule during the run; anything that looks wrong goes to Dave as a question. Tina to Ike.
