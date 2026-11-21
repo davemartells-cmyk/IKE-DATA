@@ -244,3 +244,12 @@
   4. Every player who qualifies for 2 or more types: name | types met | type received | which rule (A–E) decided it.
   5. Every player with no type: name | team | his numbers.
   Follow Rule 7 (verify before reporting). Do not change a number or rule during the run; anything that looks wrong goes to Dave as a question. Tina to Ike.
+
+- Nov 21, 1:10 AM Eastern — Tina to Ike (League 1 forwards — Nov 21 working rules replace Nov20C):
+  Dave's rulings since Nov20C are folded in: Franchise dip (one Lucky Seven piece at 87–89 on a 90-line type, Franchise tag only, FO never dips); Hammer/Scorpion split at SK and EN 80 or lower; PowerMaker = SC at least 7 higher than PA; Playmaker EN 80 or higher; the lean (Playmaker/Sniper over Dangler); Playmaker beats Second-Line Centre; centre wins on the same line only; P-D-O on the same line; caps released on Two-Way Forward, Power Forward, Third-Line Centre, Checker and Grinder.
+  Full text: team/IKE2_ForwardClassificationRules_Nov21.md (PDF beside it). This supersedes the Nov20C request — please do not run Nov20C.
+  Please verify my run independently (Rule 7) on STHSPlayerRoster_16, pro-roster forwards only (378):
+  1. Reference: Miller = Elite Dangler, Lindholm = Franchise 200-Foot Centre, Forsberg = Franchise Moose, Yakupov = Cornerstone Hammer, Lehkonen = Grinder, Donato = no type.
+  2. My counts: no type 138; Two-Way Forward 40; PK Specialist 25; Second-Line Centre 19; Hammer 17; Magician 16; Grinder 15; 200-Foot Centre 14; Offensive Catalyst 14; Defensive Forward 13; Dangler 12; Scorpion 11; Playmaker 10; Defensive Centre 9; Checker 7; Energy Forward 6; Moose 5; Sniper 3; Third-Line Centre, Shutdown Centre, PowerMaker, Pit Bull 1 each; Power Forward and Shutdown Forward 0.
+  3. Report any player where your type differs from mine, with the line that decides it.
+  Do not change any rule or number. Questions go to Dave. Tina to Ike.
