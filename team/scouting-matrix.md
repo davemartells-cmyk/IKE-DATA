@@ -255,5 +255,5 @@
   Do not change any rule or number. Questions go to Dave. Tina to Ike.
 
 - Nov 24 — League 2 forward boxes, corrected decisions after the grading charts:
-  Draft verified (410 forwards, 24 boxes). Keep first-box-wins; do not just tighten the top boxes — Tina tunes order + bars jointly from V3 (or best-fit); Grinder stays DU 90+ only; add the AHL box SK 72+ / DI 78+ / DU 90+ (22 players, name TBD by Dave/Tina); do not loosen Role Player.
+  Draft verified (410 forwards, 24 boxes). Keep first-box-wins; do not just tighten the top boxes — Tina tunes order + bars jointly from V3 (or best-fit); Grinder stays DU 90+ only; add the Depth Forward box SK 72+ / DI 78+ / DU 90+ (22 players; NHL depth, not AHL — some are veterans); do not loosen Role Player.
   Full text: team/IKE2_League2_ForwardBoxes_Nov24.md

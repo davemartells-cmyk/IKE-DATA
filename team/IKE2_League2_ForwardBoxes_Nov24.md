@@ -29,8 +29,8 @@ No change.
 
 ## 3. AHL: add the box (tested)
 
-- New box: **SK 72+ / DI 78+ / DU 90+**.
+- New box: **Depth Forward**, SK 72+ / DI 78+ / DU 90+.
 - It catches Beniers, McTavish, Stankoven and 19 others, 22 players in all.
 - AHL goes from 72 to 50. Role Player stays at 49.
-- **Box name: Dave and Tina decide.**
+- **Why "Depth Forward" (Dave, Nov 24):** these players are NHL depth. They skate, they stay out of the penalty box and they stay healthy. They are not AHL players, and not all of them are developing; some are veterans. Depth Forward says what they are.
 - **Do NOT loosen Role Player.** Tested: it balloons to 80 and still misses Stankoven.
