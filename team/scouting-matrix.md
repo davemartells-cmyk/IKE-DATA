@@ -253,3 +253,7 @@
   2. My counts: no type 138; Two-Way Forward 40; PK Specialist 25; Second-Line Centre 19; Hammer 17; Magician 16; Grinder 15; 200-Foot Centre 14; Offensive Catalyst 14; Defensive Forward 13; Dangler 12; Scorpion 11; Playmaker 10; Defensive Centre 9; Checker 7; Energy Forward 6; Moose 5; Sniper 3; Third-Line Centre, Shutdown Centre, PowerMaker, Pit Bull 1 each; Power Forward and Shutdown Forward 0.
   3. Report any player where your type differs from mine, with the line that decides it.
   Do not change any rule or number. Questions go to Dave. Tina to Ike.
+
+- Nov 24 — League 2 forward boxes, corrected decisions after the grading charts:
+  Draft verified (410 forwards, 24 boxes). Keep first-box-wins; do not just tighten the top boxes — Tina tunes order + bars jointly from V3 (or best-fit); Grinder stays DU 90+ only; add the AHL box SK 72+ / DI 78+ / DU 90+ (22 players, name TBD by Dave/Tina); do not loosen Role Player.
+  Full text: team/IKE2_League2_ForwardBoxes_Nov24.md
